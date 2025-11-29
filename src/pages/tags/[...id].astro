@@ -41,7 +41,12 @@ const { tag, posts } = Astro.props
     ]}
   /> -->
 
-  <Link href="/tags">Back to all tags</Link>
+  <div class="flex items-center justify-between w-full">
+    <div class="mb-2 text-3xl font-semibold">
+      {tag}
+    </div>
+    <Link href="/tags">Back to all tags</Link>
+  </div>
 
   <ul class="flex flex-col gap-y-4">
     {
