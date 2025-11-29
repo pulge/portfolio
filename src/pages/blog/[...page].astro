@@ -1,6 +1,7 @@
 ---
 import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
 import PaginationComponent from '@/components/ui/pagination'
 import { SITE } from '@/consts'
@@ -31,6 +32,7 @@ const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
       { label: `Page ${page.currentPage}`, icon: 'lucide:book-copy' },
     ]}
   /> -->
+  <Link href="/tags">View tags</Link>
 
   <div class="flex min-h-[calc(100vh-18rem)] flex-col gap-y-8">
     {

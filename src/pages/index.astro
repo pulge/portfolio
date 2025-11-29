@@ -22,9 +22,9 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
       'mx-auto grid min-w-xs sm:has-[[data-trigger]:hover]:*:first:[&_[data-overlay]]:opacity-0',
 
       // Mobile
-      'max-w-sm grid-cols-2 [grid-template-areas:"b_b""a_a""c_c""d_e"]',
-      'sm:max-w-2xl sm:grid-cols-2 sm:[grid-template-areas:"a_a""c_c""e_d"]',
-      'lg:max-w-5xl lg:grid-cols-3 lg:[grid-template-areas:"b_c_c""a_d_e""i_i_i""h_h_j""g_k_j"]',
+      'max-w-sm grid-cols-2 [grid-template-areas:"a_a""b_b""c_c""d_e"]',
+      'sm:max-w-2xl sm:grid-cols-2 sm:[grid-template-areas:"a_a""b_b""c_c""e_d"]',
+      'lg:max-w-5xl lg:grid-cols-3 lg:[grid-template-areas:"b_c_c""a_d_e"]',
 
       // XL (original)
       'xl:max-w-7xl xl:grid-cols-4 xl:[grid-template-areas:"b_a_a_a""b_c_c_d""e_f_f_g""h_i_j_k"]',
@@ -99,7 +99,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
       </div>
     </div>
     <div
-      class="aspect-square p-2 [grid-area:b] sm:aspect-square lg:block xl:aspect-[1/2] lg:aspect-square"
+      class="aspect-square p-2 [grid-area:b] sm:aspect-square xl:aspect-[1/2]"
     >
       <div class="bg-muted size-full rounded-lg border">
         <div

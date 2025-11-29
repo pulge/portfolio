@@ -1,6 +1,7 @@
 ---
 import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getAllTags, getPostsByTag } from '@/lib/data-utils'
@@ -33,12 +34,14 @@ const { tag, posts } = Astro.props
     description={`A collection of posts tagged with ${tag}.`}
     noindex
   />
-  <Breadcrumbs
+  <!-- <Breadcrumbs
     items={[
       { href: '/tags', label: 'Tags', icon: 'lucide:tags' },
       { label: tag, icon: 'lucide:tag' },
     ]}
-  />
+  /> -->
+
+  <Link href="/tags">Back to all tags</Link>
 
   <ul class="flex flex-col gap-y-4">
     {
