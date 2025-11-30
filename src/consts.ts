@@ -11,18 +11,21 @@ export const SITE: Site = {
   postsPerPage: 3,
 }
 
-export const NAV_LINKS: SocialLink[] = [
+export const NAV_LINKS = [
   {
     href: '/blog',
     label: 'blog',
+    icon: 'lucide:newspaper',
   },
   {
     href: '/projects',
     label: 'projects',
+    icon: 'lucide:folder',
   },
   {
     href: '/authors',
     label: 'authors',
+    icon: 'lucide:users',
   },
 ]
 

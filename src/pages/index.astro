@@ -41,12 +41,14 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
             class="mb-5 flex flex-col items-center justify-between gap-4 sm:flex-row lg:flex-col xl:flex-row"
           >
             <h3 class="text-3xl leading-none font-medium">Hey there!</h3>
-            <nav class="flex items-center gap-2 text-sm">
+            <nav class="flex items-center gap-2">
               {
                 NAV_LINKS.map((item) => (
                   <Link
                     href={item.href}
-                    class={badgeVariants({ variant: 'muted' })}
+                    class={badgeVariants({
+                      variant: 'muted',
+                    }) + ' size-7!important'}
                   >
                     {item.label}
                   </Link>
@@ -236,19 +238,22 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                       class="h-full w-full rounded-md border object-cover transition-transform duration-300 group-hover/img:scale-105"
                     />
                   </Link>
-                  <div class="flex flex-col w-[70%]">
+                  <div class="flex w-[70%] flex-col">
                     <div class="flex min-w-0 flex-1 flex-col">
-                      <h3 class="mb-3 text-2xl font-bold hidden sm:block"> Latest Post </h3>
+                      <h3 class="mb-3 hidden text-2xl font-bold sm:block">
+                        {' '}
+                        Latest Post{' '}
+                      </h3>
                       <Link href={`/blog/${latestPost.id}`} class="group/title">
                         <h3 class="text-foreground group-hover/title:text-primary mb-2 line-clamp-2 text-lg font-semibold transition-colors sm:text-xl">
                           {latestPost.data.title}
                         </h3>
                       </Link>
-                      <p class="text-muted-foreground line-clamp-2 text-sm sm:line-clamp-3 sm:text-base hidden sm:block">
+                      <p class="text-muted-foreground line-clamp-2 hidden text-sm sm:line-clamp-3 sm:block sm:text-base">
                         {latestPost.data.description}
                       </p>
                     </div>
-                    <div class="border-border/50 flex flex-col items-end justify-between py-3 absolute top-0 sm:bottom-6 right-3 justify-between h-full">
+                    <div class="border-border/50 absolute top-0 right-3 flex h-full flex-col items-end justify-between py-3 sm:bottom-6">
                       <Link
                         href="/blog"
                         class={
