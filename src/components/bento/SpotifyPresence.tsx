@@ -176,7 +176,7 @@ const SpotifyPresence = () => {
         <>
             <div className="relative flex size-full flex-col justify-between gap-4 p-6">
                 <div
-                    className="aspect-square min-h-0 max-w-[60%] flex-shrink border bg-cover bg-center grayscale"
+                    className="absolute w-full z-[-1] top-0 left-0 sm:static aspect-square min-h-0 sm:max-w-[60%] flex-shrink border bg-cover bg-center grayscale"
                     style={{
                         backgroundImage: `url(${image[3]['#text']})`,
                     }}
