@@ -3,7 +3,7 @@ import GithubCalendar from '@/components/bento/GithubCalendar.tsx'
 import SpotifyPresence from '@/components/bento/SpotifyPresence.tsx'
 import WakatimeGraph from '@/components/bento/WakatimeGraph.tsx'
 import Link from '@/components/Link.astro'
-import Marquee from '../components/Marquee.astro'
+// import Marquee from '../components/Marquee.astro'
 import PageHead from '@/components/PageHead.astro'
 import { badgeVariants } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
@@ -198,7 +198,7 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
       class="my-4 flex aspect-[6/1] items-center [grid-area:f] sm:m-0 xl:items-start"
     >
       <div class="overflow-hidden">
-        <Marquee client:load />
+        <!-- <Marquee client:load /> -->
       </div>
     </div>
     <!-- <div class="aspect-square p-2 [grid-area:j]">
