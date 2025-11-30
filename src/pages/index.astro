@@ -1,9 +1,9 @@
 ---
 import GithubCalendar from '@/components/bento/GithubCalendar.tsx'
+import Marquee from '@/components/bento/Marquee.tsx'
 import SpotifyPresence from '@/components/bento/SpotifyPresence.tsx'
 import WakatimeGraph from '@/components/bento/WakatimeGraph.tsx'
 import Link from '@/components/Link.astro'
-import Marquee from '@/components/bento/Marquee.tsx'
 import PageHead from '@/components/PageHead.astro'
 import { badgeVariants } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
@@ -46,9 +46,11 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                 NAV_LINKS.map((item) => (
                   <Link
                     href={item.href}
-                    class={badgeVariants({
-                      variant: 'muted',
-                    }) + ' size-7!important'}
+                    class={
+                      badgeVariants({
+                        variant: 'muted',
+                      }) + ' size-7!important'
+                    }
                   >
                     {item.label}
                   </Link>
@@ -227,59 +229,57 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
           {
             latestPost && (
               <div class="flex h-full flex-col p-3 sm:p-6">
-                <div class="flex flex-1 gap-4">
+                <div class="flex h-full flex-1 items-center justify-center gap-4 sm:items-start sm:justify-start">
                   <Link
                     href={`/blog/${latestPost.id}`}
-                    class="group/img flex-1"
+                    class="group/img h-full w-full overflow-hidden rounded-md border sm:min-h-0 sm:flex-1"
                   >
                     <img
                       src={latestPost.data.image?.src ?? '#'}
                       alt={`Featured image for the latest post: ${latestPost.data.title}`}
-                      class="h-full w-full rounded-md border object-cover transition-transform duration-300 group-hover/img:scale-105"
+                      class="h-full w-full rounded-md border object-cover transition-transform duration-300 group-hover/img:scale-105 opacity-20 sm:opacity-100"
                     />
                   </Link>
-                  <div class="flex w-[70%] flex-col">
+                  <div class="hidden w-[70%] overflow-hidden h-full flex-col sm:flex">
                     <div class="flex min-w-0 flex-1 flex-col">
-                      <h3 class="mb-3 hidden text-2xl font-bold sm:block">
-                        {' '}
-                        Latest Post{' '}
-                      </h3>
+                      <h3 class="mb-1 text-2xl font-bold">Latest Post</h3>
                       <Link href={`/blog/${latestPost.id}`} class="group/title">
-                        <h3 class="text-foreground group-hover/title:text-primary mb-2 line-clamp-2 text-lg font-semibold transition-colors sm:text-xl">
+                        <h3 class="text-foreground group-hover/title:text-primary mb-2 line-clamp-2 hidden text-lg font-semibold transition-colors sm:block sm:text-xl">
                           {latestPost.data.title}
                         </h3>
                       </Link>
-                      <p class="text-muted-foreground line-clamp-2 hidden text-sm sm:line-clamp-3 sm:block sm:text-base">
+                      <p class="text-muted-foreground line-clamp-2 hidden text-sm sm:line-clamp-2 sm:block sm:text-base h-full">
                         {latestPost.data.description}
                       </p>
                     </div>
-                    <div class="border-border/50 absolute top-0 right-3 flex h-full flex-col items-end justify-between py-3 sm:bottom-6">
-                      <Link
-                        href="/blog"
-                        class={
-                          buttonVariants({ variant: 'ghost', size: 'sm' }) +
-                          ' group/link z-10 text-xs sm:text-sm'
-                        }
-                      >
-                        See all posts
-                        <span class="ml-1.5 transition-transform group-hover/link:translate-x-1">
-                          &rarr;
-                        </span>
-                      </Link>
+                  </div>
+                  <div class="border-border/50 absolute top-0 right-0 flex h-full w-full flex-row flex-row-reverse items-center justify-between py-3 sm:top-0 sm:right-3 sm:right-5 sm:bottom-6 sm:flex-col sm:items-end z-10 px-6 sm:px-0">
+                    <Link
+                      href="/blog"
+                      class={
+                        buttonVariants({ variant: 'ghost', size: 'sm' }) +
+                        ' group/link z-10 text-xs sm:text-sm'
+                      }
+                    >
+                      See all posts
+                      <span class="ml-1.5 transition-transform group-hover/link:translate-x-1">
+                        &rarr;
+                      </span>
+                    </Link>
 
-                      <Link
-                        href={`/blog/${latestPost.id}`}
-                        title={`Read latest blog post: ${latestPost.data.title}`}
-                        aria-label={`Read latest blog post: ${latestPost.data.title}`}
-                        class="bg-border/50 text-primary ring-ring group/btn relative z-10 rounded-full p-2 transition-all duration-300 hover:shadow-lg hover:ring-2 focus-visible:ring-2 sm:p-3"
-                      >
-                        <Icon
-                          name="lucide:move-up-right"
-                          class="transition-transform duration-300 group-hover/btn:scale-110 group-hover/btn:rotate-12"
-                          size={16}
-                        />
-                      </Link>
-                    </div>
+                    <Link
+                      href={`/blog/${latestPost.id}`}
+                      title={`Read latest blog post: ${latestPost.data.title}`}
+                      aria-label={`Read latest blog post: ${latestPost.data.title}`}
+                      class="bg-border/50 text-primary ring-ring group/btn relative z-10 flex items-center gap-1 rounded-full p-2 transition-all duration-300 hover:shadow-lg hover:ring-2 focus-visible:ring-2 sm:p-3"
+                    >
+                      <p class="text-xs sm:hidden">Latest post</p>
+                      <Icon
+                        name="lucide:move-up-right"
+                        class="transition-transform duration-300 group-hover/btn:scale-110 group-hover/btn:rotate-12"
+                        size={16}
+                      />
+                    </Link>
                   </div>
                 </div>
               </div>
