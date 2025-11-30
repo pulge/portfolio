@@ -5,6 +5,7 @@ import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getAllTags, getPostsByTag } from '@/lib/data-utils'
+import { Icon } from 'astro-icon/components'
 
 export async function getStaticPaths() {
   const tagMap = await getAllTags()
@@ -41,11 +42,14 @@ const { tag, posts } = Astro.props
     ]}
   /> -->
 
-  <div class="flex items-center justify-between w-full">
+  <div class="flex w-full items-center justify-between">
     <div class="mb-2 text-3xl font-semibold">
       {tag}
     </div>
-    <Link href="/tags">Back to all tags</Link>
+
+    <Link href="/tags" class="flex items-center gap-2">
+      back to all tags
+    </Link>
   </div>
 
   <ul class="flex flex-col gap-y-4">

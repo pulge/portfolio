@@ -3,8 +3,8 @@ import type { IconMap, SocialLink, Site } from '@/types'
 export const SITE: Site = {
   title: 'mark',
   description:
-    'astro-erudite is a opinionated, unstyled blogging template—built with Astro, Tailwind, and shadcn/ui.',
-  href: 'https://astro-erudite.vercel.app',
+    'A portfolio and personal website.',
+  href: 'https://pulge.vercel.app',
   author: 'jktrn',
   locale: 'en-US',
   featuredPostCount: 2,
@@ -17,12 +17,12 @@ export const NAV_LINKS: SocialLink[] = [
     label: 'blog',
   },
   {
-    href: '/authors',
-    label: 'authors',
+    href: '/projects',
+    label: 'projects',
   },
   {
-    href: '/about',
-    label: 'about',
+    href: '/authors',
+    label: 'authors',
   },
 ]
 
@@ -39,7 +39,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
     href: 'mailto:fulguerinasmarkjason0311@gmail.com',
     label: 'Email',
   },
-   {
+  {
     href: 'https://www.linkedin.com/in/fulguerinas-mark-jason-r-a32bbb259/',
     label: 'LinkedIn',
   },

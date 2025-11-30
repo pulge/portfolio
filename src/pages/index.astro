@@ -2,52 +2,67 @@
 import GithubCalendar from '@/components/bento/GithubCalendar.tsx'
 import SpotifyPresence from '@/components/bento/SpotifyPresence.tsx'
 import WakatimeGraph from '@/components/bento/WakatimeGraph.tsx'
-import Marquee from '@/components/Marquee.astro'
-import BlogCard from '@/components/BlogCard.astro'
 import Link from '@/components/Link.astro'
+import Marquee from '@/components/Marquee.astro'
 import PageHead from '@/components/PageHead.astro'
+import { badgeVariants } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
-import { SITE, SOCIAL_LINKS } from '@/consts'
+import { NAV_LINKS, SOCIAL_LINKS } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
-import { getRecentPosts } from '@/lib/data-utils'
+import { getAllPosts } from '@/lib/data-utils'
 import { cn } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
 
-const blog = await getRecentPosts(SITE.featuredPostCount)
+// const blog = await getRecentPosts(SITE.featuredPostCount)
+const latestPost = await getAllPosts().then((posts) => posts.at(0))
 ---
 
 <Layout class="max-w-5xl">
   <PageHead slot="head" title="Home" />
   <section
     class={cn(
-      'mx-auto grid min-w-xs sm:has-[[data-trigger]:hover]:*:first:[&_[data-overlay]]:opacity-0',
+      'mx-auto grid min-w-xs sm:has-[[data-trigger]:hover]:*:first:[&_[data-overlay]]:opacity-0 mt-[-30px]',
 
       // Mobile
-      'max-w-sm grid-cols-2 [grid-template-areas:"a_a""b_b""c_c""d_e""f_f"]',
-      'sm:max-w-2xl sm:grid-cols-2 sm:[grid-template-areas:"a_a""b_b""c_c""e_d""f_f"]',
-      'lg:max-w-5xl lg:grid-cols-3 lg:[grid-template-areas:"b_c_c""a_d_e""a_f_f"]',
+      'max-w-sm grid-cols-2 [grid-template-areas:"a_a""b_b""c_c""d_e""f_f""g_g"]',
+      'sm:max-w-2xl sm:grid-cols-2 sm:[grid-template-areas:"a_a""b_b""c_c""e_d""f_f""g_g"]',
+      'lg:max-w-5xl lg:grid-cols-3 lg:[grid-template-areas:"b_c_c""a_d_e""a_f_f""g_g_g"]',
 
       // XL (original)
-      'xl:max-w-7xl xl:grid-cols-4 xl:[grid-template-areas:"b_a_a_a""b_c_c_d""e_c_c_d""e_f_f_f"]',
+      'xl:max-w-7xl xl:grid-cols-4 xl:[grid-template-areas:"b_a_a_a""b_c_c_d""e_c_c_d""e_f_f_f""g_g_g_g"]',
     )}
   >
     <div
-      class="aspect-square rounded-lg p-2 duration-300 ease-in-out [grid-area:a] sm:aspect-[3/1] lg:aspect-[3/1] xl:aspect-[3/1]"
+      class="aspect-square p-2 duration-300 ease-in-out [grid-area:a] sm:aspect-[3/1] lg:aspect-[3/1] xl:aspect-[3/1]"
     >
-      <div
-        class="bg-primary-foreground/70 hover:bg-primary-foreground rounded-lg border"
-      >
+      <div class="bg-primary-foreground/70 hover:bg-primary-foreground border">
         <div class="flex flex-col space-y-1.5 p-6 pb-3">
-          <h3 class="text-3xl leading-none font-medium">Hey!</h3>
+          <div
+            class="mb-5 flex flex-col items-center justify-between gap-4 sm:flex-row lg:flex-col xl:flex-row"
+          >
+            <h3 class="text-3xl leading-none font-medium">Hey there!</h3>
+            <nav class="flex items-center gap-2 text-sm">
+              {
+                NAV_LINKS.map((item) => (
+                  <Link
+                    href={item.href}
+                    class={badgeVariants({ variant: 'muted' })}
+                  >
+                    {item.label}
+                  </Link>
+                ))
+              }
+            </nav>
+          </div>
           <p class="text-muted-foreground text-sm">
-            I&rsquo;m Mark, an undergrad student from Polytechnic University of
+            I&rsquo;m Mark, an undergrad IT student from Polytechnic University of
             the Philippines - San Juan Campus.
           </p>
         </div>
         <div class="p-6 pt-0">
           <div class="text-muted-foreground mb-2 text-sm">
-            I’m passionate about web development and UI/UX design, and many of
-            the projects here reflect my ongoing exploration in those fields.
+            I’m passionate about web development and UI/UX design, and I am
+            currently trying to expand into other areas of IT as well.
           </div>
           <div class="text-muted-foreground mb-2 text-sm">
             This website serves as my personal online portfolio, a space where I
@@ -56,9 +71,9 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
             creative experiments, and a few multimedia pieces along the way.
           </div>
           <div class="text-muted-foreground mb-2 text-sm">
-            This website is my corner of the internet, something that represents
-            me, something I can really call mine. So, I'll make this site as
-            close to my preference and personality as possible, feel free to
+            This acts as my corner of the internet, something that represents
+            me. I'll make this site as
+            close to my preference and personality as possible. So, feel free to
             look around and get to know me better!
           </div>
 
@@ -105,9 +120,9 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
     <div
       class="aspect-square p-2 [grid-area:b] sm:aspect-square xl:aspect-[1/2]"
     >
-      <div class="bg-muted size-full rounded-lg border">
+      <div class="bg-muted size-full border">
         <div
-          class="size-full rounded-lg bg-[url('/static/profile/silhouette.jpg')] bg-cover bg-center bg-no-repeat"
+          class="size-full bg-[url('/static/profile/silhouette.jpg')] bg-cover bg-center bg-no-repeat"
         >
         </div>
       </div>
@@ -115,7 +130,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
     <div class="aspect-square p-2 [grid-area:c] sm:aspect-[2/1]">
       <div
         data-trigger
-        class="bg-primary-foreground/70 hover:bg-primary-foreground relative size-full rounded-lg border"
+        class="bg-primary-foreground/70 hover:bg-primary-foreground relative size-full border"
       >
         <div class="absolute size-full">
           <div
@@ -136,7 +151,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
     <div class="aspect-square p-2 [grid-area:e]">
       <div
         data-trigger
-        class="bg-primary-foreground/70 hover:bg-primary-foreground size-full rounded-lg border"
+        class="bg-primary-foreground/70 hover:bg-primary-foreground size-full border"
       >
         <div class="group/spotify relative size-full">
           <div
@@ -151,7 +166,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
     </div>
     <div class="aspect-square p-2 [grid-area:d]">
       <div
-        class="bg-primary-foreground/70 hover:bg-primary-foreground size-full rounded-lg border"
+        class="bg-primary-foreground/70 hover:bg-primary-foreground size-full border"
       >
         <div
           class="group/github relative flex size-full items-center justify-center"
@@ -178,9 +193,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
         </div>
       </div>
     </div>
-    <div
-      class="aspect-square place-items-center p-2 [grid-area:f] sm:aspect-[6/1]"
-    >
+    <div class="aspect-[6/1] flex items-center xl:items-start my-4 sm:m-2 [grid-area:f]">
       <div class="overflow-hidden">
         <Marquee client:load />
       </div>
@@ -190,28 +203,84 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
         <WakatimeGraph client:load />
       </div>
     </div> -->
-  </section>
-  <!-- <section class="flex flex-col gap-y-4">
-    <h2 class="text-2xl font-medium">Latest posts</h2>
-    <ul class="flex flex-col gap-y-4">
-      {
-        blog.map((post) => (
-          <li>
-            <BlogCard entry={post} />
-          </li>
-        ))
-      }
-    </ul>
-    <div class="flex justify-center">
-      <Link
-        href="/blog"
-        class={buttonVariants({ variant: 'ghost' }) + ' group'}
+    <div class="aspect-[4/3] p-2 [grid-area:g] sm:aspect-[3/1]">
+      <div
+        data-trigger
+        class="bg-primary-foreground/70 hover:bg-primary-foreground size-full overflow-hidden border"
       >
-        See all posts <span
-          class="ml-1.5 transition-transform group-hover:translate-x-1"
-          >&rarr;</span
+        <div
+          class="group/blog relative size-full sm:bg-[url('/static/bento/blog-background.png')]"
         >
-      </Link>
+          <div
+            class="absolute size-full transition-opacity duration-200 sm:bg-[url('/static/bento/blog-foreground.png')] sm:opacity-0 sm:group-hover/blog:opacity-100"
+          >
+            <p
+              class="text-foreground/80 bg-background absolute top-[70%] right-5 hidden -translate-y-1/2 border p-2 text-xs text-pretty shadow-sm sm:block"
+            >
+              Read my latest<br /> blog post!
+            </p>
+          </div>
+
+          {
+            latestPost && (
+              <div class="flex h-full flex-col p-3 sm:p-6">
+                <div class="flex flex-1 gap-4">
+                  <Link
+                    href={`/blog/${latestPost.id}`}
+                    class="group/img flex-1"
+                  >
+                    <img
+                      src={latestPost.data.image?.src ?? '#'}
+                      alt={`Featured image for the latest post: ${latestPost.data.title}`}
+                      class="h-50 w-full rounded-md border object-cover transition-transform duration-300 group-hover/img:scale-105"
+                    />
+                  </Link>
+
+                  <div class="flex min-w-0 flex-1 flex-col">
+                    <h3 class="mb-3 text-4xl font-bold"> Latest Post </h3>
+                    <Link href={`/blog/${latestPost.id}`} class="group/title">
+                      <h3 class="text-foreground group-hover/title:text-primary mb-2 line-clamp-2 text-lg font-semibold transition-colors sm:text-xl">
+                        {latestPost.data.title}
+                      </h3>
+                    </Link>
+                    <p class="text-muted-foreground line-clamp-2 text-sm sm:line-clamp-3 sm:text-base">
+                      {latestPost.data.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="border-border/50 relative z-10 mt-auto flex items-center justify-between pt-3">
+                  <Link
+                    href="/blog"
+                    class={
+                      buttonVariants({ variant: 'ghost', size: 'sm' }) +
+                      ' group/link relative z-10 text-xs sm:text-sm'
+                    }
+                  >
+                    See all posts
+                    <span class="ml-1.5 transition-transform group-hover/link:translate-x-1">
+                      &rarr;
+                    </span>
+                  </Link>
+
+                  <Link
+                    href={`/blog/${latestPost.id}`}
+                    title={`Read latest blog post: ${latestPost.data.title}`}
+                    aria-label={`Read latest blog post: ${latestPost.data.title}`}
+                    class="bg-border/50 text-primary ring-ring group/btn relative z-10 rounded-full p-2 transition-all duration-300 hover:shadow-lg focus-visible:ring-2 sm:p-3"
+                  >
+                    <Icon
+                      name="lucide:move-up-right"
+                      class="transition-transform duration-300 group-hover/btn:scale-110 group-hover/btn:rotate-12"
+                      size={16}
+                    />
+                  </Link>
+                </div>
+              </div>
+            )
+          }
+        </div>
+      </div>
     </div>
-  </section> -->
+  </section>
 </Layout>

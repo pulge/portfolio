@@ -184,9 +184,9 @@ const SpotifyPresence = () => {
                     aria-label="Album art"
                 />
                 <div className="flex min-h-0 flex-shrink-0 flex-col justify-end">
-                    <div className="mr-8 flex flex-col">
-                        <span className="mb-2 flex items-center gap-2 hidden sm:block">
-                            <AudioLines size={16} className="text-primary" />
+                    <div className="mr-8 flex flex-col text-xs sm:text-sm">
+                        <span className="mb-2 flex items-center gap-2">
+                            <AudioLines size={16} className="text-primary hidden sm:block" />
                             <span className="text-primary text-sm">
                                 {displayData['@attr']?.nowplaying === 'true'
                                     ? 'Now playing...'
@@ -196,11 +196,11 @@ const SpotifyPresence = () => {
                         <span className="text-md mb-2 line-clamp-2 leading-tight font-medium">
                             {song}
                         </span>
-                        <span className="text-muted-foreground line-clamp-1 text-xs hidden sm:block">
+                        <span className="text-muted-foreground line-clamp-1 text-xs ">
                             <span className="text-muted-foreground">by</span>{' '}
                             {artist['#text']}
                         </span>
-                        <span className="text-muted-foreground line-clamp-1 text-xs">
+                        <span className="text-muted-foreground line-clamp-1 text-xs hidden sm:block">
                             <span className="text-muted-foreground">on</span> {album['#text']}
                         </span>
                     </div>
