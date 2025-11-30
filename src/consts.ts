@@ -23,9 +23,9 @@ export const NAV_LINKS = [
     icon: 'lucide:folder',
   },
   {
-    href: '/authors',
-    label: 'authors',
-    icon: 'lucide:users',
+    href: '/media',
+    label: 'media',
+    icon: 'lucide:camera',
   },
 ]
 
