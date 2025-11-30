@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+
 // Define your icons using the Iconify icon names
 const icons = [
   { name: 'logos:c', label: 'C' },
@@ -15,6 +16,22 @@ const icons = [
   { name: 'logos:figma', label: 'Figma' },
 ];
 ---
+
+<div class="marquee-container">
+  <div class="marquee-content">
+    <div class="icon-group">
+      {icons.map(({ name, label }) => (
+        <Icon name={name} title={label} />
+      ))}
+    </div>
+    <div class="icon-group">
+      {icons.map(({ name, label }) => (
+        <Icon name={name} title={label} />
+      ))}
+    </div>
+  </div>
+</div>
+
 <style>
   .marquee-container {
     position: relative;
@@ -35,12 +52,12 @@ const icons = [
   
   .marquee-container::before {
     left: 0;
-    background: linear-gradient(to right, oklch(90.365% 0.0001 271.152) 0%, transparent 100%);
+    background: linear-gradient(to right, hsl(var(--background)) 0%, transparent 100%);
   }
   
   .marquee-container::after {
     right: 0;
-    background: linear-gradient(to left, oklch(90.365% 0.0001 271.152) 0%, transparent 100%);
+    background: linear-gradient(to left, hsl(var(--background)) 0%, transparent 100%);
   }
   
   .marquee-content {
@@ -75,18 +92,3 @@ const icons = [
     }
   }
 </style>
-
-<div class="marquee-container">
-  <div class="marquee-content">
-    <div class="icon-group">
-      {icons.map(({ name, label }) => (
-        <Icon name={name} title={label} />
-      ))}
-    </div>
-    <div class="icon-group">
-      {icons.map(({ name, label }) => (
-        <Icon name={name} title={label} />
-      ))}
-    </div>
-  </div>
-</div>
