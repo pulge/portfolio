@@ -5,6 +5,9 @@ import { NAV_LINKS, SITE } from '@/consts'
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
 import logo from '../../public/static/logo.svg'
+import { buttonVariants } from './ui/button'
+
+const currentPath = Astro.url.pathname
 ---
 
 <div>
@@ -23,14 +26,27 @@ import logo from '../../public/static/logo.svg'
     <div class="flex items-center gap-4">
       <nav class="flex items-center gap-4 text-sm sm:gap-6">
         {
-          NAV_LINKS.map((item) => (
-            <Link
-              href={item.href}
-              class="text-foreground/60 hover:text-foreground transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))
+          NAV_LINKS.map((item) => {
+            // Check if current path matches the nav item
+            let isActive = currentPath === item.href || currentPath.startsWith(item.href + '/')
+            
+            // Special case: highlight blog when on tags page
+            if (item.href === '/blog' && currentPath.startsWith('/tags')) {
+              isActive = true
+            }
+            
+            return (
+              <Link
+                href={item.href}
+                class={buttonVariants({ 
+                  variant: isActive ? 'default' : 'ghost', 
+                  size: 'sm' 
+                })}
+              >
+                {item.label}
+              </Link>
+            )
+          })
         }
       </nav>
       <!-- <ThemeToggle transition:persist /> -->

@@ -3,11 +3,13 @@ import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
+import { buttonVariants } from '@/components/ui/button'
 import PaginationComponent from '@/components/ui/pagination'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import { getAllPosts, groupPostsByYear } from '@/lib/data-utils'
 import type { PaginateFunction } from 'astro'
+import { Icon } from 'astro-icon/components'
 
 export async function getStaticPaths({
   paginate,
@@ -25,14 +27,26 @@ const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
 ---
 
 <Layout class="max-w-3xl">
-  <PageHead slot="head" title="Blog" />
+  <PageHead slot="head" title="posts" />
   <!-- <Breadcrumbs
     items={[
       { label: 'Blog', href: '/blog', icon: 'lucide:library-big' },
       { label: `Page ${page.currentPage}`, icon: 'lucide:book-copy' },
     ]}
   /> -->
-  <Link class='text-end' href="/tags">view tags</Link>
+  <div class="text-right">
+    <Link
+      href="/tags"
+      class={buttonVariants({ variant: 'ghost', size: 'sm' }) +
+        ' group/link relative z-10 text-xs sm:text-sm'}
+    >
+      back to all tags
+      <Icon
+        name="lucide:eye"
+        class="ml-1.5 transition-transform group-hover/link:size-4.5 size-4"
+      />
+    </Link>
+  </div>
 
   <div class="flex min-h-[calc(100vh-18rem)] flex-col gap-y-8">
     {

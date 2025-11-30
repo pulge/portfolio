@@ -3,9 +3,9 @@ import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
+import { buttonVariants } from '@/components/ui/button'
 import Layout from '@/layouts/Layout.astro'
 import { getAllTags, getPostsByTag } from '@/lib/data-utils'
-import { Icon } from 'astro-icon/components'
 
 export async function getStaticPaths() {
   const tagMap = await getAllTags()
@@ -47,9 +47,20 @@ const { tag, posts } = Astro.props
       {tag}
     </div>
 
-    <Link href="/tags" class="flex items-center gap-2">
-      back to all tags
-    </Link>
+    <div class="text-right">
+      <Link
+        href="/tags"
+        class={buttonVariants({ variant: 'ghost', size: 'sm' }) +
+          ' group/link relative z-10 text-xs sm:text-sm'}
+      >
+        back to all tags
+        <span
+          class="ml-1.5 transition-transform group-hover/link:translate-x-1"
+        >
+          &rarr;
+        </span>
+      </Link>
+    </div>
   </div>
 
   <ul class="flex flex-col gap-y-4">
