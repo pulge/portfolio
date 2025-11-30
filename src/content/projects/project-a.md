@@ -1,9 +1,9 @@
 ---
-name: 'Project A'
-description: 'This is an example project description! You should replace this with a description of your own project.'
-tags: ['Framework A', 'Library B', 'Tool C', 'Resource D']
-image: '../../../public/static/1200x630.png'
-link: 'https://example.com'
-startDate: '2024-01-01'
-endDate: '2024-02-01'
+name: 'Personal and Portfolio Site'
+description: 'This is my personal and portfolio site for showcasing and tracking progress.'
+tags: ['Web development', 'TypeScript', 'Astro', 'Tailwind']
+image: '../../../public/static/projects/portfolio.png'
+link: 'https://pulge.vercel.app'
+startDate: '2025-11-29'
+endDate: '2025-11-30'
 ---
