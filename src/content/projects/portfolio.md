@@ -5,5 +5,5 @@ tags: ['Web development', 'TypeScript', 'Astro', 'Tailwind']
 image: '../../../public/static/projects/portfolio.png'
 link: 'https://pulge.vercel.app'
 startDate: '2025-11-29'
-endDate: '2025-11-30'
+# endDate: '2025-11-30'
 ---
