@@ -1,0 +1,94 @@
+---
+import { Icon } from 'astro-icon/components';
+
+// Define your icons using the Iconify icon names
+const icons = [
+  { name: 'logos:c', label: 'C' },
+  { name: 'logos:javascript', label: 'JavaScript' },
+  { name: 'logos:postgresql', label: 'PostgreSQL' },
+  { name: 'logos:python', label: 'Python' },
+  { name: 'logos:tailwindcss-icon', label: 'Tailwind CSS' },
+  { name: 'logos:astro-icon', label: 'Astro' },
+  { name: 'logos:github-icon', label: 'GitHub' },
+  { name: 'logos:linux-tux', label: 'Linux' },
+  { name: 'logos:typescript-icon', label: 'TypeScript' },
+  { name: 'mdi:blender-software', label: 'Blender' },
+  { name: 'logos:figma', label: 'Figma' },
+];
+---
+
+<div class="marquee-container">
+  <div class="marquee-content">
+    <div class="icon-group">
+      {icons.map(({ name, label }) => (
+        <Icon name={name} title={label} />
+      ))}
+    </div>
+    <div class="icon-group">
+      {icons.map(({ name, label }) => (
+        <Icon name={name} title={label} />
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .marquee-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .marquee-container::before,
+  .marquee-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 10;
+    pointer-events: none;
+  }
+  
+  .marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, hsl(var(--background)) 0%, transparent 100%);
+  }
+  
+  .marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, hsl(var(--background)) 0%, transparent 100%);
+  }
+  
+  .marquee-content {
+    display: flex;
+    gap: 3rem;
+    animation: marquee-scroll 20s linear infinite;
+    filter: grayscale(1);
+  }
+  
+  .marquee-content:hover {
+    animation-play-state: paused;
+  }
+  
+  .icon-group {
+    display: flex;
+    gap: 3rem;
+    flex-shrink: 0;
+  }
+  
+  .marquee-content :global(svg) {
+    height: 50px;
+    width: 50px;
+    flex-shrink: 0;
+  }
+  
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>
