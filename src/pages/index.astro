@@ -88,13 +88,12 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
               external
               underline>message</Link
             >, <Link
-              href={SOCIAL_LINKS.find((link) => link.label === 'Email')
-                ?.href || '#'}
+              href={SOCIAL_LINKS.find((link) => link.label === 'Email')?.href ||
+                '#'}
               class="text-foreground"
               external
               underline>email</Link
-            >, 
-            and hire me!
+            >, and hire me!
           </div>
 
           <!-- <p class="text-muted-foreground mb-2 text-sm">
@@ -233,7 +232,7 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
         <div
           class="group/blog relative size-full sm:bg-[url('/static/bento/blog-background.png')]"
         >
-          <div
+          <!-- <div
             class="absolute size-full transition-opacity duration-200 sm:bg-[url('/static/bento/blog-foreground.png')] sm:opacity-0 sm:group-hover/blog:opacity-100"
           >
             <p
@@ -241,7 +240,7 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
             >
               Read my latest<br /> blog post!
             </p>
-          </div>
+          </div> -->
 
           {
             latestPost && (
@@ -254,10 +253,10 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                     <img
                       src={latestPost.data.image?.src ?? '#'}
                       alt={`Featured image for the latest post: ${latestPost.data.title}`}
-                      class="h-full w-full rounded-md border object-cover transition-transform duration-300 group-hover/img:scale-105 opacity-20 sm:opacity-100"
+                      class="h-full w-full rounded-md border object-cover opacity-20 transition-transform duration-300 group-hover/img:scale-105 sm:opacity-100"
                     />
                   </Link>
-                  <div class="hidden w-[70%] overflow-hidden h-full flex-col sm:flex">
+                  <div class="hidden h-full w-[70%] flex-col overflow-hidden sm:flex">
                     <div class="flex min-w-0 flex-1 flex-col">
                       <h3 class="mb-1 text-2xl font-bold">Latest Post</h3>
                       <Link href={`/blog/${latestPost.id}`} class="group/title">
@@ -265,17 +264,18 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                           {latestPost.data.title}
                         </h3>
                       </Link>
-                      <p class="text-muted-foreground line-clamp-2 hidden text-sm sm:line-clamp-2 sm:block sm:text-base h-full">
+                      <p class="text-muted-foreground line-clamp-2 hidden h-full text-sm sm:line-clamp-2 sm:block sm:text-base">
                         {latestPost.data.description}
                       </p>
                     </div>
                   </div>
-                  <div class="border-border/50 absolute top-0 right-0 flex h-full w-full flex-row flex-row-reverse items-center justify-evenly sm:justify-between py-3 sm:top-0 sm:right-3 sm:right-5 sm:bottom-6 sm:flex-col sm:items-end z-10 sm:px-0">
+                  <div class="border-border/50 absolute top-0 right-0 z-10 flex h-full w-full flex-row flex-row-reverse items-center justify-evenly py-3 sm:top-0 sm:right-3 sm:right-5 sm:bottom-6 sm:flex-col sm:items-end sm:justify-between sm:px-0">
                     <Link
                       href="/blog"
                       class={
+                        'sm:' +
                         buttonVariants({ variant: 'ghost', size: 'sm' }) +
-                        ' group/link z-10 text-xs sm:text-sm'
+                        ' group/link bg-foreground/70 text-background sm:text-foreground z-10 inline-flex items-center text-xs sm:bg-transparent sm:text-sm'
                       }
                     >
                       See all posts

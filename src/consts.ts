@@ -43,8 +43,8 @@ export const SOCIAL_LINKS: SocialLink[] = [
     label: 'Email',
   },
   {
-    href: 'https://www.linkedin.com/in/fulguerinas-mark-jason-r-a32bbb259/',
-    label: 'LinkedIn',
+    href: 'https://www.instagram.com/_mark.rcn/',
+    label: 'Instagram',
   },
   {
     href: '/rss.xml',
@@ -59,4 +59,5 @@ export const ICON_MAP: IconMap = {
   Twitter: 'lucide:twitter',
   Email: 'lucide:mail',
   RSS: 'lucide:rss',
+  Instagram: 'lucide:instagram',
 }
