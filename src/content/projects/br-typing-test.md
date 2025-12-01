@@ -1,5 +1,5 @@
 ---
-name: 'Brain Rot Typing Test'
+title: 'Brain Rot Typing Test'
 description: 'This is a typing test app but with a feature of 3D models of popular brain rot AI-generated characters.'
 tags: ['Web Development','CSS', 'HTML', 'JavaScript', 'ARCore']
 image: '../../../public/static/projects/br-typing-test.png'

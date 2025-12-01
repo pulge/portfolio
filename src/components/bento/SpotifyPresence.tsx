@@ -176,14 +176,14 @@ const SpotifyPresence = () => {
         <>
             <div className="relative flex size-full flex-col justify-between gap-4 p-6">
                 <div
-                    className="absolute w-full z-[-1] top-0 left-0 sm:z-1 sm:static aspect-square min-h-0 sm:max-w-[60%] flex-shrink border bg-cover bg-center grayscale"
+                    className="absolute w-full z-[-1] top-0 left-0 aspect-square min-h-0 flex-shrink border bg-cover bg-center grayscale"
                     style={{
                         backgroundImage: `url(${image[3]['#text']})`,
                     }}
                     role="img"
                     aria-label="Album art"
                 />
-                <div className="flex min-h-0 flex-shrink-0 flex-col justify-end">
+                <div className="flex min-h-0 flex-shrink-0 flex-col justify-end h-full">
                     <div className="mr-8 flex flex-col text-xs sm:text-sm">
                         <span className="mb-2 flex items-center gap-2">
                             <AudioLines size={16} className="text-primary hidden sm:block" />

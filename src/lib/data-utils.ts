@@ -5,11 +5,26 @@ export async function getAllAuthors(): Promise<CollectionEntry<'authors'>[]> {
   return await getCollection('authors')
 }
 
-export async function getAllPosts(): Promise<CollectionEntry<'blog'>[]> {
-  const posts = await getCollection('blog')
-  return posts
-    .filter((post) => !post.data.draft && !isSubpost(post.id))
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+// export async function getAllPosts(): Promise<CollectionEntry<'blog'>[]> {
+//   const posts = await getCollection('blog')
+//   return posts
+//     .filter((post) => !post.data.draft && !isSubpost(post.id))
+//     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+// }
+
+export async function getAllPosts() {
+  const blog = await getCollection("blog");
+  const projects = await getCollection("projects");
+
+  const getDate = (post) =>
+    post.data.date ||
+    post.data.startDate ||
+    post.data.endDate ||
+    new Date(0);
+
+  return [...blog, ...projects]
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => getDate(b).valueOf() - getDate(a).valueOf());
 }
 
 export async function getAllPostsAndSubposts(): Promise<
@@ -158,17 +173,17 @@ export async function getSubpostsForParent(
 }
 
 export function groupPostsByYear(
-  posts: CollectionEntry<'blog'>[],
-): Record<string, CollectionEntry<'blog'>[]> {
-  return posts.reduce(
-    (acc: Record<string, CollectionEntry<'blog'>[]>, post) => {
-      const year = post.data.date.getFullYear().toString()
-      ;(acc[year] ??= []).push(post)
-      return acc
-    },
-    {},
-  )
+  posts: Array<{ data: { date?: Date } }>
+): Record<string, typeof posts> {
+  return posts.reduce((acc, post) => {
+    if (!post.data.date) return acc; // <-- Skip projects or missing date
+
+    const year = post.data.date.getFullYear().toString();
+    (acc[year] ??= []).push(post);
+    return acc;
+  }, {});
 }
+
 
 export async function hasSubposts(postId: string): Promise<boolean> {
   const subposts = await getSubpostsForParent(postId)
