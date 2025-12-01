@@ -34,13 +34,17 @@ export const SOCIAL_LINKS: SocialLink[] = [
     href: 'https://github.com/pulge',
     label: 'GitHub',
   },
+  // {
+  //   href: 'https://twitter.com/enscry',
+  //   label: 'Twitter',
+  // },
   {
-    href: 'https://www.instagram.com/_mark.rcn/',
-    label: 'Instagram',
+    href: 'mailto:fulguerinasmarkjason0311@gmail.com',
+    label: 'Email',
   },
   {
-    href: 'mailto:markjason742@gmail.com',
-    label: 'Email',
+    href: 'https://www.linkedin.com/in/fulguerinas-mark-jason-r-a32bbb259/',
+    label: 'LinkedIn',
   },
   {
     href: '/rss.xml',
@@ -55,5 +59,4 @@ export const ICON_MAP: IconMap = {
   Twitter: 'lucide:twitter',
   Email: 'lucide:mail',
   RSS: 'lucide:rss',
-  Instagram: 'lucide:instagram',
 }
