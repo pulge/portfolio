@@ -176,14 +176,14 @@ const SpotifyPresence = () => {
         <>
             <div className="relative flex size-full flex-col justify-between gap-4 p-6">
                 <div
-                    className="absolute w-full z-[-1] top-0 left-0 aspect-square min-h-0 flex-shrink border bg-cover bg-center grayscale"
+                    className="absolute w-full z-0 top-0 left-0 aspect-square min-h-0 flex-shrink border bg-cover bg-center grayscale opactity-20 hover:opacity-100"
                     style={{
                         backgroundImage: `url(${image[3]['#text']})`,
                     }}
                     role="img"
                     aria-label="Album art"
                 />
-                <div className="flex min-h-0 flex-shrink-0 flex-col justify-end h-full">
+                <div className="absolute bg-background/60 hover:bg-background/30 transition p-4 top-0 left-0 w-full flex min-h-0 flex-shrink-0 flex-col justify-end h-full">
                     <div className="mr-8 flex flex-col text-xs sm:text-sm">
                         <span className="mb-2 flex items-center gap-2">
                             <AudioLines size={16} className="text-primary hidden sm:block" />
@@ -215,7 +215,7 @@ const SpotifyPresence = () => {
                 title="View on last.fm"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-border/50 text-primary ring-ring group/spotify-link absolute end-0 bottom-0 m-3 rounded-full p-3 transition-[box-shadow] duration-300 hover:ring-2 focus-visible:ring-2"
+                className="bg-border/70 text-primary ring-ring group/spotify-link absolute end-0 bottom-0 m-3 rounded-full p-3 transition-[box-shadow] duration-300 hover:ring-2 focus-visible:ring-2"
             >
                 <MoveUpRight
                     size={16}

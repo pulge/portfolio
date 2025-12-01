@@ -40,7 +40,7 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
           <div
             class="mb-5 flex flex-col items-center justify-between gap-4 sm:flex-row lg:flex-col xl:flex-row"
           >
-            <h3 class="text-3xl leading-none font-medium">Hey there!</h3>
+            <h3 class="text-3xl leading-none font-medium">hey there!</h3>
             <nav class="flex items-center gap-2">
               {
                 NAV_LINKS.map((item) => (
@@ -81,13 +81,20 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
           </div>
           <div class="text-muted-foreground mb-2 text-sm">
             If I pique your interest, don’t hesitate to reach out, you can
-            message and hire me <Link
-              href={SOCIAL_LINKS.find((link) => link.label === 'Instagram')?.href ||
-                '#'}
+            <Link
+              href={SOCIAL_LINKS.find((link) => link.label === 'Instagram')
+                ?.href || '#'}
               class="text-foreground"
               external
-              underline>here</Link
-            >.
+              underline>message</Link
+            >, <Link
+              href={SOCIAL_LINKS.find((link) => link.label === 'Email')
+                ?.href || '#'}
+              class="text-foreground"
+              external
+              underline>email</Link
+            >, 
+            and hire me!
           </div>
 
           <!-- <p class="text-muted-foreground mb-2 text-sm">
@@ -206,7 +213,7 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
     <div
       class="my-4 flex aspect-[6/1] items-center [grid-area:f] sm:m-0 xl:items-start"
     >
-      <div class="overflow-hidden">
+      <div class="overflow-hidden sm:mt-4">
         <Marquee client:load />
       </div>
     </div>
@@ -243,7 +250,7 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                           <img
                             src={latestPost.data.image?.src ?? '#'}
                             alt={`Featured image for the latest post: ${latestPost.data.title}`}
-                            class="h-full w-full rounded-md border object-cover opacity-20 transition-transform duration-300 group-hover/img:scale-105 sm:opacity-100"
+                            class="h-full w-full rounded-md border object-cover opacity-20 transition-transform duration-300 group-hover/img:scale-105 sm:opacity-100 grayscale group-hover/img:grayscale-0"
                           />
                         </Link>
 
