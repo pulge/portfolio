@@ -186,17 +186,15 @@ export async function getSubpostsForParent(
 //   )
 // }
 
-export function groupPostsByYear(
-  posts: Array<{ data: { date?: Date } }>
-): Record<string, typeof posts> {
+export function groupPostsByYear<T extends { data: { date?: Date } }>(
+  posts: T[]
+): Record<string, T[]> {
   return posts.reduce((acc, post) => {
-    if (!post.data.date) return acc; // <-- Skip projects or missing date
-
+    if (!post.data.date) return acc;
     const year = post.data.date.getFullYear().toString();
     (acc[year] ??= []).push(post);
     return acc;
-  }, {});
-
+  }, {} as Record<string, T[]>);
 }
 
 export async function hasSubposts(postId: string): Promise<boolean> {

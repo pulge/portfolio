@@ -30,17 +30,25 @@ const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
 >
   <Link
     href={`/${entry.collection}/${entry.id}`}
+    href={entry.collection != 'projects'
+      ? `/${entry.collection}/${entry.id}`
+      : (entry.data.link ?? '#')}
+    external={entry.data.link ? true : undefined}
+    aria-disabled={!entry.data.link}
     class="flex flex-col gap-4 sm:flex-row"
+    style={!entry.data.link && !entry.id
+      ? 'pointer-events: none; cursor: default;'
+      : undefined}
   >
     {
       entry.data.image && (
-        <div class="w-full sm:max-w-3xs sm:shrink-0">
+        <div class="group w-full sm:max-w-3xs sm:shrink-0">
           <Image
             src={entry.data.image}
             alt={entry.data.title}
             width={1200}
             height={630}
-            class="object-cover"
+            class="object-cover h-full object-cover grayscale transition-all duration-300 group-hover:grayscale-0"
           />
         </div>
       )
