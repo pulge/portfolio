@@ -171,18 +171,19 @@ export async function getSubpostsForParent(
     })
 }
 
-// Fix the return type to preserve the full post structure
-export function groupPostsByYear<T extends { data: { date?: Date } }>(
-  posts: T[]
-): Record<string, T[]> {
+export function groupPostsByYear(
+  posts: CollectionEntry<'blog'>[]
+): Record<string, CollectionEntry<'blog'>[]> {
   return posts.reduce((acc, post) => {
     if (!post.data.date) return acc;
     const year = post.data.date.getFullYear().toString();
-    (acc[year] ??= []).push(post);
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(post);
     return acc;
-  }, {} as Record<string, T[]>);
+  }, {} as Record<string, CollectionEntry<'blog'>[]>);
 }
-
 
 export async function hasSubposts(postId: string): Promise<boolean> {
   const subposts = await getSubpostsForParent(postId)
