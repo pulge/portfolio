@@ -30,7 +30,7 @@ const { project } = Astro.props
         <div class="w-full sm:max-w-3xs sm:shrink-0">
           <Image
             src={project.data.image}
-            alt={project.data.title}
+            alt={project.data.name}
             width={1200}
             height={630}
             class="h-full object-cover grayscale transition-all duration-300 group-hover:grayscale-0"
@@ -40,20 +40,18 @@ const { project } = Astro.props
     }
     <div class="grow">
       <h3 class="mb-1 text-lg font-medium">
-        {project.data.title}
+        {project.data.name}
       </h3>
       <p class="text-muted-foreground mb-2 text-sm">
         {project.data.description}
       </p>
       {
-        // project.data.startDate && (
-        project.data.date && (
+        project.data.startDate && (
           <p class="text-muted-foreground/70 mb-2 flex items-center gap-x-1.5 text-xs">
             <span class="flex items-center gap-x-1.5">
               <Icon name="lucide:calendar" class="size-3" />
               <span>
-                {/* {formatDate(project.data.startDate)} */}
-                {formatDate(project.data.date)}
+                {formatDate(project.data.startDate)}
                 {project.data.endDate
                   ? ` → ${formatDate(project.data.endDate)}`
                   : ' → Present'}
