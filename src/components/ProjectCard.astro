@@ -42,12 +42,12 @@ const { project } = Astro.props
         {project.data.description}
       </p>
       {
-        project.data.date && (
+        project.data.startDate && (
           <p class="text-muted-foreground/70 mb-2 flex items-center gap-x-1.5 text-xs">
             <span class="flex items-center gap-x-1.5">
               <Icon name="lucide:calendar" class="size-3" />
               <span>
-                {formatDate(project.data.date)}
+                {formatDate(project.data.startDate)}
                 {project.data.endDate
                   ? ` → ${formatDate(project.data.endDate)}`
                   : ' → Present'}
