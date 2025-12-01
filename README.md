@@ -254,7 +254,7 @@ description: 'This is an example project description! You should replace this wi
 tags: ['Framework A', 'Library B', 'Tool C', 'Resource D']
 image: '/static/1200x630.png'
 link: 'https://example.com'
-startDate: '2024-01-01'
+date: '2024-01-01'
 endDate: '2024-01-01'
 ---
 ```
@@ -268,7 +268,7 @@ The project schema is defined as follows:
 | `tags`        | `string[]`      | n/a                                     | Yes      |
 | `image`       | `image()`       | Should be exactly 1200px &times; 630px. | Yes      |
 | `link`        | `string.url()`  | Must be a valid URL.                    | Yes      |
-| `startDate`   | `coerce.date()` | Must be in `YYYY-MM-DD` format.         | Optional |
+| `date`        | `coerce.date()` | Must be in `YYYY-MM-DD` format.         | Optional |
 | `endDate`     | `coerce.date()` | Must be in `YYYY-MM-DD` format.         | Optional |
 
 ## License

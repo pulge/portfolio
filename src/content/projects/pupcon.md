@@ -4,6 +4,6 @@ description: 'This is webiste of DMS and CMS combined, dedicated to help the fac
 tags: ['Web Development', 'Document Management System','Content Management System','Laravel', 'TypeScript', 'Tailwind', 'Sass']
 image: '../../../public/static/projects/pupcon.png'
 # link: ''
-startDate: '2025-02-06'
+date: '2025-02-06'
 # endDate: '2025-01-16'
 ---
