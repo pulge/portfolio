@@ -76,7 +76,7 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
           </div>
           <div class="text-muted-foreground mb-2 text-sm">
             This acts as my corner of the internet, something that represents
-            me. I'll make this site as close to my preference and personality as
+            me. I made this site as close to my preference and personality as
             possible. So, feel free to look around and get to know me better!
           </div>
           <div class="text-muted-foreground mb-2 text-sm">
@@ -257,8 +257,8 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                     />
                   </Link>
                   <div class="hidden h-full w-[70%] flex-col overflow-hidden sm:flex">
-                    <div class="flex min-w-0 flex-1 flex-col">
-                      <h3 class="mb-1 text-2xl font-bold">Latest Post</h3>
+                    <div class="flex min-w-0 flex-1 flex-col py-5">
+                      {/* <h3 class="mb-1 text-2xl font-bold">Latest Post</h3> */}
                       <Link href={`/blog/${latestPost.id}`} class="group/title">
                         <h3 class="text-foreground group-hover/title:text-primary mb-2 line-clamp-2 hidden text-lg font-semibold transition-colors sm:block sm:text-xl">
                           {latestPost.data.title}
