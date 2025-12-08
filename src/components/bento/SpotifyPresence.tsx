@@ -185,15 +185,15 @@ const SpotifyPresence = () => {
                 />
                 <div className="absolute bg-background/60 hover:bg-background/30 transition p-4 top-0 left-0 w-full flex min-h-0 flex-shrink-0 flex-col justify-end h-full">
                     <div className="mr-8 flex flex-col text-xs sm:text-sm">
-                        <span className="mb-2 flex items-center gap-2">
-                            <AudioLines size={16} className="text-primary hidden sm:block" />
-                            <span className="text-primary text-sm">
+                        <span className="mb-2 flex items-center gap-1">
+                            <AudioLines className="size-5 sm:size-5 text-primary" />
+                            <span className="text-primary text-sm truncate">
                                 {displayData['@attr']?.nowplaying === 'true'
                                     ? 'Now playing...'
                                     : 'Last played...'}
                             </span>
                         </span>
-                        <span className="text-md mb-2 line-clamp-2 leading-tight font-medium">
+                        <span className="text-md line-clamp-2 leading-tight font-medium">
                             {song}
                         </span>
                         <span className="text-muted-foreground line-clamp-1 text-xs ">
@@ -206,8 +206,8 @@ const SpotifyPresence = () => {
                     </div>
                 </div>
             </div>
-            <div className="text-primary absolute top-0 right-0 m-3 hidden sm:block">
-                <FaSpotify size={56} />
+            <div className="text-primary absolute top-0 right-0 m-3">
+                <FaSpotify className='size-10 sm:size-15' />
             </div>
             <a
                 href={url}
