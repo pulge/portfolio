@@ -85,7 +85,6 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
               href={SOCIAL_LINKS.find((link) => link.label === 'Inbox')
                 ?.href || '#'}
               class="text-foreground"
-              external
               underline>inbox</Link
             >.
           </div>
