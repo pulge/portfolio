@@ -40,7 +40,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   // },
   {
     href: '/inbox',
-    label: 'Email',
+    label: 'Inbox',
   },
   {
     href: 'https://www.instagram.com/_mark.rcn/',

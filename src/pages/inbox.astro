@@ -2,6 +2,9 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import PageHead from '@/components/PageHead.astro'
 import { buttonVariants } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import Layout from '@/layouts/Layout.astro'
 import { getAllProjects } from '@/lib/data-utils'
 
@@ -20,14 +23,22 @@ const projects = await getAllProjects()
         action="https://formspree.io/f/mkgdvrgw"
         method="POST"
       >
-        <textarea class="bg-white" name="message" placeholder="Send a message"
-        ></textarea>
+        <Label>name or contact</Label>
+        <Input className="bg-white" placeholder="optional" />
+        <Label className='mt-4'>message</Label>
+        <Textarea
+          className="bg-white"
+          name="message"
+          placeholder="tell me something I don't know..."
+          required
+          rows={4}
+        />
         <button
           class={buttonVariants({
             variant: 'static',
-            size: 'lg',
-          })}
-          type="submit">Send</button
+            size: 'sm',
+          }) + ' mt-2 self-end'}
+          type="submit">send</button
         >
       </form>
     </div>

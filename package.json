@@ -25,6 +25,7 @@
     "@iconify-json/lucide": "^1.2.77",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify/react": "^6.0.2",
+    "@radix-ui/react-label": "^2.1.8",
     "@tailwindcss/vite": "^4.0.7",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",

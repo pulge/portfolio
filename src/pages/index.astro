@@ -80,20 +80,14 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
             possible. So, feel free to look around and get to know me better!
           </div>
           <div class="text-muted-foreground mb-2 text-sm">
-            If I pique your interest, don’t hesitate to reach out, you can
+            If you have any suggestions or inquiries, don’t hesitate to drop a  
             <Link
-              href={SOCIAL_LINKS.find((link) => link.label === 'Instagram')
+              href={SOCIAL_LINKS.find((link) => link.label === 'Inbox')
                 ?.href || '#'}
               class="text-foreground"
               external
               underline>message</Link
-            >, <Link
-              href={SOCIAL_LINKS.find((link) => link.label === 'Email')?.href ||
-                '#'}
-              class="text-foreground"
-              external
-              underline>email</Link
-            >, and hire me!
+            >!
           </div>
 
           <!-- <p class="text-muted-foreground mb-2 text-sm">
@@ -278,7 +272,7 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                         ' group/link bg-foreground/70 text-background sm:text-foreground z-10 inline-flex items-center text-xs sm:bg-transparent sm:text-sm'
                       }
                     >
-                      See all posts
+                      see all posts
                       <span class="ml-1.5 transition-transform group-hover/link:translate-x-1">
                         &rarr;
                       </span>
@@ -290,7 +284,7 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                       aria-label={`Read latest blog post: ${latestPost.data.title}`}
                       class="bg-border/50 text-primary ring-ring group/btn relative z-10 flex items-center gap-1 rounded-full p-2 transition-all duration-300 hover:shadow-lg hover:ring-2 focus-visible:ring-2 sm:p-3"
                     >
-                      <p class="text-xs sm:hidden">Latest post</p>
+                      <p class="text-xs sm:hidden">latest post</p>
                       <Icon
                         name="lucide:move-up-right"
                         class="transition-transform duration-300 group-hover/btn:scale-110 group-hover/btn:rotate-12"
