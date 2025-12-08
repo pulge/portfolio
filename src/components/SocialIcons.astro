@@ -14,14 +14,14 @@ const { links } = Astro.props
 
 <ul class="flex flex-wrap gap-2" role="list">
   {
-    links.map(({ href, label }) => (
+    links.map(({ href, label, target }) => (
       <li>
         <Link
           href={href}
           aria-label={label}
           title={label}
           class={buttonVariants({ variant: 'outline', size: 'icon' })}
-          external
+          target={target}
         >
           <Icon
             name={
