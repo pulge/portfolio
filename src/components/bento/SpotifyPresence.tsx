@@ -163,9 +163,9 @@ const SpotifyPresence = () => {
                         </p>
                     </div>
                 </div>
-                <div className="text-foreground absolute top-0 right-0 m-3">
+                {/* <div className="text-foreground absolute top-0 right-0 m-3">
                     <FaSpotify size={56} />
-                </div>
+                </div> */}
             </div>
         )
     }
