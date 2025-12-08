@@ -39,7 +39,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   //   label: 'Twitter',
   // },
   {
-    href: 'mailto:fulguerinasmarkjason0311@gmail.com',
+    href: '/inbox',
     label: 'Email',
   },
   {

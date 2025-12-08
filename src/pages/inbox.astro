@@ -1,0 +1,23 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import PageHead from '@/components/PageHead.astro'
+import Layout from '@/layouts/Layout.astro'
+import { getAllProjects } from '@/lib/data-utils'
+
+const projects = await getAllProjects()
+---
+
+<Layout class="max-w-3xl">
+  <PageHead slot="head" title="projects" />
+  <!-- <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} /> -->
+
+  <section>
+    <div class="min-w-full">
+      <form action="https://formspree.io/f/mkgdvrgw" method="POST">
+        <textarea name="message" placeholder="Send me an anonymous message"
+        ></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+</Layout>
