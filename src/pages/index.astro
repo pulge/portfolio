@@ -80,14 +80,14 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
             possible. So, feel free to look around and get to know me better!
           </div>
           <div class="text-muted-foreground mb-2 text-sm">
-            If you have any suggestions or inquiries, don’t hesitate to drop a  
+            If you have any message, suggestions or inquiries, don’t hesitate to drop it in my  
             <Link
               href={SOCIAL_LINKS.find((link) => link.label === 'Inbox')
                 ?.href || '#'}
               class="text-foreground"
               external
-              underline>message</Link
-            >!
+              underline>inbox</Link
+            >.
           </div>
 
           <!-- <p class="text-muted-foreground mb-2 text-sm">
