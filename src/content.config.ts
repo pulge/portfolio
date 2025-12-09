@@ -46,4 +46,22 @@ const projects = defineCollection({
     }),
 })
 
-export const collections = { blog, authors, projects }
+const media = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/media' }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      title: z.string().optional(),
+      description: z
+        .string()
+        .max(
+          500,
+          'Description should be 500 characters or less for optimal Open Graph display.',
+        ),
+      image: image(),
+      date: z.coerce.date().optional(),
+      period: z.string().optional(),
+    }),
+})
+
+export const collections = { blog, authors, projects, media }

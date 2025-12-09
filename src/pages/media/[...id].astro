@@ -1,58 +1,58 @@
 ---
-import AuthorCard from '@/components/AuthorCard.astro'
-import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import PageHead from '@/components/PageHead.astro'
+import Container from '@/components/Container.astro'
+// import MusicPlayer from '@/components/MusicPlayer.tsx'
+import PhotoGallery from '@/components/PhotoGallery.astro'
+import ScrollTop from '@/components/ScrollTop.astro'
 import Layout from '@/layouts/Layout.astro'
-import { getAllAuthors, getPostsByAuthor } from '@/lib/data-utils'
+import { getAlbumImages } from '@/lib/media-utils'
+import { type CollectionEntry, getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
-  const authors = await getAllAuthors()
-  return authors.map((author) => ({
-    params: { id: author.id },
-    props: { author },
+  const photos = await getCollection('media')
+  return photos.map((collection) => ({
+    params: { id: collection.id },
+    props: collection,
   }))
 }
 
-const { author } = Astro.props
-const authorPosts = await getPostsByAuthor(author.id)
+type Props = CollectionEntry<'media'>
+const collection = Astro.props
+
+const galleryImages = await getAlbumImages(collection.id)
 ---
 
-<Layout class="max-w-3xl">
-  <PageHead
-    slot="head"
-    title={`${author.data.name} (Author)`}
-    description={author.data.bio || `Profile of ${author.data.name}.`}
-    noindex
-  />
-  <!-- <Breadcrumbs
-    items={[
-      { href: '/authors', label: 'Authors', icon: 'lucide:users' },
-      { label: author.data.name, icon: 'lucide:user' },
-    ]}
-  /> -->
+<Layout>
+  <!-- <MusicPlayer client:load id={collection.id} /> -->
+  <Container class="flex flex-col gap-y-6">
+    <section class="mx-auto">
+      <!-- <Breadcrumbs
+        items={[
+          { href: '/photos', label: 'Photos', icon: 'lucide:camera' },
+          { label: collection.data.name, icon: 'lucide:images' },
+        ]}
+        class="mb-8"
+      /> -->
 
-  <section>
-    <AuthorCard author={author} />
-  </section>
-  <section class="flex flex-col gap-y-4">
-    <h2 class="text-2xl font-medium">Posts by {author.data.name}</h2>
-    {
-      authorPosts.length > 0 ? (
-        <ul class="flex flex-col gap-4">
-          {authorPosts
-            .filter((post) => !post.data.draft)
-            .map((post) => (
-              <li>
-                <BlogCard entry={post} />
-              </li>
-            ))}
-        </ul>
-      ) : (
-        <p class="text-muted-foreground">
-          No posts available from this author.
-        </p>
-      )
-    }
-  </section>
+      <div class="mb-6 text-left">
+        <h1 class="mb-4 text-2xl font-bold">
+          {collection.data.title || collection.data.name}
+        </h1>
+        {
+          collection.data.description && (
+            <p class="text-muted-foreground text-base">
+              {collection.data.description}
+            </p>
+          )
+        }
+      </div>
+
+      <PhotoGallery
+        name={collection.data.name}
+        images={galleryImages}
+        id={collection.id}
+      />
+      <ScrollTop />
+    </section>
+  </Container>
 </Layout>

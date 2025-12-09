@@ -1,43 +1,33 @@
 ---
-import AuthorCard from '@/components/AuthorCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Container from '@/components/Container.astro'
 import PageHead from '@/components/PageHead.astro'
+import PhotoCollection from '@/components/PhotoCollection.astro'
 import Layout from '@/layouts/Layout.astro'
-import { getAllAuthors } from '@/lib/data-utils'
+import { getCollection } from 'astro:content'
 
-const authors = await getAllAuthors()
+const photoCollections = await getCollection('media')
+// Sort collections by date (newest first)
+const sortedPhotoCollections = photoCollections.sort((a, b) => {
+  // Convert dates to timestamps or use 0 if date is invalid
+  const dateA = a.data.date ? new Date(a.data.date).getTime() : 0
+  const dateB = b.data.date ? new Date(b.data.date).getTime() : 0
+  return dateB - dateA
+})
 ---
 
-<Layout class="max-w-3xl">
-  <PageHead slot="head" title="authors" />
-  <!-- <Breadcrumbs items={[{ label: 'Authors', icon: 'lucide:users' }]} /> -->
-  <!-- {
-    authors.length > 0 ? (
-      <ul class="flex flex-col gap-4">
-        {authors.map((author) => (
-          <li>
-            <AuthorCard author={author} />
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p class="text-muted-foreground text-center">No authors found.</p>
-    )
-  } -->
-
-  <section>
-    <div class="min-w-full">
-      <!-- <h1 class="mb-1 text-2xl font-bold">Media</h1> -->
-      <div class="prose mb-8">
-        <p>
-          I'm no multimedia artist, but I do enjoy creating, and simple editing
-          as a hobby. Thought it would be better that some of my creations
+<Layout>
+  <PageHead slot="head" title="media" />
+  <Container class="flex flex-col gap-y-6">
+    <!-- <Breadcrumbs items={[{ label: 'Photos', icon: 'lucide:camera' }]} /> -->
+    <section>
+      <div class="min-w-full">
+        <p class="prose mb-8">
+          I'm no multimedia artist or photographer, but I do enjoy creating, simple editing, or taking pictures of places or events I have been as a hobby. Thought it would be better that some of these images
           reside somewhere they could be seen.
         </p>
-      </div>
-
-      <div class="my-4 flex flex-col gap-y-4">
-        <!-- {
+        <div class="my-4 flex flex-col gap-y-4">
+          {
             sortedPhotoCollections.length > 0 ? (
               <ul class="not-prose flex flex-col gap-y-4">
                 {sortedPhotoCollections.map((collection) => (
@@ -47,12 +37,13 @@ const authors = await getAllAuthors()
                 ))}
               </ul>
             ) : (
-              <p class="flex h-64 items-center justify-center text-muted-foreground">
+              <p class="text-muted-foreground flex h-64 items-center justify-center">
                 No photos found.
               </p>
             )
-          } -->
+          }
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </Container>
 </Layout>
