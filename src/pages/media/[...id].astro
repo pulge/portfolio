@@ -41,8 +41,11 @@ const galleryImages = await getAlbumImages(collection.id)
         </h1>
         {
           collection.data.description && (
-            <p class="text-muted-foreground text-base">
+            <p class="text-muted-foreground text-base indent-8 text-justify">
               {collection.data.description}
+            </p>
+             <p class="text-muted-foreground text-base indent-8 mt-2 text-justify">
+              {collection.data.remarks}
             </p>
           )
         }

@@ -55,9 +55,11 @@ const media = defineCollection({
       description: z
         .string()
         .max(
-          500,
-          'Description should be 500 characters or less for optimal Open Graph display.',
+          300,
+          'Description should be 200 characters or less for optimal Open Graph display.',
         ),
+      remarks: z
+        .string().optional(),
       image: image(),
       date: z.coerce.date().optional(),
       period: z.string().optional(),
