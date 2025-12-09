@@ -7,18 +7,16 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import Layout from '@/layouts/Layout.astro'
 ---
+
 <Layout class="max-w-3xl">
   <PageHead slot="head" title="projects" />
   <!-- <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} /> -->
   <section>
     <div class="min-w-full">
-      <h1></h1>
-      <form
-        id="contact-form"
-        class="flex flex-col gap-2"
-      >
+      <form id="contact-form" class="flex flex-col gap-2">
         <Label>name or contact</Label>
         <Input name="name" className="bg-white" placeholder="(optional)" />
+
         <Label className="mt-4">message</Label>
         <Textarea
           className="bg-white"
@@ -27,25 +25,30 @@ import Layout from '@/layouts/Layout.astro'
           required
           rows={8}
         />
-        <button
-          id="submit-btn"
-          class={buttonVariants({
-            variant: 'static',
-            size: 'sm',
-          }) + ' mt-2 self-end'}
-          type="submit">send</button
-        >
+        <div class="flex justify-between">
+          <p class="text-xs whitespace-nowrap text-gray-500">
+            note: messages will be received anonymously
+          </p>
+          <button
+            id="submit-btn"
+            class={buttonVariants({
+              variant: 'static',
+              size: 'sm',
+            }) + ' mt-2 self-end'}
+            type="submit">send</button
+          >
+        </div>
       </form>
     </div>
   </section>
 
   <!-- Toast Notification -->
-  <div 
-    id="toast" 
-    class="fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform translate-x-[400px] transition-transform duration-300 z-50"
+  <div
+    id="toast"
+    class="fixed top-4 right-4 z-50 translate-x-[400px] transform rounded-lg px-6 py-3 shadow-lg transition-transform duration-300"
   >
     <p id="toast-message" class="text-white"></p>
   </div>
 </Layout>
 
-<script src="@/script/contact-form.js"/>
+<script src="@/script/contact-form.js"></script>
