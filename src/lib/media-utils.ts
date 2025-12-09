@@ -6,7 +6,7 @@ import { readFile } from 'node:fs/promises'
 import type { ImageMetadata } from 'astro'
 
 export interface FullSizeImage extends ImageMetadata {
-  src: string
+  src: string | ImageMetadata
   hash: string
   width: number
   height: number
@@ -22,30 +22,46 @@ export async function getFullSizeImages(
   return await Promise.all(
     images.map(async (img, index) => {
       try {
-        // Extract filename from the src path
-        const fileName = img.src.split('/').pop() || ''
+        // Get the source path for file operations
+        let srcPath = ''
+        if (typeof img === 'string') {
+          srcPath = img
+        } else if (typeof img.src === 'string') {
+          srcPath = img.src
+        } else if (img.src && typeof img.src === 'object' && 'src' in img.src) {
+          srcPath = img.src.src
+        }
+        
+        const fileName = srcPath.split('/').pop()?.split('?')[0] || ''
         const hash = fileName.split('.')[0] || `${albumId}-${index}`
         
         console.log(`[getFullSizeImages] Image ${index}:`)
-        console.log(`  - src: ${img.src}`)
+        console.log(`  - srcPath: ${srcPath}`)
         console.log(`  - fileName: ${fileName}`)
         console.log(`  - hash: ${hash}`)
         
-        // Convert to absolute filesystem path for reading
-        const root = fileURLToPath(new URL('../../', import.meta.url))
-        // img.src is like "/src/content/media/blender/kitchen-3.png"
-        const relativePath = img.src.startsWith('/src/') ? img.src.slice(5) : img.src.slice(1)
-        const imagePath = path.join(root, 'src', relativePath)
-        
-        console.log(`  - filesystem path: ${imagePath}`)
-        
-        let width = img.width
-        let height = img.height
+        let width = img.width || 800
+        let height = img.height || 600
         let blurDataUrl = ''
         
         try {
+          // Convert to absolute filesystem path for reading
+          const root = fileURLToPath(new URL('../../', import.meta.url))
+          
+          // Clean up the path - remove query params and /@fs/ prefix
+          let cleanPath = srcPath.split('?')[0]
+          if (cleanPath.includes('/@fs/')) {
+            cleanPath = cleanPath.split('/@fs/')[1]
+          } else if (cleanPath.startsWith('/src/')) {
+            cleanPath = path.join(root, cleanPath.slice(1))
+          } else if (cleanPath.startsWith('/')) {
+            cleanPath = path.join(root, 'src', cleanPath.slice(1))
+          }
+          
+          console.log(`  - filesystem path: ${cleanPath}`)
+          
           // Read file and get actual dimensions
-          const buffer = await readFile(imagePath)
+          const buffer = await readFile(cleanPath)
           const sharpImg = sharp(buffer)
           const metadata = await sharpImg.metadata()
           
@@ -69,7 +85,7 @@ export async function getFullSizeImages(
         
         return {
           ...img,
-          src: img.src, // Keep the /src path for Astro's Image component
+          src: img, // Pass the entire image object as src
           width,
           height,
           hash,
@@ -77,13 +93,12 @@ export async function getFullSizeImages(
         }
       } catch (error) {
         console.error(`[getFullSizeImages] Error processing image ${index}:`, error)
-        // Return a fallback instead of throwing
         return {
           ...img,
-          src: img.src,
+          src: img,
           hash: `${albumId}-${index}`,
-          width: img.width,
-          height: img.height,
+          width: img.width || 800,
+          height: img.height || 600,
           blurDataUrl: '',
         }
       }
@@ -139,23 +154,22 @@ export function getAlbums(): string[] {
   return [...albums]
 }
 
+// Type for the glob import result
+type ImageImport = () => Promise<{ default: ImageMetadata }>
+
 export async function getAlbumImages(albumId: string): Promise<ImageMetadata[]> {
   console.log(`[getAlbumImages] Loading images for album: ${albumId}`)
   
   try {
-    // Load all images from the album directory
-    const files = import.meta.glob<ImageMetadata>(
-      '/src/content/media/**/*.{webp,png,jpg,jpeg}',
-      {
-        eager: true,
-        import: 'default',
-      }
+    // Load all images from the album directory as dynamic imports
+    const imageImports = import.meta.glob<ImageImport>(
+      '/src/content/media/**/*.{webp,png,jpg,jpeg}'
     )
     
-    console.log(`[getAlbumImages] Total files scanned: ${Object.keys(files).length}`)
+    console.log(`[getAlbumImages] Total files scanned: ${Object.keys(imageImports).length}`)
     
-    // Filter images for this specific album, excluding banner
-    const images = Object.entries(files)
+    // Filter and load images for this specific album
+    const imagePromises = Object.entries(imageImports)
       .filter(([path]) => {
         const inAlbum = path.includes(`/media/${albumId}/`)
         const isBanner = path.match(/banner\.(webp|png|jpg|jpeg)$/i)
@@ -166,17 +180,13 @@ export async function getAlbumImages(albumId: string): Promise<ImageMetadata[]> 
         
         return inAlbum && !isBanner
       })
-      .map(([path, metadata]) => {
-        // Keep the full path starting with /src for Astro's Image component
-        console.log(`[getAlbumImages] Image path: ${path}`)
-        
-        return {
-          ...metadata,
-          src: path, // Keep the full /src path for Astro Image component
-          width: metadata.width || 800,
-          height: metadata.height || 600,
-        } as ImageMetadata
+      .map(async ([path, importFn]) => {
+        const module = await importFn()
+        console.log(`[getAlbumImages] Loaded image from ${path}`)
+        return module.default
       })
+    
+    const images = await Promise.all(imagePromises)
     
     console.log(`[getAlbumImages] Total images for ${albumId}: ${images.length}`)
     
@@ -194,9 +204,7 @@ export async function getPhotoCount(albumId: string): Promise<number> {
   console.log(`[getPhotoCount] Counting photos for album: ${albumId}`)
   
   try {
-    const files = import.meta.glob('/src/content/media/**/*.{webp,png,jpg,jpeg}', {
-      eager: true,
-    })
+    const files = import.meta.glob('/src/content/media/**/*.{webp,png,jpg,jpeg}')
     
     const count = Object.keys(files).filter((path) => {
       const inAlbum = path.includes(`/media/${albumId}/`)

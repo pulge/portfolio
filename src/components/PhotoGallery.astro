@@ -22,15 +22,16 @@ const optimizedImages = await Promise.all(
   images.map(async (img) => {
     try {
       const optimized = await getImage({ 
-        src: img.src,
+        src: img, // Pass the entire image object
         format: 'webp',
         quality: 90
       })
-      console.log(`[PhotoGallery] Optimized image: ${img.src} -> ${optimized.src}`)
+      console.log(`[PhotoGallery] Optimized image -> ${optimized.src}`)
       return optimized.src
     } catch (error) {
-      console.error(`[PhotoGallery] Error optimizing image ${img.src}:`, error)
-      return img.src
+      console.error(`[PhotoGallery] Error optimizing image:`, error)
+      // Fallback to the original image object
+      return typeof img === 'string' ? img : img.src
     }
   })
 )
@@ -44,13 +45,13 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
       images.map((image, index) => {
         const fullImage = fullSizeImages[index]
         const optimizedSrc = optimizedImages[index]
-        console.log(`[PhotoGallery] Rendering image ${index}: ${image.src} -> ${optimizedSrc}`)
+        console.log(`[PhotoGallery] Rendering image ${index}`)
         
         return (
           <div class="relative mb-5 break-inside-avoid sm:mb-2">
             <Image
-              src={image.src}
-              alt={`Photo ${index + 1} from my trip to ${name}`}
+              src={image}
+              alt={`Photo ${index + 1} from ${name}`}
               loading={index < 15 ? 'eager' : 'lazy'}
               decoding={index < 15 ? 'sync' : 'async'}
               class="gallery-item gallery-image cursor-pointer transition-opacity hover:opacity-90"
@@ -61,10 +62,8 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
               data-fullheight={fullImage.height}
               data-placeholder={fullImage.blurDataUrl}
               data-hash={fullImage.hash}
-              width={image.width}
-              height={image.height}
-              widths={[360, 720, 1200, image.width]}
-              sizes={`(max-width: 360px) 360px, (max-width: 720px) 720px, (max-width: 1200px) 1200px, ${image.width}px`}
+              widths={[360, 720, 1200]}
+              sizes={`(max-width: 360px) 360px, (max-width: 720px) 720px, 1200px`}
             />
           </div>
         )
@@ -100,7 +99,7 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
               <img
                 id={image.hash}
                 src={image.blurDataUrl}
-                alt={`Placeholder for photo ${index + 1} from my trip to ${name}`}
+                alt={`Placeholder for photo ${index + 1} from ${name}`}
                 class="gallery-placeholder hidden"
                 width={image.width}
                 height={image.height}
