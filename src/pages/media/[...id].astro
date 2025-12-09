@@ -4,7 +4,6 @@ import Container from '@/components/Container.astro'
 import PageHead from '@/components/PageHead.astro'
 // import MusicPlayer from '@/components/MusicPlayer.tsx'
 import PhotoGallery from '@/components/PhotoGallery.astro'
-import ScrollTop from '@/components/ScrollTop.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getAlbumImages } from '@/lib/media-utils'
 import { type CollectionEntry, getCollection } from 'astro:content'
@@ -54,7 +53,6 @@ const galleryImages = await getAlbumImages(collection.id)
         images={galleryImages}
         id={collection.id}
       />
-      <ScrollTop />
     </section>
   </Container>
 </Layout>
