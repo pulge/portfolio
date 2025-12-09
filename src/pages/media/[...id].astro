@@ -1,6 +1,7 @@
 ---
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
+import PageHead from '@/components/PageHead.astro'
 // import MusicPlayer from '@/components/MusicPlayer.tsx'
 import PhotoGallery from '@/components/PhotoGallery.astro'
 import ScrollTop from '@/components/ScrollTop.astro'
@@ -24,6 +25,7 @@ const galleryImages = await getAlbumImages(collection.id)
 
 <Layout>
   <!-- <MusicPlayer client:load id={collection.id} /> -->
+  <PageHead slot="head" title={collection.data.title || collection.data.name} />
   <Container class="flex flex-col gap-y-6">
     <section class="mx-auto">
       <!-- <Breadcrumbs

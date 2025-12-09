@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url'
 import { readFile } from 'node:fs/promises'
 import type { ImageMetadata } from 'astro'
 
-export interface FullSizeImage extends ImageMetadata {
-  src: string | ImageMetadata
+export interface FullSizeImage {
+  src: ImageMetadata
   hash: string
   width: number
   height: number
@@ -24,12 +24,16 @@ export async function getFullSizeImages(
       try {
         // Get the source path for file operations
         let srcPath = ''
+        
+        // Handle different possible structures of img
         if (typeof img === 'string') {
           srcPath = img
-        } else if (typeof img.src === 'string') {
-          srcPath = img.src
-        } else if (img.src && typeof img.src === 'object' && 'src' in img.src) {
-          srcPath = img.src.src
+        } else if (img && typeof img === 'object') {
+          if (typeof img.src === 'string') {
+            srcPath = img.src
+          } else if (img.src && typeof img.src === 'object' && 'src' in img.src) {
+            srcPath = (img.src as any).src
+          }
         }
         
         const fileName = srcPath.split('/').pop()?.split('?')[0] || ''
@@ -40,8 +44,8 @@ export async function getFullSizeImages(
         console.log(`  - fileName: ${fileName}`)
         console.log(`  - hash: ${hash}`)
         
-        let width = img.width || 800
-        let height = img.height || 600
+        let width = (img as any).width || 800
+        let height = (img as any).height || 600
         let blurDataUrl = ''
         
         try {
@@ -84,7 +88,6 @@ export async function getFullSizeImages(
         }
         
         return {
-          ...img,
           src: img, // Pass the entire image object as src
           width,
           height,
@@ -94,11 +97,10 @@ export async function getFullSizeImages(
       } catch (error) {
         console.error(`[getFullSizeImages] Error processing image ${index}:`, error)
         return {
-          ...img,
           src: img,
           hash: `${albumId}-${index}`,
-          width: img.width || 800,
-          height: img.height || 600,
+          width: (img as any).width || 800,
+          height: (img as any).height || 600,
           blurDataUrl: '',
         }
       }
@@ -154,15 +156,12 @@ export function getAlbums(): string[] {
   return [...albums]
 }
 
-// Type for the glob import result
-type ImageImport = () => Promise<{ default: ImageMetadata }>
-
 export async function getAlbumImages(albumId: string): Promise<ImageMetadata[]> {
   console.log(`[getAlbumImages] Loading images for album: ${albumId}`)
   
   try {
     // Load all images from the album directory as dynamic imports
-    const imageImports = import.meta.glob<ImageImport>(
+    const imageImports = import.meta.glob(
       '/src/content/media/**/*.{webp,png,jpg,jpeg}'
     )
     
@@ -181,9 +180,9 @@ export async function getAlbumImages(albumId: string): Promise<ImageMetadata[]> 
         return inAlbum && !isBanner
       })
       .map(async ([path, importFn]) => {
-        const module = await importFn()
+        const module = await importFn() as any
         console.log(`[getAlbumImages] Loaded image from ${path}`)
-        return module.default
+        return module.default as ImageMetadata
       })
     
     const images = await Promise.all(imagePromises)
