@@ -18,8 +18,8 @@ export const NAV_LINKS = [
     icon: 'lucide:newspaper',
   },
   {
-    href: '/projects',
-    label: 'projects',
+    href: '/coding',
+    label: 'coding',
     icon: 'lucide:folder',
   },
   {

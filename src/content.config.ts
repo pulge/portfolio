@@ -33,7 +33,7 @@ const authors = defineCollection({
 })
 
 const projects = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/coding' }),
   schema: ({ image }) =>
     z.object({
       name: z.string(),

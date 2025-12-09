@@ -16,37 +16,37 @@ const sortedPhotoCollections = photoCollections.sort((a, b) => {
 })
 ---
 
-<Layout>
+<Layout class="max-w-3xl">
   <PageHead slot="head" title="media" />
-  <Container class="flex flex-col gap-y-6">
-    <!-- <Breadcrumbs items={[{ label: 'Photos', icon: 'lucide:camera' }]} /> -->
-    <section>
-      <div class="min-w-full">
-        <p class="prose mb-8">
-          I'm no multimedia artist or photographer, but I do enjoy creating,
-          simple editing, or taking pictures of places or events I have been as
-          a hobby. Thought it would be better that some of these images reside
-          somewhere they could be seen.
-        </p>
+  <!-- <Container class="flex flex-col gap-y-6"> -->
+  <!-- <Breadcrumbs items={[{ label: 'Photos', icon: 'lucide:camera' }]} /> -->
+  <section>
+    <div class="min-w-full">
+      <p class="prose mb-8">
+        I'm no multimedia artist or photographer, but I do enjoy creating,
+        simple editing, or taking pictures of places or events I have been as a
+        hobby. Thought it would be better that some of these images reside
+        somewhere they could be seen.
+      </p>
 
-        <div class="my-4 flex flex-col gap-y-4">
-          {
-            sortedPhotoCollections.length > 0 ? (
-              <ul class="not-prose flex flex-col gap-y-4">
-                {sortedPhotoCollections.map((collection) => (
-                  <li>
-                    <PhotoCollection collection={collection} />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p class="text-muted-foreground flex h-64 items-center justify-center">
-                No photos found.
-              </p>
-            )
-          }
-        </div>
+      <div class="my-4 flex flex-col gap-y-4">
+        {
+          sortedPhotoCollections.length > 0 ? (
+            <ul class="not-prose flex flex-col gap-y-4">
+              {sortedPhotoCollections.map((collection) => (
+                <li>
+                  <PhotoCollection collection={collection} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="text-muted-foreground flex h-64 items-center justify-center">
+              No photos found.
+            </p>
+          )
+        }
       </div>
-    </section>
-  </Container>
+    </div>
+  </section>
+  <!-- </Container> -->
 </Layout>
