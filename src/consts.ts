@@ -14,7 +14,7 @@ export const SITE: Site = {
 export const NAV_LINKS = [
   {
     href: '/blog',
-    label: 'blog',
+    label: 'articles',
     icon: 'lucide:newspaper',
   },
   {
