@@ -28,13 +28,13 @@ export async function getAllPosts(): Promise<
   const posts = await getCollection('blog')
   const coding = await getCollection('coding')
   const media = await getCollection('media')
-  
+
   const allEntries: Array<CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>> = [
     ...posts.filter((post) => !post.data.draft && !isSubpost(post.id)),
     ...coding,
     ...media,
   ]
-  
+
   return allEntries.sort((a, b) => {
     // Use a helper to extract dates safely
     const getDate = (entry: typeof a): Date => {
@@ -47,12 +47,40 @@ export async function getAllPosts(): Promise<
       }
       return new Date(0)
     }
-    
+
     const dateA = getDate(a)
     const dateB = getDate(b)
-    
+
     return dateB.valueOf() - dateA.valueOf()
   })
+}
+
+export function getEntryDate(
+  entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>
+): Date {
+  if (entry.collection === 'blog') {
+    return entry.data.date
+  } else if (entry.collection === 'coding') {
+    return entry.data.startDate || new Date(0)
+  } else if (entry.collection === 'media') {
+    return entry.data.date || new Date(0)
+  }
+  return new Date(0)
+}
+
+export function getEntryTitle(
+  entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>
+): string {
+  return entry.data.title || 'Untitled'
+}
+
+export function getEntryHref(
+  entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>
+): string {
+  if (entry.collection === 'coding') {
+    return '/coding'
+  }
+  return `/${entry.collection}/${entry.id}`
 }
 
 export async function getAllBlogs(): Promise<CollectionEntry<'blog'>[]> {
@@ -213,7 +241,7 @@ export function groupPostsByYear(
   return posts.reduce(
     (acc: Record<string, CollectionEntry<'blog'>[]>, post) => {
       const year = post.data.date.getFullYear().toString()
-      ;(acc[year] ??= []).push(post)
+        ; (acc[year] ??= []).push(post)
       return acc
     },
     {},
