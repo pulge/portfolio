@@ -193,7 +193,7 @@ const SpotifyPresence = () => {
                                     : 'Last played'}
                             </span>
                         </span>
-                        <span className="text-md line-clamp-2 leading-tight font-medium">
+                        <span className="text-md leading-tight font-medium truncate">
                             {song}
                         </span>
                         <span className="text-muted-foreground line-clamp-1 text-xs ">
