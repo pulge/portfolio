@@ -31,9 +31,9 @@ const currentPath = Astro.url.pathname
             let isActive = currentPath === item.href || currentPath.startsWith(item.href + '/')
             
             // Special case: highlight blog when on tags page
-            if (item.href === '/blog' && currentPath.startsWith('/tags')) {
-              isActive = true
-            }
+            // if (item.href === '/blog' && currentPath.startsWith('/tags')) {
+            //   isActive = true
+            // }
             
             return (
               <Link
