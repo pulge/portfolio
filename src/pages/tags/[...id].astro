@@ -36,7 +36,7 @@ const { tag, posts } = Astro.props
     noindex
   />
 
-  <div class="flex w-full items-center justify-between">
+  <div class="flex w-full flex-col items-center justify-between">
     <div class="mb-2 text-3xl font-semibold">
       {tag}
     </div>
@@ -69,4 +69,17 @@ const { tag, posts } = Astro.props
       ))
     }
   </ul>
+
+  <div class="text-right">
+    <Link
+      href="/tags"
+      class={buttonVariants({ variant: 'ghost', size: 'sm' }) +
+        ' group/link relative z-10 text-xs sm:text-sm'}
+    >
+      back to all tags
+      <span class="ml-1.5 transition-transform group-hover/link:translate-x-1">
+        &rarr;
+      </span>
+    </Link>
+  </div>
 </Layout>
