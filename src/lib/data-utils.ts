@@ -6,19 +6,22 @@ export async function getAllAuthors(): Promise<CollectionEntry<'authors'>[]> {
 }
 
 // Type guard helpers
-function hasDate(entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>): entry is CollectionEntry<'blog'> | CollectionEntry<'media'> {
+function hasDate(
+  entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>
+): entry is CollectionEntry<'blog'> | (CollectionEntry<'media'> & { data: { date: Date } }) {
   return 'date' in entry.data && entry.data.date !== undefined
 }
 
-function hasStartDate(entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>): entry is CollectionEntry<'coding'> {
-  return 'startDate' in entry.data
+function hasStartDate(
+  entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>
+): entry is CollectionEntry<'coding'> & { data: { startDate: Date } } {
+  return 'startDate' in entry.data && entry.data.startDate !== undefined
 }
 
 function hasTags(entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>): entry is CollectionEntry<'blog'> | CollectionEntry<'coding'> {
   return 'tags' in entry.data && Array.isArray(entry.data.tags)
 }
 
-// Fixed getAllPosts with proper type handling
 export async function getAllPosts(): Promise<
   Array<CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>>
 > {
@@ -33,24 +36,20 @@ export async function getAllPosts(): Promise<
   ]
   
   return allEntries.sort((a, b) => {
-    let dateA: Date
-    let dateB: Date
-    
-    if (hasDate(a)) {
-      dateA = a.data.date
-    } else if (hasStartDate(a) && a.data.startDate) {
-      dateA = a.data.startDate
-    } else {
-      dateA = new Date(0)
+    // Use a helper to extract dates safely
+    const getDate = (entry: typeof a): Date => {
+      if (entry.collection === 'blog') {
+        return entry.data.date
+      } else if (entry.collection === 'coding') {
+        return entry.data.startDate || new Date(0)
+      } else if (entry.collection === 'media') {
+        return entry.data.date || new Date(0)
+      }
+      return new Date(0)
     }
     
-    if (hasDate(b)) {
-      dateB = b.data.date
-    } else if (hasStartDate(b) && b.data.startDate) {
-      dateB = b.data.startDate
-    } else {
-      dateB = new Date(0)
-    }
+    const dateA = getDate(a)
+    const dateB = getDate(b)
     
     return dateB.valueOf() - dateA.valueOf()
   })
