@@ -30,7 +30,7 @@ const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
 >
   <Link
     href={`/${entry.collection}/${entry.id}`}
-    class="flex flex-col gap-4 sm:flex-row"
+    class="group flex flex-col gap-4 sm:flex-row"
   >
     {
       entry.data.image && (
@@ -40,7 +40,7 @@ const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
             alt={entry.data.title}
             width={1200}
             height={630}
-            class="object-cover"
+            class="object-cover h-full grayscale transition-all duration-300 group-hover:grayscale-0"
           />
         </div>
       )

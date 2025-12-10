@@ -109,11 +109,14 @@ export async function getAllCoding(): Promise<CollectionEntry<'coding'>[]> {
 }
 
 export async function getAllTags(): Promise<Map<string, number>> {
-  const posts = await getAllBlogs()
+  const posts = await getAllPosts()
   return posts.reduce((acc, post) => {
-    post.data.tags?.forEach((tag) => {
-      acc.set(tag, (acc.get(tag) || 0) + 1)
-    })
+    // Only blog and coding have tags, media does not
+    if (post.collection === 'blog' || post.collection === 'coding') {
+      post.data.tags?.forEach((tag) => {
+        acc.set(tag, (acc.get(tag) || 0) + 1)
+      })
+    }
     return acc
   }, new Map<string, number>())
 }
@@ -186,9 +189,15 @@ export async function getPostsByAuthor(
 
 export async function getPostsByTag(
   tag: string,
-): Promise<CollectionEntry<'blog'>[]> {
-  const posts = await getAllBlogs()
-  return posts.filter((post) => post.data.tags?.includes(tag))
+): Promise<Array<CollectionEntry<'blog'> | CollectionEntry<'coding'>>> {
+  const posts = await getAllPosts()
+  return posts.filter((post): post is CollectionEntry<'blog'> | CollectionEntry<'coding'> => {
+    // Only blog and coding have tags
+    if (post.collection === 'blog' || post.collection === 'coding') {
+      return post.data.tags?.includes(tag) ?? false
+    }
+    return false
+  })
 }
 
 export async function getRecentPosts(

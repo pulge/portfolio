@@ -228,14 +228,14 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                   </div>
                   <div class="border-border/50 absolute top-0 right-0 z-10 flex h-full w-full flex-row flex-row-reverse items-center justify-evenly py-3 sm:top-0 sm:right-3 sm:right-5 sm:bottom-6 sm:flex-col sm:items-end sm:justify-between sm:px-0">
                     <Link
-                      href={`/${latestPost.collection}`}
+                      href={`/tags`}
                       class={
                         'sm:' +
                         buttonVariants({ variant: 'ghost', size: 'sm' }) +
                         ' group/link bg-foreground/70 text-background sm:text-foreground z-10 inline-flex items-center text-xs sm:bg-transparent sm:text-sm'
                       }
                     >
-                      see all {`${latestPost.collection}`}
+                      see all tags
                       <span class="ml-1.5 transition-transform group-hover/link:translate-x-1">
                         &rarr;
                       </span>
@@ -247,8 +247,6 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                           ? `/${latestPost.collection}`
                           : `/${latestPost.collection}/${latestPost.id}`
                       }
-                      title={`Read latest blog post: ${latestPost.data.title}`}
-                      aria-label={`Read latest blog post: ${latestPost.data.title}`}
                       class="bg-border/50 text-primary ring-ring group/btn relative z-10 flex items-center gap-1 rounded-full p-2 transition-all duration-300 hover:shadow-lg hover:ring-2 focus-visible:ring-2 sm:p-3"
                     >
                       <p class="text-xs sm:hidden">latest post</p>
