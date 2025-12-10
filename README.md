@@ -25,3 +25,7 @@ This is a list of the various technologies used to build this template:
 | Codeblocks | [Expressive Code](https://expressive-code.com/), [Shiki](https://github.com/shikijs/shiki) |
 | Graphics   | [Figma](https://www.figma.com/)                                                            |
 | Deployment | [Vercel](https://vercel.com)                                                               |
+
+---
+
+Template by [enscribe](https://enscribe.dev)! &hearts;
