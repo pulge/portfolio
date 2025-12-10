@@ -7,7 +7,7 @@ import { buttonVariants } from '@/components/ui/button'
 import PaginationComponent from '@/components/ui/pagination'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
-import { getAllBlogs, getAllPosts, groupPostsByYear } from '@/lib/data-utils'
+import { getAllBlogs, groupPostsByYear } from '@/lib/data-utils'
 import type { PaginateFunction } from 'astro'
 import { Icon } from 'astro-icon/components'
 
@@ -34,6 +34,12 @@ const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
       { label: `Page ${page.currentPage}`, icon: 'lucide:book-copy' },
     ]}
   /> -->
+
+  <div class="min-w-full">
+    <p class="prose mb-8">
+      This is where I schowcase my progress in technical writing, and writing in general.
+    </p>
+  </div>
 
   <div class="flex min-h-[calc(100vh-18rem)] flex-col gap-y-8">
     {
@@ -66,10 +72,14 @@ const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
     </Link>
   </div> -->
 
-  <PaginationComponent
-    currentPage={page.currentPage}
-    totalPages={page.lastPage}
-    baseUrl="/blog/"
-    client:load
-  />
+  {
+    years.length > 0 && (
+      <PaginationComponent
+        currentPage={page.currentPage}
+        totalPages={page.lastPage}
+        baseUrl="/blog/"
+        client:load
+      />
+    )
+  }
 </Layout>

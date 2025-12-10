@@ -41,20 +41,20 @@ const { tag, posts } = Astro.props
     <div class="mb-2 text-3xl font-semibold">
       {tag}
     </div>
-    <!-- <div class="text-right">
+    <div class="w-full text-right">
       <Link
         href="/tags"
         class={buttonVariants({ variant: 'ghost', size: 'sm' }) +
           ' group/link relative z-10 text-xs sm:text-sm'}
       >
-        back to all tags
+        all tags
         <span
           class="ml-1.5 transition-transform group-hover/link:translate-x-1"
         >
           &rarr;
         </span>
       </Link>
-    </div> -->
+    </div>
   </div>
 
   <ul class="flex flex-col gap-y-4">
@@ -72,17 +72,4 @@ const { tag, posts } = Astro.props
       ))
     }
   </ul>
-
-  <div class="text-right">
-    <Link
-      href="/tags"
-      class={buttonVariants({ variant: 'ghost', size: 'sm' }) +
-        ' group/link relative z-10 text-xs sm:text-sm'}
-    >
-      back to all tags
-      <span class="ml-1.5 transition-transform group-hover/link:translate-x-1">
-        &rarr;
-      </span>
-    </Link>
-  </div>
 </Layout>
