@@ -1,49 +1,3 @@
-![Showcase Card](/public/static/twitter-card.png)
-
-<div align="center">
-
-## astro-erudite
-
-![Stargazers]
-[![License]](LICENSE)
-
-</div>
-
-astro-erudite is an opinionated, unstyled static blogging template built with [Astro](https://astro.build/), [Tailwind](https://tailwindcss.com/), and [shadcn/ui](https://ui.shadcn.com/). Extraordinarily loosely based off the [Astro Micro](https://astro-micro.vercel.app/) theme by [trevortylerlee](https://github.com/trevortylerlee).
-
-| ![Preview 1](/public/static/preview-1.png) | ![Preview 2](/public/static/preview-2.png) |
-| ------------------------------------------ | ------------------------------------------ |
-| ![Preview 3](/public/static/preview-3.png) | ![Preview 4](/public/static/preview-4.png) |
-
-> [!NOTE]
-> To learn more about why this template exists, read [The State of Static Blogs in 2024](https://astro-erudite.vercel.app/blog/the-state-of-static-blogs), where I share my take on what constitutes a great blogging template and my goals while developing this one.
-
----
-
-## Community Examples
-
-Below are some fantastic examples of websites based on this template. If you wish to add your site to this list, open a pull request!
-
-| Site                                                 | Author                                                 | Description/Features                                                                                                                                      | Source                                                  |
-| ---------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| [enscribe.dev](https://enscribe.dev)                 | [@jktrn](https://github.com/jktrn)                     | Heavily modified bento-style homepage with client interactivity, with custom MDX components!                                                              | [→](https://github.com/jktrn/enscribe.dev)              |
-| [emile.sh](https://emile.sh)                         | [@echoghi](https://github.com/echoghi)                 | A minimalist personal blog using the [flexoki](https://stephango.com/flexoki) theme                                                                       | [→](https://github.com/echoghi/v5)                      |
-| [decentparadox.me](https://decentparadox.me)         | [@decentparadox](https://github.com/decentparadox)     | A heavily customized personal portfolio with a sci-fi theme!                                                                                              | [→](https://github.com/decentparadox/decentparadox.me)  |
-| [flocto.github.io](https://flocto.github.io/)        | [@flocto](https://github.com/flocto)                   | A slightly modified personal blog                                                                                                                         | [→](https://github.com/flocto/flocto.github.io)         |
-| [dumbprism.me](https://www.dumbprism.me/)            | [@dumbprism](https://github.com/dumbprism)             | A customized portfolio inspired by enscribe's bento grid style adding my gist of UI                                                                       | [→](https://github.com/dumbprism/dumbprism-portfolio)   |
-| [hyuki.dev](https://hyuki.dev/)                      | [@snow0406](https://github.com/snow0406)               | A minimalist blog with a blue color scheme, focusing on simplicity!                                                                                       | [→](https://github.com/Snow0406/hyuki.dev)              |
-| [ldd.cc](https://ldd.cc/)                            | [@xJoyLu](https://github.com/xjoylu)                   | The cream of the idlers.                                                                                                                                  | [→](https://ldd.cc/)                                    |
-| [rezarezvan.com](https://rezarezvan.com/)            | [@rezaarezvan](https://github.com/rezaarezvan)         | A academic blog with personal touches :).                                                                                                                 | [→](https://rezarezvan.com/)                            |
-| [blog.z0x.ca](https://blog.z0x.ca/)                  | [@z0x](https://z0x.ca)                                 | _Very_ minimal version of erudite, stripping it down to the bare essentials                                                                               | [→](https://git.z0x.ca/z0x/blog.z0x.ca/)                |
-| [angelaytchan.net](https://angelaytchan.net/)        | [@wispyplant](https://github.com/wispyplant)           | An artist portfolio and activities archive                                                                                                                | [→](https://github.com/wispyplant/wispyplant.github.io) |
-| [kaezr.xyz](https://kaezr.xyz/)                      | [@kaezrr](https://github.com/kaezrr)                   | A minimal porfolio and blog website with slight tweaks to the original.                                                                                   | [→](https://github.com/kaezrr/webfolio)                 |
-| [worldwidewong](https://worldwidewong.vercel.app)    | [@brendanwong-web](https://github.com/brendanwong-web) | A slightly funky portfolio, blog, and resume site with an added photo gallery.                                                                            | [→](https://github.com/brendanwong-web/worldwidewong)   |
-| [bgajjala.dev](https://bgajjala.dev)                 | [@bgajjala8](https://github.com/bgajjala8)             | A minimal blog featuring a paper-color inspired color scheme                                                                                              | [→](https://github.com/bgajjala8/bgajjala.dev)          |
-| [ankitz007.vercel.app](https://ankitz007.vercel.app) | [@ankitz007](https://github.com/ankitz007)             | A personal blog with a few modifications and updates to the original.                                                                                     | [→](https://github.com/ankitz007/webfolio)              |
-| [sadman.ca](https://sadman.ca)                       | [@sadmanca](https://github.com/sadmanca)               | A customized personal blog with: Goodreads reading progress tracker, SVG thumbnails, custom heading styles, and dynamic media grids (books, movies, etc.) | [→](https://github.com/sadmanca/blogv3)                 |
-| [marcel-to.vercel.app](https://marcel-to.vercel.app) | [@Marcel-TO](https://github.com/Marcel-TO)             | A content‑driven personal portfolio showcasing software projects, deep–dive blog series and multi-part project documentation.                             | [→](https://github.com/Marcel-TO/marcel-to-website)     |
-| [merox.dev](https://merox.dev) | [@meroxdotdev](https://github.com/meroxdotdev) | A technical blog focused on DevOps automation and homelab infrastructure | [→](https://github.com/meroxdotdev/merox) |
-
 ## Features
 
 - [Astro](https://astro.build/)'s [Islands](https://docs.astro.build/en/concepts/islands/) architecture for selective hydration and client-side interactivity while maintaining fast static site rendering.
@@ -274,20 +228,6 @@ The project schema is defined as follows:
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
-
----
-
-### Star History
-
-<a href="https://star-history.com/#jktrn/astro-erudite&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=jktrn/astro-erudite&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=jktrn/astro-erudite&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=jktrn/astro-erudite&type=Date" />
- </picture>
-</a>
-
----
 
 Built with &hearts; by [enscribe](https://enscribe.dev)!
 
