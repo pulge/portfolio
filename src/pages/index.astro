@@ -202,17 +202,16 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
           {
             latestPost && (
               <div class="flex h-full flex-col p-3 sm:p-6">
-                <div class="flex h-full flex-1 items-center justify-center gap-4 sm:items-start sm:justify-start">
-                  <Link
-                    href={`/blog/${latestPost.id}`}
-                    class="group/img h-full w-full overflow-hidden border sm:min-h-0 sm:flex-1"
+                <div class="group flex h-full flex-1 items-center justify-center gap-4 sm:items-start sm:justify-start">
+                  <div
+                    class="h-full w-full overflow-hidden border sm:min-h-0 sm:flex-1"
                   >
                     <img
                       src={latestPost.data.image?.src ?? '#'}
                       alt={`Featured image for the latest post: ${latestPost.data.title}`}
-                      class="h-full w-full border object-cover opacity-20 transition-transform duration-300 group-hover/img:scale-105 sm:opacity-100"
+                      class="h-full w-full object-cover opacity-20 transition-transform duration-300 group-hover:scale-105 sm:opacity-100"
                     />
-                  </Link>
+                  </div>
                   <div class="hidden h-full w-[70%] flex-col overflow-hidden sm:flex">
                     <div class="flex min-w-0 flex-1 flex-col justify-center">
                       {/* <h3 class="mb-1 text-2xl font-bold">Latest Post</h3> */}
