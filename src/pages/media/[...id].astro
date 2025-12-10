@@ -36,8 +36,9 @@ const galleryImages = await getAlbumImages(collection.id)
       /> -->
 
       <div class="mb-6 text-left">
-        <h1 class="mb-4 text-2xl font-bold">
+        <h1 class="mb-4 text-2xl font-bold text-center ">
           {collection.data.title || collection.data.name}
+          <p class="text-sm font-normal text-muted-foreground">{collection.data.period}</p>
         </h1>
         {
           collection.data.description && (
