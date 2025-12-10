@@ -196,7 +196,7 @@ const SpotifyPresence = () => {
                         <span className="text-md leading-tight font-medium truncate">
                             {song}
                         </span>
-                        <span className="text-muted-foreground line-clamp-1 text-xs ">
+                        <span className="text-muted-foreground truncate text-xs ">
                             <span className="text-muted-foreground">by</span>{' '}
                             {artist['#text']}
                         </span>
