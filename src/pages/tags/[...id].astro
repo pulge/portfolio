@@ -1,8 +1,8 @@
 ---
 import BlogCard from '@/components/BlogCard.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
+import ProjectCard from '@/components/ProjectCard.astro' // or whatever your coding card is
 import { buttonVariants } from '@/components/ui/button'
 import Layout from '@/layouts/Layout.astro'
 import { getAllTags, getPostsByTag } from '@/lib/data-utils'
@@ -31,22 +31,15 @@ const { tag, posts } = Astro.props
 <Layout class="max-w-3xl">
   <PageHead
     slot="head"
-    title={`Posts tagged with "${tag}"`}
+    title={`posts tagged with "${tag}"`}
     description={`A collection of posts tagged with ${tag}.`}
     noindex
   />
-  <!-- <Breadcrumbs
-    items={[
-      { href: '/tags', label: 'Tags', icon: 'lucide:tags' },
-      { label: tag, icon: 'lucide:tag' },
-    ]}
-  /> -->
 
   <div class="flex w-full items-center justify-between">
     <div class="mb-2 text-3xl font-semibold">
       {tag}
     </div>
-
     <div class="text-right">
       <Link
         href="/tags"
@@ -67,7 +60,11 @@ const { tag, posts } = Astro.props
     {
       posts.map((post) => (
         <li>
-          <BlogCard entry={post} />
+          {post.collection === 'blog' ? (
+            <BlogCard entry={post} />
+          ) : post.collection === 'coding' ? (
+            <ProjectCard coding={post} />
+          ) : null}
         </li>
       ))
     }
