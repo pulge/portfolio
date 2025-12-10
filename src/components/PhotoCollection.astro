@@ -16,7 +16,7 @@ const { collection } = Astro.props as {
 const formattedDate = collection.data.date
   ? formatDate(collection.data.date)
   : ''
-const displayDate = collection.data.period || formattedDate
+const displayDate = collection.data.period
 
 // Get photo count using the utility function
 const photoCount = await getPhotoCount(collection.id)

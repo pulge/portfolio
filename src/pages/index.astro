@@ -80,10 +80,11 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
             possible. So, feel free to look around and get to know me better!
           </div>
           <div class="text-muted-foreground mb-2 text-sm">
-            If you have any message, suggestions, or inquiries, don’t hesitate to drop it in my  
+            If you have any message, suggestions, or inquiries, don’t hesitate
+            to drop it in my
             <Link
-              href={SOCIAL_LINKS.find((link) => link.label === 'Inbox')
-                ?.href || '#'}
+              href={SOCIAL_LINKS.find((link) => link.label === 'Inbox')?.href ||
+                '#'}
               class="text-foreground"
               target="_self"
               underline>inbox</Link
@@ -209,7 +210,7 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                     <img
                       src={latestPost.data.image?.src ?? '#'}
                       alt={`Featured image for the latest post: ${latestPost.data.title}`}
-                      class="h-full w-full   border object-cover opacity-20 transition-transform duration-300 group-hover/img:scale-105 sm:opacity-100"
+                      class="h-full w-full border object-cover opacity-20 transition-transform duration-300 group-hover/img:scale-105 sm:opacity-100"
                     />
                   </Link>
                   <div class="hidden h-full w-[70%] flex-col overflow-hidden sm:flex">
@@ -227,21 +228,25 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
                   </div>
                   <div class="border-border/50 absolute top-0 right-0 z-10 flex h-full w-full flex-row flex-row-reverse items-center justify-evenly py-3 sm:top-0 sm:right-3 sm:right-5 sm:bottom-6 sm:flex-col sm:items-end sm:justify-between sm:px-0">
                     <Link
-                      href="/blog"
+                      href={`/${latestPost.collection}`}
                       class={
                         'sm:' +
                         buttonVariants({ variant: 'ghost', size: 'sm' }) +
                         ' group/link bg-foreground/70 text-background sm:text-foreground z-10 inline-flex items-center text-xs sm:bg-transparent sm:text-sm'
                       }
                     >
-                      see all posts
+                      see all {`${latestPost.collection}`}
                       <span class="ml-1.5 transition-transform group-hover/link:translate-x-1">
                         &rarr;
                       </span>
                     </Link>
 
                     <Link
-                      href={`/blog/${latestPost.id}`}
+                      href={
+                        latestPost.collection === 'coding'
+                          ? `/${latestPost.collection}`
+                          : `/${latestPost.collection}/${latestPost.id}`
+                      }
                       title={`Read latest blog post: ${latestPost.data.title}`}
                       aria-label={`Read latest blog post: ${latestPost.data.title}`}
                       class="bg-border/50 text-primary ring-ring group/btn relative z-10 flex items-center gap-1 rounded-full p-2 transition-all duration-300 hover:shadow-lg hover:ring-2 focus-visible:ring-2 sm:p-3"

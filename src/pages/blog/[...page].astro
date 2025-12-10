@@ -7,7 +7,7 @@ import { buttonVariants } from '@/components/ui/button'
 import PaginationComponent from '@/components/ui/pagination'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
-import { getAllPosts, groupPostsByYear } from '@/lib/data-utils'
+import { getAllBlogs, getAllPosts, groupPostsByYear } from '@/lib/data-utils'
 import type { PaginateFunction } from 'astro'
 import { Icon } from 'astro-icon/components'
 
@@ -16,7 +16,7 @@ export async function getStaticPaths({
 }: {
   paginate: PaginateFunction
 }) {
-  const allPosts = await getAllPosts()
+  const allPosts = await getAllBlogs()
   return paginate(allPosts, { pageSize: SITE.postsPerPage })
 }
 

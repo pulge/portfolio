@@ -5,7 +5,40 @@ export async function getAllAuthors(): Promise<CollectionEntry<'authors'>[]> {
   return await getCollection('authors')
 }
 
-export async function getAllPosts(): Promise<CollectionEntry<'blog'>[]> {
+export async function getAllPosts(): Promise<
+  Array<CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>>
+> {
+  const posts = await getCollection('blog')
+  const coding = await getCollection('coding')
+  const media = await getCollection('media')
+  
+  // Combine all collections
+  const allEntries: Array<CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>> = [
+    ...posts.filter((post) => !post.data.draft && !isSubpost(post.id)),
+    ...coding, // coding don't have draft field in schema
+    ...media,    // media don't have draft field in schema
+  ]
+  
+  // Sort by date (most recent first)
+  // Handle different date fields: blog.date, coding.startDate, media.date
+  return allEntries.sort((a, b) => {
+    const dateA = 'date' in a.data 
+      ? a.data.date 
+      : 'startDate' in a.data 
+        ? (a.data.startDate || new Date(0))
+        : new Date(0)
+    
+    const dateB = 'date' in b.data 
+      ? b.data.date 
+      : 'startDate' in b.data 
+        ? (b.data.startDate || new Date(0))
+        : new Date(0)
+    
+    return dateB.valueOf() - dateA.valueOf()
+  })
+}
+
+export async function getAllBlogs(): Promise<CollectionEntry<'blog'>[]> {
   const posts = await getCollection('blog')
   return posts
     .filter((post) => !post.data.draft && !isSubpost(post.id))
@@ -21,9 +54,9 @@ export async function getAllPostsAndSubposts(): Promise<
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 }
 
-export async function getAllProjects(): Promise<CollectionEntry<'projects'>[]> {
-  const projects = await getCollection('projects')
-  return projects.sort((a, b) => {
+export async function getAllCoding(): Promise<CollectionEntry<'coding'>[]> {
+  const coding = await getCollection('coding')
+  return coding.sort((a, b) => {
     const dateA = a.data.startDate?.getTime() || 0
     const dateB = b.data.startDate?.getTime() || 0
     return dateB - dateA
@@ -302,3 +335,4 @@ export async function getTOCSections(postId: string): Promise<TOCSection[]> {
 
   return sections
 }
+
