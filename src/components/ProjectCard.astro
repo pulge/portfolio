@@ -30,12 +30,12 @@ const { coding } = Astro.props
             alt={coding.data.title}
             width={1200}
             height={630}
-            class="h-full object-cover grayscale transition-all duration-300 group-hover:grayscale-0 border-r"
+            class="h-full object-cover grayscale transition-all duration-300 group-hover:grayscale-0 sm:border-r sm:border-b-0 border-b"
           />
         </Link>
       )
     }
-    <div class="grow p-4 pl-0">
+    <div class="grow p-4 sm:pl-0 pt-0 sm:pt-4">
       <Link
         href={coding.data.link ?? '#'}
         external={coding.data.link ? true : undefined}

@@ -185,7 +185,7 @@ const SpotifyPresence = () => {
                 />
                 <div className="absolute bg-background/60 hover:bg-background/30 transition p-4 top-0 left-0 w-full flex min-h-0 flex-shrink-0 flex-col justify-end h-full">
                     <div className="mr-8 flex flex-col text-xs sm:text-sm">
-                        <span className="mb-2 flex items-center gap-1">
+                        <span className="mb-1 flex items-center gap-1">
                             <AudioLines className="size-3 sm:size-5 text-primary" />
                             <span className="text-primary text-xs sm:text-sm whitespace-nowrap">
                                 {displayData['@attr']?.nowplaying === 'true'

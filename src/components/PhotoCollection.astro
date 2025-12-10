@@ -39,13 +39,13 @@ const photoCount = await getPhotoCount(collection.id)
             alt={collection.data.name}
             width={600}
             height={338}
-            class="h-full object-cover grayscale transition-all group-hover:grayscale-0 border-r"
+            class="h-full object-cover grayscale transition-all group-hover:grayscale-0 sm:border-r sm:border-b-0 border-b"
             quality="medium"
           />
         </Link>
       )
     }
-    <div class="flex-grow p-4 pl-0">
+    <div class="flex-grow p-4 sm:pl-0 pt-0 sm:pt-4">
       <Link href={`/${collection.collection}/${collection.id}`}>
         <h3 class="mb-1 text-lg font-semibold">
           {collection.data.name}
