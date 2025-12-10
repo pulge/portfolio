@@ -187,10 +187,10 @@ const SpotifyPresence = () => {
                     <div className="mr-8 flex flex-col text-xs sm:text-sm">
                         <span className="mb-2 flex items-center gap-1">
                             <AudioLines className="size-3 sm:size-5 text-primary" />
-                            <span className="text-primary text-xs sm:text-sm truncate">
+                            <span className="text-primary text-xs sm:text-sm whitespace-nowrap">
                                 {displayData['@attr']?.nowplaying === 'true'
-                                    ? 'Now playing...'
-                                    : 'Last played...'}
+                                    ? 'Now playing'
+                                    : 'Last played'}
                             </span>
                         </span>
                         <span className="text-md line-clamp-2 leading-tight font-medium">
