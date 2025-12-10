@@ -5,6 +5,20 @@ export async function getAllAuthors(): Promise<CollectionEntry<'authors'>[]> {
   return await getCollection('authors')
 }
 
+// Type guard helpers
+function hasDate(entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>): entry is CollectionEntry<'blog'> | CollectionEntry<'media'> {
+  return 'date' in entry.data && entry.data.date !== undefined
+}
+
+function hasStartDate(entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>): entry is CollectionEntry<'coding'> {
+  return 'startDate' in entry.data
+}
+
+function hasTags(entry: CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>): entry is CollectionEntry<'blog'> | CollectionEntry<'coding'> {
+  return 'tags' in entry.data && Array.isArray(entry.data.tags)
+}
+
+// Fixed getAllPosts with proper type handling
 export async function getAllPosts(): Promise<
   Array<CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>>
 > {
@@ -12,27 +26,31 @@ export async function getAllPosts(): Promise<
   const coding = await getCollection('coding')
   const media = await getCollection('media')
   
-  // Combine all collections
   const allEntries: Array<CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>> = [
     ...posts.filter((post) => !post.data.draft && !isSubpost(post.id)),
-    ...coding, // coding don't have draft field in schema
-    ...media,    // media don't have draft field in schema
+    ...coding,
+    ...media,
   ]
   
-  // Sort by date (most recent first)
-  // Handle different date fields: blog.date, coding.startDate, media.date
   return allEntries.sort((a, b) => {
-    const dateA = 'date' in a.data 
-      ? a.data.date 
-      : 'startDate' in a.data 
-        ? (a.data.startDate || new Date(0))
-        : new Date(0)
+    let dateA: Date
+    let dateB: Date
     
-    const dateB = 'date' in b.data 
-      ? b.data.date 
-      : 'startDate' in b.data 
-        ? (b.data.startDate || new Date(0))
-        : new Date(0)
+    if (hasDate(a)) {
+      dateA = a.data.date
+    } else if (hasStartDate(a) && a.data.startDate) {
+      dateA = a.data.startDate
+    } else {
+      dateA = new Date(0)
+    }
+    
+    if (hasDate(b)) {
+      dateB = b.data.date
+    } else if (hasStartDate(b) && b.data.startDate) {
+      dateB = b.data.startDate
+    } else {
+      dateB = new Date(0)
+    }
     
     return dateB.valueOf() - dateA.valueOf()
   })
@@ -64,7 +82,7 @@ export async function getAllCoding(): Promise<CollectionEntry<'coding'>[]> {
 }
 
 export async function getAllTags(): Promise<Map<string, number>> {
-  const posts = await getAllPosts()
+  const posts = await getAllBlogs()
   return posts.reduce((acc, post) => {
     post.data.tags?.forEach((tag) => {
       acc.set(tag, (acc.get(tag) || 0) + 1)
@@ -78,12 +96,12 @@ export async function getAdjacentPosts(currentId: string): Promise<{
   older: CollectionEntry<'blog'> | null
   parent: CollectionEntry<'blog'> | null
 }> {
-  const allPosts = await getAllPosts()
+  const allBlogs = await getAllBlogs()
 
   if (isSubpost(currentId)) {
     const parentId = getParentId(currentId)
-    const allPosts = await getAllPosts()
-    const parent = allPosts.find((post) => post.id === parentId) || null
+    const allBlogs = await getAllBlogs()
+    const parent = allBlogs.find((post) => post.id === parentId) || null
 
     const posts = await getCollection('blog')
     const subposts = posts
@@ -115,7 +133,7 @@ export async function getAdjacentPosts(currentId: string): Promise<{
     }
   }
 
-  const parentPosts = allPosts.filter((post) => !isSubpost(post.id))
+  const parentPosts = allBlogs.filter((post) => !isSubpost(post.id))
   const currentIndex = parentPosts.findIndex((post) => post.id === currentId)
 
   if (currentIndex === -1) {
@@ -135,21 +153,21 @@ export async function getAdjacentPosts(currentId: string): Promise<{
 export async function getPostsByAuthor(
   authorId: string,
 ): Promise<CollectionEntry<'blog'>[]> {
-  const posts = await getAllPosts()
+  const posts = await getAllBlogs()
   return posts.filter((post) => post.data.authors?.includes(authorId))
 }
 
 export async function getPostsByTag(
   tag: string,
 ): Promise<CollectionEntry<'blog'>[]> {
-  const posts = await getAllPosts()
+  const posts = await getAllBlogs()
   return posts.filter((post) => post.data.tags?.includes(tag))
 }
 
 export async function getRecentPosts(
   count: number,
 ): Promise<CollectionEntry<'blog'>[]> {
-  const posts = await getAllPosts()
+  const posts = await getAllBlogs()
   return posts.slice(0, count)
 }
 
@@ -220,8 +238,8 @@ export async function getParentPost(
   }
 
   const parentId = getParentId(subpostId)
-  const allPosts = await getAllPosts()
-  return allPosts.find((post) => post.id === parentId) || null
+  const allBlogs = await getAllBlogs()
+  return allBlogs.find((post) => post.id === parentId) || null
 }
 
 export async function parseAuthors(authorIds: string[] = []) {
