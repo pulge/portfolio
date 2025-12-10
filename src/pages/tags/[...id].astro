@@ -2,6 +2,7 @@
 import BlogCard from '@/components/BlogCard.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
+import PhotoCollection from '@/components/PhotoCollection.astro'
 import ProjectCard from '@/components/ProjectCard.astro' // or whatever your coding card is
 import { buttonVariants } from '@/components/ui/button'
 import Layout from '@/layouts/Layout.astro'
@@ -64,6 +65,8 @@ const { tag, posts } = Astro.props
             <BlogCard entry={post} />
           ) : post.collection === 'coding' ? (
             <ProjectCard coding={post} />
+          ) : post.collection === 'media' ? (
+            <PhotoCollection collection={post} />
           ) : null}
         </li>
       ))
