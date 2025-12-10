@@ -63,6 +63,7 @@ const media = defineCollection({
       image: image(),
       date: z.coerce.date().optional(),
       period: z.string().optional(),
+      tags: z.array(z.string()).optional(),
     }),
 })
 
