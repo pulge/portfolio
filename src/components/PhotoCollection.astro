@@ -50,25 +50,25 @@ const photoCount = await getPhotoCount(collection.id)
         <h3 class="mb-1 text-lg font-semibold">
           {collection.data.name}
         </h3>
+
+        <div
+          class="text-muted-foreground mb-2 flex flex-wrap items-center gap-x-2 text-xs"
+        >
+          <span>{displayDate}</span>
+          <span class="text-muted-foreground">|</span>
+          <span>{photoCount} photos</span>
+        </div>
+
+        <p class="text-muted-foreground mb-2 line-clamp-3 text-sm">
+          {collection.data.description}
+        </p>
       </Link>
-      
-      <div
-        class="text-muted-foreground mb-2 flex flex-wrap items-center gap-x-2 text-xs"
-      >
-        <span>{displayDate}</span>
-        <span class="text-muted-foreground">|</span>
-        <span>{photoCount} photos</span>
-      </div>
-      
-      <p class="text-muted-foreground mb-2 line-clamp-3 text-sm">
-        {collection.data.description}
-      </p>
-      
+
       {
         collection.data.tags && (
           <div class="flex flex-wrap gap-2">
             {collection.data.tags.map((tag: string) => (
-              <Link href={`/tags/${tag}`} class='lowercase'>
+              <Link href={`/tags/${tag}`} class="lowercase">
                 <Badge variant="muted">
                   <Icon name="lucide:hash" class="size-3" />
                   {tag}

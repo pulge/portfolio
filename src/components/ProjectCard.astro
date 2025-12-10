@@ -44,33 +44,33 @@ const { coding } = Astro.props
         <h3 class="mb-1 text-lg font-medium">
           {coding.data.title}
         </h3>
-      </Link>
-      
-      <p class="text-muted-foreground mb-2 text-sm">
-        {coding.data.description}
-      </p>
-      
-      {
-        coding.data.startDate && (
-          <p class="text-muted-foreground/70 mb-2 flex items-center gap-x-1.5 text-xs">
-            <span class="flex items-center gap-x-1.5">
-              <Icon name="lucide:calendar" class="size-3" />
-              <span>
-                {formatDate(coding.data.startDate)}
-                {coding.data.endDate
-                  ? ` → ${formatDate(coding.data.endDate)}`
-                  : ' → Present'}
+
+        <p class="text-muted-foreground mb-2 text-sm">
+          {coding.data.description}
+        </p>
+
+        {
+          coding.data.startDate && (
+            <p class="text-muted-foreground/70 mb-2 flex items-center gap-x-1.5 text-xs">
+              <span class="flex items-center gap-x-1.5">
+                <Icon name="lucide:calendar" class="size-3" />
+                <span>
+                  {formatDate(coding.data.startDate)}
+                  {coding.data.endDate
+                    ? ` → ${formatDate(coding.data.endDate)}`
+                    : ' → Present'}
+                </span>
               </span>
-            </span>
-          </p>
-        )
-      }
-      
+            </p>
+          )
+        }
+      </Link>
+
       {
         coding.data.tags && (
           <div class="flex flex-wrap gap-2">
             {coding.data.tags.map((tag: string) => (
-              <Link href={`/tags/${tag}`} class='lowercase'>
+              <Link href={`/tags/${tag}`} class="lowercase">
                 <Badge variant="muted">
                   <Icon name="lucide:hash" class="size-3" />
                   {tag}
