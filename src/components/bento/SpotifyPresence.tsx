@@ -176,7 +176,7 @@ const SpotifyPresence = () => {
         <>
             <div className="relative flex size-full flex-col justify-between gap-4 p-6">
                 <div
-                    className="absolute w-full z-0 top-0 left-0 aspect-square min-h-0 flex-shrink border bg-cover bg-center grayscale opactity-20 hover:opacity-100"
+                    className="absolute w-full z-0 top-0 left-0 aspect-square min-h-0 flex-shrink bg-cover bg-center grayscale opactity-20 hover:opacity-100"
                     style={{
                         backgroundImage: `url(${image[3]['#text']})`,
                     }}
@@ -186,8 +186,8 @@ const SpotifyPresence = () => {
                 <div className="absolute bg-background/60 hover:bg-background/30 transition p-4 top-0 left-0 w-full flex min-h-0 flex-shrink-0 flex-col justify-end h-full">
                     <div className="mr-8 flex flex-col text-xs sm:text-sm">
                         <span className="mb-2 flex items-center gap-1">
-                            <AudioLines className="size-5 sm:size-5 text-primary" />
-                            <span className="text-primary text-sm truncate">
+                            <AudioLines className="size-3 sm:size-5 text-primary" />
+                            <span className="text-primary text-xs sm:text-sm truncate">
                                 {displayData['@attr']?.nowplaying === 'true'
                                     ? 'Now playing...'
                                     : 'Last played...'}
