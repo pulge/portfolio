@@ -32,14 +32,14 @@ const photoCount = await getPhotoCount(collection.id)
       collection.data.image && (
         <Link
           href={`/${collection.collection}/${collection.id}`}
-          class="w-full sm:flex-shrink-0"
+          class="sm:flex-shrink-0"
         >
           <Image
             src={collection.data.image}
             alt={collection.data.name}
             width={600}
             height={338}
-            class="h-full w-full border-b object-cover grayscale transition-all group-hover:grayscale-0"
+            class="border-b object-cover max-h-48 grayscale transition-all group-hover:grayscale-0"
             quality="medium"
           />
         </Link>

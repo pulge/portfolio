@@ -32,7 +32,7 @@ const sortedPhotoCollections = photoCollections.sort((a, b) => {
       <div class="my-4 flex flex-col gap-y-4">
         {
           sortedPhotoCollections.length > 0 ? (
-            <ul class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <ul class="not-prose grid grid-cols-1 gap-4 sm:grid-cols-2">
               {sortedPhotoCollections.map((collection) => (
                 <li>
                   <PhotoCollection collection={collection} />
