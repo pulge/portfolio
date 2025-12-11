@@ -1,11 +1,14 @@
 ---
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
+import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
 // import MusicPlayer from '@/components/MusicPlayer.tsx'
 import PhotoGallery from '@/components/PhotoGallery.astro'
+import { Badge } from '@/components/ui/badge'
 import Layout from '@/layouts/Layout.astro'
 import { getAlbumImages } from '@/lib/media-utils'
+import { Icon } from 'astro-icon/components'
 import { type CollectionEntry, getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -39,6 +42,20 @@ const galleryImages = await getAlbumImages(collection.id)
         <h1 class="mb-4 text-2xl font-bold text-center ">
           {collection.data.title || collection.data.name}
           <p class="text-sm font-normal text-muted-foreground">{collection.data.period}</p>
+            {
+        collection.data.tags && (
+          <div class="flex flex-wrap gap-2 items-center mt-2 justify-center leading-none">
+            {collection.data.tags.map((tag: string) => (
+              <Link href={`/tags/${tag}`} class="lowercase">
+                <Badge variant="muted">
+                  <Icon name="lucide:hash" class="size-3" />
+                  {tag}
+                </Badge>
+              </Link>
+            ))}
+          </div>
+        )
+      }
         </h1>
         {
           collection.data.description && (
