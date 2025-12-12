@@ -11,6 +11,7 @@ import Layout from '@/layouts/Layout.astro'
 import { getAllPosts } from '@/lib/data-utils'
 import { cn } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
+import Image from 'astro/components/Image.astro'
 
 // const blog = await getRecentPosts(SITE.featuredPostCount)
 const latestPost = await getAllPosts().then((posts) => posts.at(0))
@@ -64,8 +65,8 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
         </div>
         <div class="p-6 pt-0">
           <div class="text-muted-foreground mb-2 text-sm">
-            I really like web development and UI/UX design, and I am
-            currently trying to expand into other areas of IT as well.
+            I really like web development and UI/UX design, and I am currently
+            trying to expand into other areas of IT as well.
           </div>
           <div class="text-muted-foreground mb-2 text-sm">
             This website serves as my personal online portfolio, a space where I
@@ -202,14 +203,27 @@ const latestPost = await getAllPosts().then((posts) => posts.at(0))
             latestPost && (
               <div class="flex h-full flex-col p-3 sm:p-6">
                 <div class="group flex h-full flex-1 items-center justify-center gap-4 sm:items-start sm:justify-start">
-                  <div
-                    class="h-full w-full overflow-hidden border sm:min-h-0 sm:flex-1"
-                  >
-                    <img
+                  <div class="h-full w-full overflow-hidden border sm:min-h-0 sm:flex-1">
+                    {/* <img
                       src={latestPost.data.image?.src ?? '#'}
                       alt={`Featured image for the latest post: ${latestPost.data.title}`}
                       class="h-full w-full object-cover opacity-20 transition-transform duration-300 group-hover:scale-105 sm:opacity-100"
-                    />
+                    /> */}
+
+                    {latestPost.data.image ? (
+                      <Image
+                        src={latestPost.data.image}
+                        alt={`Featured image for the latest post: ${latestPost.data.title}`}
+                        class="h-full w-full object-cover opacity-20 transition-transform duration-300 group-hover:scale-105 sm:opacity-100"
+                      />
+                    ) : (
+                      <div class="bg-muted flex aspect-[1200/630] max-h-84 items-center justify-center sm:shrink-0">
+                        <div class="text-muted-foreground grid place-items-center gap-2 p-8 text-center">
+                          <Icon name="lucide:construction" class="size-10" />
+                          <p class="text-sm">{latestPost.data.title}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <div class="hidden h-full w-[70%] flex-col overflow-hidden sm:flex">
                     <div class="flex min-w-0 flex-1 flex-col justify-center">
