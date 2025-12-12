@@ -18,7 +18,7 @@ const { coding } = Astro.props
 >
   <div class="flex flex-col gap-4">
     {
-      coding.data.image && (
+      coding.data.image ? (
         <Link
           href={coding.data.link ?? '#'}
           external={coding.data.link ? true : undefined}
@@ -30,9 +30,16 @@ const { coding } = Astro.props
             alt={coding.data.title}
             width={1200}
             height={630}
-            class="object-cover max-h-84 grayscale transition-all duration-300 group-hover:grayscale-0"
+            class="max-h-84 object-cover grayscale transition-all duration-300 group-hover:grayscale-0"
           />
         </Link>
+      ) : (
+        <div class="bg-muted flex aspect-[1200/630] max-h-84 items-center justify-center border sm:shrink-0">
+          <div class="text-muted-foreground p-8 text-center grid place-items-center gap-2">
+            <Icon name="lucide:image" class="size-10" />
+            <p class="text-sm">{coding.data.title}</p>
+          </div>
+        </div>
       )
     }
     <div class="grow p-4 pt-0">

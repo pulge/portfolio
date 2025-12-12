@@ -39,7 +39,7 @@ const coding = defineCollection({
       title: z.string(),
       description: z.string(),
       tags: z.array(z.string()),
-      image: image(),
+      image: image().optional(),
       link: z.string().url().optional(),
       startDate: z.coerce.date().optional(),
       endDate: z.coerce.date().optional(),
