@@ -9,6 +9,7 @@ import TOCHeader from '@/components/TOCHeader.astro'
 import TOCSidebar from '@/components/TOCSidebar.astro'
 import { badgeVariants } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { SOCIAL_LINKS } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import {
   getAdjacentPosts,
@@ -147,6 +148,11 @@ const tocSections = await getTOCSections(currentPostId)
                     {author.isRegistered ? (
                       <Link
                         href={`/authors/${author.id}`}
+                        href={
+                          SOCIAL_LINKS.find(
+                            (link) => link.label.toLowerCase() === 'github',
+                          )?.href ?? '#'
+                        }
                         underline
                         class="text-foreground"
                       >

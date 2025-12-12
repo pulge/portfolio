@@ -69,7 +69,6 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === ''
 
       // Run once on load to set initial state
       handleScroll();
-
       window.addEventListener('scroll', handleScroll, { passive: true });
     }
   }
