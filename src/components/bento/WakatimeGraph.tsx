@@ -32,7 +32,7 @@ const CHART_COLORS = [
 ] as const
 
 const WAKATIME_API_URL =
-  'https://wakatime.com/share/@pulge/0df0fa96-1b26-4b40-999f-31b08a544bbb.json'
+  'https://wakatime.com/share/@pulge/011139a8-e39b-42bc-bd1c-c15c201d760a.json'
 const MAX_LANGUAGES = 3
 const ICON_SIZE = 20
 const CIRCLE_RADIUS = 16
