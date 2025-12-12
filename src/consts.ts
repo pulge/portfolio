@@ -13,11 +13,6 @@ export const SITE: Site = {
 
 export const NAV_LINKS = [
   {
-    href: '/blog',
-    label: 'articles',
-    icon: 'lucide:newspaper',
-  },
-  {
     href: '/coding',
     label: 'coding',
     icon: 'lucide:folder',
@@ -26,6 +21,11 @@ export const NAV_LINKS = [
     href: '/media',
     label: 'media',
     icon: 'lucide:camera',
+  },
+  {
+    href: '/blog',
+    label: 'articles',
+    icon: 'lucide:newspaper',
   },
 ]
 
