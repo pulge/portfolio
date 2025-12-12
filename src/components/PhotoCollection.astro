@@ -45,8 +45,8 @@ const photoCount = await getPhotoCount(collection.id)
         </Link>
       )
     }
-    <div class="flex-grow p-4">
-      <Link href={`/${collection.collection}/${collection.id}`}>
+    <div class="flex-grow">
+      <Link href={`/${collection.collection}/${collection.id}`} class={`p-4 ${Astro.url.pathname.startsWith('/tags/') ? 'pb-0' : ''}`}>
         <h3 class="mb-1 text-lg font-semibold">
           {collection.data.name}
         </h3>
@@ -66,7 +66,7 @@ const photoCount = await getPhotoCount(collection.id)
 
       {
         collection.data.tags && Astro.url.pathname.startsWith('/tags/') && (
-          <div class="mt-2 flex flex-wrap gap-2">
+          <div class="mt-2 flex flex-wrap gap-2 p-4 pt-0">
             {collection.data.tags.map((tag: string) => (
               <Link href={`/tags/${tag}`} class="lowercase">
                 <Badge variant="muted">

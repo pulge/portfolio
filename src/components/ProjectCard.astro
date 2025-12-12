@@ -42,11 +42,12 @@ const { coding } = Astro.props
         </div>
       )
     }
-    <div class="grow p-4 pt-0">
+    <div class="grow">
       <Link
         href={coding.data.link ?? '#'}
         external={coding.data.link ? true : undefined}
         aria-disabled={!coding.data.link}
+        class="p-4 py-0"
       >
         <h3 class="mb-1 text-lg font-medium">
           {coding.data.title}
@@ -75,7 +76,7 @@ const { coding } = Astro.props
 
       {
         coding.data.tags && (
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-2 p-4 pt-0">
             {coding.data.tags.map((tag: string) => (
               <Link href={`/tags/${tag}`} class="lowercase">
                 <Badge variant="muted">
