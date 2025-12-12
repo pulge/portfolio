@@ -32,8 +32,8 @@ const CHART_COLORS = [
 ] as const
 
 const WAKATIME_API_URL =
-  'https://wakatime.com/share/@pulge/997dea09-ca26-40fd-ab66-ccea45abece3.json'
-const MAX_LANGUAGES = 7
+  'https://wakatime.com/share/@pulge/0df0fa96-1b26-4b40-999f-31b08a544bbb.json'
+const MAX_LANGUAGES = 3
 const ICON_SIZE = 20
 const CIRCLE_RADIUS = 16
 
@@ -201,7 +201,7 @@ const WakatimeGraph = ({ omitLanguages = [] }: Props) => {
         layout="vertical"
         margin={{
           left: 0,
-          right: 16,
+          right: 30,
           top: 4,
           bottom: 4,
         }}
@@ -218,7 +218,7 @@ const WakatimeGraph = ({ omitLanguages = [] }: Props) => {
         />
         <XAxis type="number" hide />
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-        <Bar dataKey="hours" radius={[0, 0, 0, 0]} isAnimationActive={false}>
+        <Bar className='fill-muted' dataKey="hours" radius={[0, 0, 0, 0]} isAnimationActive={false}>
           <LabelList
             dataKey="hours"
             position="right"

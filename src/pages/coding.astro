@@ -3,6 +3,7 @@ import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
 import PageHead from '@/components/PageHead.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
+import WakatimeGraph from '@/components/bento/WakatimeGraph.tsx'
 import Layout from '@/layouts/Layout.astro'
 import { getAllCoding } from '@/lib/data-utils'
 
@@ -20,11 +21,15 @@ const coding = await getAllCoding()
         These are some of my notable personal and academic projects that I am
         working or helped develop on.
       </p>
-
-      <div class="grid flex flex-col gap-y-4">
+      <div class="sm:h-40 mb-4">
+        <div class="bg-primary-foreground/70 size-full border">
+          <WakatimeGraph client:load />
+        </div>
+      </div>
+      <div class="flex grid flex-col gap-y-4">
         {
           coding.length > 0 ? (
-            <ul class="columns-1 sm:columns-2 gap-4 space-y-4">
+            <ul class="columns-1 gap-4 space-y-4 sm:columns-2">
               {coding.map((coding) => (
                 <li class="break-inside-avoid">
                   <ProjectCard coding={coding} />
