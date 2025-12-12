@@ -73,7 +73,7 @@ const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
   </div> -->
 
   {
-    years.length > 0 && (
+    years.length > 3 && (
       <PaginationComponent
         currentPage={page.currentPage}
         totalPages={page.lastPage}
