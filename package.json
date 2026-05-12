@@ -11,6 +11,7 @@
     "screenshots": "tsx scripts/screenshot.ts",
     "astro": "astro",
     "prettier": "prettier --write **/*.{ts,tsx,css,astro} --ignore-path .gitignore",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name pulge",
     "postinstall": "patch-package"
   },
   "dependencies": {
