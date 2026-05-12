@@ -1,31 +1,64 @@
-## Features
+# pulge.dev
 
-- [Astro](https://astro.build/)'s [Islands](https://docs.astro.build/en/concepts/islands/) architecture for selective hydration and client-side interactivity while maintaining fast static site rendering.
-- [shadcn/ui](https://ui.shadcn.com/) with [Tailwind](https://tailwindcss.com/) color conventions for automatic light and dark theme styling. Features accessible, theme-aware UI components for navigation, buttons, and more.
-- [Expressive Code](https://expressive-code.com/) for enhanced code block styling, syntax highlighting, and code block titles.
-- Blog authoring with [MDX](https://mdxjs.com/) for component-rich content and $\LaTeX$ math rendering via [KaTeX](https://katex.org/).
-- Astro [View Transitions](https://docs.astro.build/en/guides/view-transitions/) in <abbr title="Single Page Application">SPA</abbr> mode for smooth route animations.
-- SEO optimization with granular metadata and [Open Graph](https://ogp.me/) tag control for each post.
-- [RSS](https://en.wikipedia.org/wiki/RSS) feed and sitemap generation.
-- Subpost support for breaking long content into digestible parts and organizing related series.
-- Author profiles with a dedicated authors page and multi-author post support.
-- Project tags with a dedicated tags page for post categorization and discovery.
-- Custom Callout component variants for enhanced technical writing.
+Personal portfolio and technical blog built with **Astro 5**, **Tailwind 4**, and **React 19**.
 
-## Technology Stack
+## 🚀 Features
 
-This is a list of the various technologies used to build this template:
+- **Astro 5 Islands Architecture**: Selective hydration for high-performance static rendering.
+- **Tailwind 4 & Shadcn/UI**: Modern, theme-aware components with deep dark mode support.
+- **MDX Content**: Blog posts and project pages authored in MDX with LaTeX math support (KaTeX).
+- **Expressive Code**: Beautiful code blocks with line highlighting, titles, and terminal-like styling.
+- **View Transitions**: Seamless client-side navigation between pages.
+- **SEO Optimized**: Granular metadata, Open Graph tags, RSS feed, and automated sitemap.
+- **Dynamic Content**: Project tagging, multi-author support, and series/subpost organization.
 
-| Category   | Technology Name                                                                            |
-| ---------- | ------------------------------------------------------------------------------------------ |
-| Framework  | [Astro](https://astro.build/)                                                              |
-| Styling    | [Tailwind](https://tailwindcss.com)                                                        |
-| Components | [shadcn/ui](https://ui.shadcn.com/)                                                        |
-| Content    | [MDX](https://mdxjs.com/)                                                                  |
-| Codeblocks | [Expressive Code](https://expressive-code.com/), [Shiki](https://github.com/shikijs/shiki) |
-| Graphics   | [Figma](https://www.figma.com/)                                                            |
-| Deployment | [Vercel](https://vercel.com)                                                               |
+## 🛠️ Technology Stack
+
+| Category | Tools |
+| :--- | :--- |
+| **Framework** | [Astro 5](https://astro.build/) |
+| **UI Library** | [React 19](https://react.dev/) |
+| **Styling** | [Tailwind CSS 4](https://tailwindcss.com/) |
+| **Components** | [shadcn/ui](https://ui.shadcn.com/) |
+| **Animations** | [Framer Motion](https://www.framer.com/motion/) |
+| **Content** | [MDX](https://mdxjs.com/), [Expressive Code](https://expressive-code.com/) |
+| **Deployment** | [Cloudflare Pages](https://pages.cloudflare.com/) |
+
+## 📦 Project Structure
+
+```text
+src/
+├── components/   # Reusable UI components
+├── content/      # MDX files (blog, projects, authors)
+├── layouts/      # Page layout templates
+├── pages/        # Astro routes
+├── lib/          # Utility functions and helpers
+└── styles/       # Global CSS and Tailwind directives
+```
+
+## 🛠️ Local Development
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start development server:**
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+## 🌐 Find Me Online
+
+- **GitHub**: [pulge](https://github.com/pulge)
+- **Instagram**: [@_mark.rcn](https://www.instagram.com/_mark.rcn/)
+- **Website**: [pulge.pages.dev](https://pulge.pages.dev)
 
 ---
 
-Template by [enscribe](https://enscribe.dev)! &hearts;
+Built with ❤️ by [mark](https://pulge.pages.dev)
