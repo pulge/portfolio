@@ -1,7 +1,7 @@
 import type { IconMap, Site, SocialLink } from '@/types'
 
 export const SITE: Site = {
-  title: 'mark',
+  title: 'Mark | Web Developer',
   description:
     'A portfolio and personal website.',
   href: 'https://pulge.pages.dev',
