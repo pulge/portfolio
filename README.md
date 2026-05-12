@@ -56,7 +56,6 @@ src/
 ## 🌐 Find Me Online
 
 - **GitHub**: [pulge](https://github.com/pulge)
-- **Instagram**: [@_mark.rcn](https://www.instagram.com/_mark.rcn/)
 - **Website**: [pulge.pages.dev](https://pulge.pages.dev)
 
 ---

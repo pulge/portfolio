@@ -1,11 +1,11 @@
-import type { IconMap, SocialLink, Site } from '@/types'
+import type { IconMap, Site, SocialLink } from '@/types'
 
 export const SITE: Site = {
   title: 'mark',
   description:
     'A portfolio and personal website.',
   href: 'https://pulge.pages.dev',
-  author: 'jktrn',
+  author: 'mfulguerinas',
   locale: 'en-US',
   featuredPostCount: 2,
   postsPerPage: 3,
