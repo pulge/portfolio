@@ -24,7 +24,12 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === ''
   <Head>
     <slot name="head" />
   </Head>
-  <body class="flex h-fit min-h-screen flex-col gap-y-6 font-sans">
+  <body class="flex min-h-screen flex-col font-sans antialiased">
+    <!-- Fading top background -->
+    <div class="absolute inset-0 top-0 left-0 right-0 h-[300px] overflow-hidden z-0 pointer-events-none">
+      <div class="h-full w-full bg-linear-to-b from-primary/5 to-transparent"></div>
+    </div>
+
     <header
       id="main-header"
       class={cn(
@@ -43,7 +48,6 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === ''
       <!-- <ScrollTop /> -->
       <slot />
     </main>
-    <Footer />
   </body>
 </html>
 

@@ -3,9 +3,12 @@ import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Container from '@/components/Container.astro'
 import PageHead from '@/components/PageHead.astro'
 import PhotoCollection from '@/components/PhotoCollection.astro'
+import BlurFade from '@/components/magicui/BlurFade'
+import Section from '@/components/Section.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 
+const BLUR_FADE_DELAY = 0.04
 const photoCollections = await getCollection('media')
 // Sort collections by date (newest first)
 const sortedPhotoCollections = photoCollections.sort((a, b) => {
@@ -16,37 +19,52 @@ const sortedPhotoCollections = photoCollections.sort((a, b) => {
 })
 ---
 
-<Layout class="max-w-3xl">
+<Layout class="max-w-2xl">
   <PageHead slot="head" title="media" />
-  <!-- <Container class="flex flex-col gap-y-6"> -->
-  <!-- <Breadcrumbs items={[{ label: 'Photos', icon: 'lucide:camera' }]} /> -->
-  <section>
-    <div class="min-w-full">
-      <p class="prose mb-4">
-        I'm no multimedia artist or photographer, but I do enjoy creating,
-        color grading, or just taking pictures of places or events I have been, as a
-        hobby. Thought it would be better that some of these images reside
-        somewhere they could be seen.
-      </p>
 
-      <div class="my-4 flex flex-col gap-y-4">
-        {
-          sortedPhotoCollections.length > 0 ? (
-            <ul class="not-prose grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {sortedPhotoCollections.map((collection) => (
-                <li>
+  <div class="relative z-10 flex flex-col gap-14 py-12 pb-24 sm:py-24">
+    <!-- Header Section -->
+    <Section id="header">
+      <BlurFade delay={BLUR_FADE_DELAY} client:load>
+        <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl mb-3">
+          Media
+        </h1>
+      </BlurFade>
+      <BlurFade delay={BLUR_FADE_DELAY * 2} client:load>
+        <p class="text-muted-foreground md:text-lg lg:text-xl max-w-[600px]">
+          Creative experiments, photography, and multimedia pieces.
+        </p>
+      </BlurFade>
+    </Section>
+
+    <!-- Gallery Section -->
+    <Section id="gallery">
+      {
+        sortedPhotoCollections.length > 0 ? (
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div class="flex flex-col gap-4">
+              {sortedPhotoCollections.filter((_, idx) => idx % 2 === 0).map((collection, idx) => (
+                <BlurFade delay={BLUR_FADE_DELAY * (4 + idx * 2)} client:load>
                   <PhotoCollection collection={collection} />
-                </li>
+                </BlurFade>
               ))}
-            </ul>
-          ) : (
-            <p class="text-muted-foreground flex h-64 items-center justify-center">
+            </div>
+            <div class="flex flex-col gap-4">
+              {sortedPhotoCollections.filter((_, idx) => idx % 2 !== 0).map((collection, idx) => (
+                <BlurFade delay={BLUR_FADE_DELAY * (5 + idx * 2)} client:load>
+                  <PhotoCollection collection={collection} />
+                </BlurFade>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <BlurFade delay={BLUR_FADE_DELAY * 4} client:load>
+            <p class="text-muted-foreground flex h-32 items-center justify-center border rounded-xl border-dashed">
               No photos found.
             </p>
-          )
-        }
-      </div>
-    </div>
-  </section>
-  <!-- </Container> -->
+          </BlurFade>
+        )
+      }
+    </Section>
+  </div>
 </Layout>

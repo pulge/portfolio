@@ -13,11 +13,6 @@ export const SITE: Site = {
 
 export const NAV_LINKS = [
   {
-    href: '/coding',
-    label: 'coding',
-    icon: 'lucide:folder',
-  },
-  {
     href: '/media',
     label: 'media',
     icon: 'lucide:camera',
@@ -34,18 +29,10 @@ export const SOCIAL_LINKS: SocialLink[] = [
     href: 'https://github.com/pulge',
     label: 'GitHub',
   },
-  // {
-  //   href: 'https://twitter.com/enscry',
-  //   label: 'Twitter',
-  // },
   {
     href: '/inbox',
     label: 'Inbox',
     target: '_self',
-  },
-  {
-    href: 'https://www.instagram.com/_mark.rcn/',
-    label: 'Instagram',
   },
   {
     href: '/rss.xml',
