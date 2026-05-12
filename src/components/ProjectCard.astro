@@ -16,59 +16,79 @@ interface Props {
 const { title, description, tags, image, link, className } = Astro.props
 ---
 
-<Card className={cn(
-  "group relative flex flex-col h-full overflow-hidden transition-all duration-300",
-  "rounded-[12px] border-[0.5px] border-border shadow-none bg-white/25 py-0",
-  "hover:border-foreground/20 hover:-translate-y-[2px]",
-  className
-)}>
+<Card
+  className={cn(
+    'group relative flex h-full flex-col overflow-hidden transition-all duration-300',
+    'border-border rounded-[12px] border-[0.5px] bg-white/25 py-0 shadow-none dark:bg-white/5',
+    'hover:border-foreground/20 hover:-translate-y-[2px]',
+    className,
+  )}
+>
   <div class="relative aspect-video shrink-0 overflow-hidden border-b-[0.5px]">
-    {image ? (
-      <Image 
-        src={image} 
-        alt={title} 
-        class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
-      />
-    ) : (
-      <div class="size-full flex items-center justify-center bg-muted/10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
-        <div class="px-2 py-1 rounded-full border-[0.5px] border-border bg-background/80 backdrop-blur-sm">
-          <span class="text-[9px] font-mono text-muted-foreground/80 uppercase tracking-widest">no preview</span>
+    {
+      image ? (
+        <Image
+          src={image}
+          alt={title}
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      ) : (
+        <div class="bg-muted/10 flex size-full items-center justify-center bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
+          <div class="border-border bg-background/80 rounded-full border-[0.5px] px-2 py-1 backdrop-blur-sm">
+            <span class="text-muted-foreground/80 font-mono text-[9px] tracking-widest uppercase">
+              no preview
+            </span>
+          </div>
         </div>
-      </div>
-    )}
-    
-    {link && (
-       <a 
-        href={link} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        class="absolute top-2 right-2 p-1.5 rounded-full bg-background/80 backdrop-blur-sm border-[0.5px] border-border opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
-        aria-label={`Open ${title}`}
-      >
-        <Icon name="lucide:arrow-up-right" class="size-3 text-muted-foreground" />
-      </a>
-    )}
+      )
+    }
+
+    {
+      link && (
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-background/80 border-border hover:bg-background absolute top-2 right-2 rounded-full border-[0.5px] p-1.5 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100"
+          aria-label={`Open ${title}`}
+        >
+          <Icon
+            name="lucide:arrow-up-right"
+            class="text-muted-foreground size-3"
+          />
+        </a>
+      )
+    }
   </div>
 
-  <div class="flex flex-col flex-1 p-4">
-    <div class="flex flex-col gap-y-1 mb-3">
-      <h3 class="text-[14px] font-medium leading-none tracking-tight text-foreground">{title}</h3>
-      <p class="text-[12px] text-muted-foreground line-clamp-2 leading-relaxed">
+  <div class="flex flex-1 flex-col p-4">
+    <div class="mb-3 flex flex-col gap-y-1">
+      <h3
+        class="text-foreground text-[14px] leading-none font-medium tracking-tight"
+      >
+        {title}
+      </h3>
+      <p class="text-muted-foreground line-clamp-2 text-[12px] leading-relaxed">
         {description}
       </p>
     </div>
 
-    <div class="flex flex-wrap gap-1.5 mt-auto">
-      {tags?.map((tag, index) => (
-        <span class={cn(
-          "inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-normal transition-colors",
-          "bg-secondary/30 border-[0.5px] border-border text-muted-foreground/80",
-          "hover:bg-secondary/60 hover:text-foreground",
-          index === 0 && "border-foreground/20 text-foreground/90 bg-secondary/40"
-        )}>
-          {slugify(tag)}
-        </span>
-      ))}
+    <div class="mt-auto flex flex-wrap gap-1.5">
+      {
+        tags?.map((tag, index) => (
+          <span
+            class={cn(
+              'inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-normal transition-colors',
+              'bg-secondary/30 border-border text-muted-foreground/80 border-[0.5px]',
+              'hover:bg-secondary/60 hover:text-foreground',
+              index === 0 &&
+                'border-foreground/20 text-foreground/90 bg-secondary/40',
+            )}
+          >
+            {slugify(tag)}
+          </span>
+        ))
+      }
     </div>
   </div>
 </Card>

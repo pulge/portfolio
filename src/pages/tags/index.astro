@@ -22,11 +22,19 @@ const BLUR_FADE_DELAY = 0.04
             <BlurFade delay={BLUR_FADE_DELAY * (2 + idx)} client:load>
               <a
                 href={`/tags/${tag}`}
-                class={cn(badgeVariants({ variant: 'outline' }), "rounded-xl bg-white/25 h-8 px-4 flex items-center gap-2 border-border ring-2 ring-border/5 lowercase")}
+                class={cn(
+                  badgeVariants({ variant: 'outline' }),
+                  'border-border ring-border/5 flex h-8 items-center gap-2 rounded-xl bg-white/25 px-4 lowercase ring-2',
+                )}
               >
-                <Icon name="lucide:hash" class="size-3.5 text-muted-foreground" />
+                <Icon
+                  name="lucide:hash"
+                  class="text-muted-foreground size-3.5"
+                />
                 <span class="text-foreground text-sm font-medium">{tag}</span>
-                <span class="text-muted-foreground text-xs ml-1 font-mono">({count})</span>
+                <span class="text-muted-foreground ml-1 font-mono text-xs">
+                  ({count})
+                </span>
               </a>
             </BlurFade>
           ))

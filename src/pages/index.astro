@@ -118,7 +118,7 @@ const BLUR_FADE_DELAY = 0.04
             <BlurFade delay={BLUR_FADE_DELAY * (4 + idx)} client:load>
               <div class="group flex items-center justify-between gap-x-3">
                 <div class="flex min-w-0 flex-1 items-center gap-x-3">
-                  <div class="ring-border flex size-10 items-center justify-center overflow-hidden rounded-full border bg-white/25 shadow ring-2">
+                  <div class="ring-border flex size-10 items-center justify-center overflow-hidden rounded-full border bg-white/25 shadow ring-2 dark:bg-white/5">
                     {edu.logo ? (
                       <Image
                         src={edu.logo}
@@ -167,7 +167,7 @@ const BLUR_FADE_DELAY = 0.04
               <div class="flex flex-col gap-2">
                 <div class="group flex items-center justify-between gap-x-3">
                   <div class="flex min-w-0 flex-1 items-center gap-x-3">
-                    <div class="ring-border flex size-10 items-center justify-center overflow-hidden rounded-full border bg-white/15 shadow ring-2">
+                    <div class="ring-border flex size-10 items-center justify-center overflow-hidden rounded-full border bg-white/25 shadow ring-2 dark:bg-white/5">
                       {exp.logo ? (
                         <Image
                           src={exp.logo}
@@ -219,7 +219,7 @@ const BLUR_FADE_DELAY = 0.04
               <div
                 class={cn(
                   badgeVariants({ variant: 'outline' }),
-                  'border-border ring-border/5 flex h-8 items-center gap-2 rounded-xl bg-white/15 px-4 ring-2',
+                  'border-border ring-border/5 flex h-8 items-center gap-2 rounded-xl bg-white/25 px-4 ring-2 dark:bg-white/5',
                 )}
               >
                 {skill.icon ? (
