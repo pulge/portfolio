@@ -1,0 +1,138 @@
+---
+import ThemeToggle from '@/components/ThemeToggle.astro'
+import { NAV_LINKS, SOCIAL_LINKS } from '@/consts'
+import { cn } from '@/lib/utils'
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+  className?: string
+  position?: 'bottom' | 'left' | 'right'
+}
+
+const { className, position = 'bottom' } = Astro.props
+
+const socialLinks = SOCIAL_LINKS.filter((l) => l.label !== 'RSS' && l.label !== 'Inbox')
+
+const positionClasses = {
+  bottom: 'inset-x-0 bottom-6 flex justify-center',
+  left: 'inset-y-0 left-6 flex items-center',
+  right: 'inset-y-0 right-6 flex items-center',
+}
+
+const navClasses = {
+  bottom: 'flex-row h-14',
+  left: 'flex-col w-14',
+  right: 'flex-col w-14',
+}
+
+const tooltipClasses = {
+  bottom: '-top-10',
+  left: 'left-14',
+  right: 'right-14',
+}
+---
+
+<div class={cn('pointer-events-none fixed z-50 transition-all duration-300', positionClasses[position], className)}>
+  <nav
+    class={cn(
+      'pointer-events-auto relative flex items-center justify-center gap-2 rounded-full border bg-background/80 px-2 py-2 shadow-2xl backdrop-blur-xl ring-1 ring-border/50',
+      navClasses[position]
+    )}
+  >
+    <!-- Main Links -->
+    <a
+      href="/"
+      class="group relative flex size-10 items-center justify-center rounded-full transition-all hover:bg-muted"
+      aria-label="Home"
+    >
+      <Icon
+        name="lucide:home"
+        class="size-5 text-muted-foreground transition-colors group-hover:text-foreground"
+      />
+      <span
+        class={cn(
+          'absolute scale-0 rounded bg-foreground px-2 py-1 text-xs text-background transition-all group-hover:scale-100 font-sans whitespace-nowrap',
+          tooltipClasses[position]
+        )}>Home</span
+      >
+    </a>
+
+    {
+      NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class="group relative flex size-10 items-center justify-center rounded-full transition-all hover:bg-muted"
+          aria-label={link.label}
+        >
+          <Icon
+            name={link.icon || 'lucide:link'}
+            class="size-5 text-muted-foreground transition-colors group-hover:text-foreground"
+          />
+          <span
+            class={cn(
+              'absolute scale-0 rounded bg-foreground px-2 py-1 text-xs text-background transition-all group-hover:scale-100 font-sans capitalize whitespace-nowrap',
+              tooltipClasses[position]
+            )}
+          >
+            {link.label}
+          </span>
+        </a>
+      ))
+    }
+
+    <div
+      class={cn(
+        'bg-border/50',
+        position === 'bottom' ? 'mx-1 h-6 w-px' : 'my-1 h-px w-6'
+      )}
+      role="separator"
+    >
+    </div>
+
+    <!-- Social Links -->
+    {
+      socialLinks.map((link) => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group relative flex size-10 items-center justify-center rounded-full transition-all hover:bg-muted"
+          aria-label={link.label}
+        >
+          <Icon
+            name={
+              link.label.toLowerCase() === 'github'
+                ? 'lucide:github'
+                : link.label.toLowerCase() === 'linkedin'
+                  ? 'lucide:linkedin'
+                  : 'lucide:external-link'
+            }
+            class="size-5 text-muted-foreground transition-colors group-hover:text-foreground"
+          />
+          <span
+            class={cn(
+              'absolute scale-0 rounded bg-foreground px-2 py-1 text-xs text-background transition-all group-hover:scale-100 font-sans whitespace-nowrap',
+              tooltipClasses[position]
+            )}
+          >
+            {link.label}
+          </span>
+        </a>
+      ))
+    }
+
+    <div
+      class={cn(
+        'bg-border/50',
+        position === 'bottom' ? 'mx-1 h-6 w-px' : 'my-1 h-px w-6'
+      )}
+      role="separator"
+    >
+    </div>
+
+    <!-- Theme Toggle -->
+    <div class="flex size-10 items-center justify-center rounded-full">
+      <ThemeToggle />
+    </div>
+  </nav>
+</div>

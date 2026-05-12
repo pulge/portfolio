@@ -4,7 +4,7 @@ import '@/styles/typography.css'
 import ScrollTop from '@/components/ScrollTop.astro'
 import Footer from '@/components/Footer.astro'
 import Head from '@/components/Head.astro'
-import Header from '@/components/Header.astro'
+import Navbar from '@/components/Navbar.astro'
 import { SITE } from '@/consts'
 import { cn } from '@/lib/utils'
 
@@ -13,7 +13,6 @@ interface Props {
 }
 
 const { class: className } = Astro.props
-const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === ''
 ---
 
 <!doctype html>
@@ -30,56 +29,20 @@ const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === ''
       <div class="h-full w-full bg-linear-to-b from-primary/5 to-transparent"></div>
     </div>
 
-    <header
-      id="main-header"
-      class={cn(
-        'bg-background/50 sticky top-0 z-50 divide-y backdrop-blur-sm xl:divide-none transition-transform duration-300',
-        isHomePage && '-translate-y-full'
-      )}
-      data-home-page={isHomePage}
-    >
-      <Header />
+    <header class="sticky top-0 z-50 w-full">
       <slot name="subposts-navigation" />
       <slot name="table-of-contents" />
     </header>
+
     <main
-      class={cn('w-full mx-auto flex grow flex-col px-4', className)}
+      class={cn('w-full mx-auto flex grow flex-col px-4 mb-24', className)}
     >
       <!-- <ScrollTop /> -->
       <slot />
     </main>
+
+    <Navbar />
+    <!-- <Footer /> -->
   </body>
 </html>
-
-<script>
-  function initHeaderScroll() {
-    const header = document.getElementById('main-header');
-    const isHomePage = header?.getAttribute('data-home-page') === 'true';
-
-    if (isHomePage) {
-      const scrollThreshold = 100;
-
-      function handleScroll() {
-        const currentScrollY = window.scrollY;
-
-        if (currentScrollY > scrollThreshold) {
-          // Scrolled down past threshold - show header
-          header?.classList.remove('-translate-y-full');
-        } else {
-          // At top of page - hide header
-          header?.classList.add('-translate-y-full');
-        }
-      }
-
-      // Run once on load to set initial state
-      handleScroll();
-      window.addEventListener('scroll', handleScroll, { passive: true });
-    }
-  }
-
-  // Run on initial page load
-  initHeaderScroll();
-
-  // Run on Astro view transitions (if enabled)
-  document.addEventListener('astro:page-load', initHeaderScroll);
-</script>
+

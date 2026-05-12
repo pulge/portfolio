@@ -1,13 +1,12 @@
 ---
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import Container from '@/components/Container.astro'
-import Link from '@/components/Link.astro'
+import BlurFade from '@/components/magicui/BlurFade'
 import PageHead from '@/components/PageHead.astro'
-// import MusicPlayer from '@/components/MusicPlayer.tsx'
 import PhotoGallery from '@/components/PhotoGallery.astro'
-import { Badge } from '@/components/ui/badge'
+import Section from '@/components/Section.astro'
+import { badgeVariants } from '@/components/ui/badge'
 import Layout from '@/layouts/Layout.astro'
 import { getAlbumImages } from '@/lib/media-utils'
+import { cn } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
 import { type CollectionEntry, getCollection } from 'astro:content'
 
@@ -23,57 +22,48 @@ type Props = CollectionEntry<'media'>
 const collection = Astro.props
 
 const galleryImages = await getAlbumImages(collection.id)
+const BLUR_FADE_DELAY = 0.04
 ---
 
-<Layout>
-  <!-- <MusicPlayer client:load id={collection.id} /> -->
+<Layout class="max-w-2xl">
   <PageHead slot="head" title={collection.data.title || collection.data.name} />
-  <Container class="flex flex-col gap-y-6">
-    <section class="mx-auto">
-      <!-- <Breadcrumbs
-        items={[
-          { href: '/photos', label: 'Photos', icon: 'lucide:camera' },
-          { label: collection.data.name, icon: 'lucide:images' },
-        ]}
-        class="mb-8"
-      /> -->
-
-      <div class="mb-6 text-left">
-        <h1 class="mb-4 text-2xl font-bold text-center ">
-          {collection.data.title || collection.data.name}
-          <p class="text-sm font-normal text-muted-foreground">{collection.data.period}</p>
-            {
-        collection.data.tags && (
-          <div class="flex flex-wrap gap-2 items-center mt-2 justify-center leading-none">
-            {collection.data.tags.map((tag: string) => (
-              <Link href={`/tags/${tag}`} class="lowercase">
-                <Badge variant="muted">
-                  <Icon name="lucide:hash" class="size-3" />
+  
+  <div class="relative z-10 flex flex-col gap-14 py-12 pb-24 sm:py-24">
+    <Section id="media-header" title={collection.data.title || collection.data.name}>
+      <div class="flex flex-col gap-4 mt-[-1rem]">
+        <BlurFade delay={BLUR_FADE_DELAY} client:load>
+          <div class="flex items-center justify-between gap-4 flex-wrap">
+            <span class="text-sm text-muted-foreground tabular-nums">{collection.data.period}</span>
+            <div class="flex flex-wrap gap-2">
+              {collection.data.tags?.map((tag: string) => (
+                <a href={`/tags/${tag}`} class={cn(badgeVariants({ variant: 'outline' }), "rounded-xl bg-white/25 h-7 px-3 flex items-center gap-1.5 border-border ring-2 ring-border/5 text-xs lowercase")}>
+                  <Icon name="lucide:hash" class="size-3 text-muted-foreground" />
                   {tag}
-                </Badge>
-              </Link>
-            ))}
+                </a>
+              ))}
+            </div>
           </div>
-        )
-      }
-        </h1>
-        {
-          collection.data.description && (
-            <p class="text-muted-foreground text-base indent-8 text-justify">
-              {collection.data.description}
-            </p>
-             <p class="text-muted-foreground text-base indent-8 mt-2 text-justify">
-              {collection.data.remarks}
-            </p>
-          )
-        }
+        </BlurFade>
+
+        {(collection.data.description || collection.data.remarks) && (
+          <BlurFade delay={BLUR_FADE_DELAY * 2} client:load>
+            <div class="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert space-y-4">
+              {collection.data.description && <p>{collection.data.description}</p>}
+              {collection.data.remarks && <p class="text-sm italic opacity-80">{collection.data.remarks}</p>}
+            </div>
+          </BlurFade>
+        )}
       </div>
 
-      <PhotoGallery
-        name={collection.data.name}
-        images={galleryImages}
-        id={collection.id}
-      />
-    </section>
-  </Container>
+      <div class="mt-12">
+        <BlurFade delay={BLUR_FADE_DELAY * 3} client:load>
+          <PhotoGallery
+            name={collection.data.name}
+            images={galleryImages}
+            id={collection.id}
+          />
+        </BlurFade>
+      </div>
+    </Section>
+  </div>
 </Layout>

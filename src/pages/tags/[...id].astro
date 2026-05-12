@@ -1,12 +1,13 @@
 ---
 import BlogCard from '@/components/BlogCard.astro'
-import Link from '@/components/Link.astro'
+import BlurFade from '@/components/magicui/BlurFade'
 import PageHead from '@/components/PageHead.astro'
 import PhotoCollection from '@/components/PhotoCollection.astro'
-import ProjectCard from '@/components/ProjectCard.astro' // or whatever your coding card is
+import Section from '@/components/Section.astro'
 import { buttonVariants } from '@/components/ui/button'
 import Layout from '@/layouts/Layout.astro'
 import { getAllTags, getPostsByTag } from '@/lib/data-utils'
+import { cn } from '@/lib/utils'
 
 export async function getStaticPaths() {
   const tagMap = await getAllTags()
@@ -27,49 +28,42 @@ export async function getStaticPaths() {
 }
 
 const { tag, posts } = Astro.props
+const BLUR_FADE_DELAY = 0.04
 ---
 
-<Layout class="max-w-3xl">
+<Layout class="max-w-2xl">
   <PageHead
     slot="head"
-    title={`posts tagged with "${tag}"`}
+    title={`#${tag}`}
     description={`A collection of posts tagged with ${tag}.`}
     noindex
   />
 
-  <div class="flex w-full flex-col items-center justify-between">
-    <div class="mb-2 text-3xl font-semibold text-center">
-      {tag}
-    </div>
-    <div class="w-full text-right">
-      <Link
-        href="/tags"
-        class={buttonVariants({ variant: 'ghost', size: 'sm' }) +
-          ' group/link relative z-10 text-xs sm:text-sm'}
-      >
-        all tags
-        <span
-          class="ml-1.5 transition-transform group-hover/link:translate-x-1"
+  <div class="relative z-10 flex flex-col gap-14 py-12 pb-24 sm:py-24">
+    <Section id="tag-header" title={`#${tag}`}>
+      <div class="flex justify-end mt-[-3rem]">
+        <a
+          href="/tags"
+          class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), "text-xs text-muted-foreground hover:text-foreground")}
         >
-          &rarr;
-        </span>
-      </Link>
-    </div>
+          &larr; all tags
+        </a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+        {
+          posts.map((post, idx) => (
+            <BlurFade delay={BLUR_FADE_DELAY * (2 + idx)} client:load>
+              <div class="h-full">
+                {post.collection === 'blog' ? (
+                  <BlogCard entry={post} />
+                ) : post.collection === 'media' ? (
+                  <PhotoCollection collection={post} />
+                ) : null}
+              </div>
+            </BlurFade>
+          ))
+        }
+      </div>
+    </Section>
   </div>
-
-  <ul class="columns-1 sm:columns-2 gap-4 space-y-4">
-    {
-      posts.map((post) => (
-        <li class="break-inside-avoid">
-          {post.collection === 'blog' ? (
-            <BlogCard entry={post} />
-          ) : post.collection === 'coding' ? (
-            <ProjectCard coding={post} />
-          ) : post.collection === 'media' ? (
-            <PhotoCollection collection={post} />
-          ) : null}
-        </li>
-      ))
-    }
-  </ul>
 </Layout>
