@@ -19,11 +19,7 @@ const workExperience = [
     role: 'Software Development Intern',
     period: 'Feb 2026 - May 2026',
     logo: null,
-    points: [
-      'Designed and shipped modular TSX/React components and Excel pipelines for an active MIS system.',
-      'Participated in code reviews and Agile ceremonies in a professional development team.',
-      'Delivered features end-to-end within two-week sprint cycles.',
-    ],
+    points: [],
   },
 ]
 
@@ -48,7 +44,7 @@ const technicalSkills = [
 const education = [
   {
     school: 'Polytechnic University of the Philippines',
-    degree: 'BS in Information Technology (GWA 1.35)',
+    degree: 'BS in Information Technology (GWA 1.4)',
     period: '2022 - 2026',
     description: "Consistent President's and Dean's Lister",
     logo: null,
@@ -72,7 +68,7 @@ const BLUR_FADE_DELAY = 0.04
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 2} client:load>
             <p class="text-muted-foreground md:text-lg lg:text-xl max-w-[600px] leading-relaxed">
-              BSIT student and developer. I build production-grade web applications where architecture quality and type-safety matter.
+              Frontend-leaning Full-stack Developer.
             </p>
           </BlurFade>
         </div>
@@ -95,9 +91,6 @@ const BLUR_FADE_DELAY = 0.04
       <BlurFade delay={BLUR_FADE_DELAY * 3} client:load>
         <div class="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert space-y-4">
           <p>
-            I am a final-year BSIT student (1.35 GWA) with a passion for building scalable software. My experience ranges from shipping modular components in professional Agile teams at Eurolink to architecting complex accreditation systems for PUP San Juan.
-          </p>
-          <p>
             I specialize in the modern web stack—specifically Next.js, Laravel, and TypeScript—while maintaining production experience in enterprise environments like Salesforce. I focus on building resilient, type-safe tools that solve organizational challenges.
           </p>
         </div>
@@ -111,7 +104,7 @@ const BLUR_FADE_DELAY = 0.04
           <BlurFade delay={BLUR_FADE_DELAY * (4 + idx)} client:load>
             <div class="flex items-center gap-x-3 justify-between group">
               <div class="flex items-center gap-x-3 flex-1 min-w-0">
-                <div class="size-10 flex items-center justify-center border rounded-full shadow ring-2 ring-border bg-muted overflow-hidden">
+                <div class="size-10 flex items-center justify-center border rounded-full shadow ring-2 ring-border bg-white/25 overflow-hidden">
                   {edu.logo ? (
                     <Image src={edu.logo} alt={edu.school} width={40} height={40} class="object-cover" />
                   ) : (
@@ -149,7 +142,7 @@ const BLUR_FADE_DELAY = 0.04
             <div class="flex flex-col gap-2">
               <div class="flex items-center gap-x-3 justify-between group">
                 <div class="flex items-center gap-x-3 flex-1 min-w-0">
-                  <div class="size-10 flex items-center justify-center border rounded-full shadow ring-2 ring-border bg-muted overflow-hidden">
+                  <div class="size-10 flex items-center justify-center border rounded-full shadow ring-2 ring-border bg-white/25 overflow-hidden">
                     {exp.logo ? (
                       <Image src={exp.logo} alt={exp.company} width={40} height={40} class="object-cover" />
                     ) : (
@@ -169,11 +162,13 @@ const BLUR_FADE_DELAY = 0.04
                   <span>{exp.period}</span>
                 </div>
               </div>
-              <ul class="text-sm text-muted-foreground list-disc list-inside space-y-1 ml-[3.25rem]">
-                {exp.points.map(point => (
-                  <li>{point}</li>
-                ))}
-              </ul>
+              {exp.points.length > 0 && (
+                <ul class="text-sm text-muted-foreground list-disc list-inside space-y-1 ml-[3.25rem]">
+                  {exp.points.map(point => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           </BlurFade>
         ))}
@@ -185,7 +180,7 @@ const BLUR_FADE_DELAY = 0.04
       <div class="flex flex-wrap gap-2">
         {technicalSkills.map((skill, idx) => (
           <BlurFade delay={BLUR_FADE_DELAY * (7 + idx)} client:load>
-            <div class={cn(badgeVariants({ variant: 'outline' }), "rounded-xl h-8 px-4 flex items-center gap-2 border-border ring-2 ring-border/5")}>
+            <div class={cn(badgeVariants({ variant: 'outline' }), "rounded-xl bg-white/25 h-8 px-4 flex items-center gap-2 border-border ring-2 ring-border/5")}>
               {skill.icon ? (
                 <Icon name={skill.icon} class="size-3.5" />
               ) : (
