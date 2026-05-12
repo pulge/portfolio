@@ -4,7 +4,7 @@ export const SITE: Site = {
   title: 'mark',
   description:
     'A portfolio and personal website.',
-  href: 'https://pulge.vercel.app',
+  href: 'https://pulge.pages.dev',
   author: 'jktrn',
   locale: 'en-US',
   featuredPostCount: 2,
