@@ -2,6 +2,7 @@
 import { SITE } from '@/consts'
 import { isSubpost } from '@/lib/data-utils'
 import type { CollectionEntry } from 'astro:content'
+import { slugify } from '@/lib/utils'
 
 interface Props {
   post: CollectionEntry<'blog'>
@@ -55,6 +56,6 @@ const author =
 {
   post?.data.tags &&
     post.data.tags.map((tag: string) => {
-      return <meta property="article:tag" content={tag} />
+      return <meta property="article:tag" content={slugify(tag)} />
     })
 }

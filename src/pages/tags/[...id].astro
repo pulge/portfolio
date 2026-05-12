@@ -7,6 +7,7 @@ import Section from '@/components/Section.astro'
 import { buttonVariants } from '@/components/ui/button'
 import Layout from '@/layouts/Layout.astro'
 import { getAllTags, getPostsByTag } from '@/lib/data-utils'
+import ProjectCard from '@/components/ProjectCard.astro'
 import { cn } from '@/lib/utils'
 
 export async function getStaticPaths() {
@@ -55,9 +56,17 @@ const BLUR_FADE_DELAY = 0.04
             <BlurFade delay={BLUR_FADE_DELAY * (2 + idx)} client:load>
               <div class="h-full">
                 {post.collection === 'blog' ? (
-                  <BlogCard entry={post} />
+                  <BlogCard entry={post} variant="grid" />
                 ) : post.collection === 'media' ? (
                   <PhotoCollection collection={post} />
+                ) : post.collection === 'coding' ? (
+                  <ProjectCard
+                    title={post.data.title}
+                    description={post.data.description}
+                    tags={post.data.tags}
+                    image={post.data.image}
+                    link={post.data.link}
+                  />
                 ) : null}
               </div>
             </BlurFade>

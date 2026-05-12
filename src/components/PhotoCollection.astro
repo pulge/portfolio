@@ -1,6 +1,6 @@
 ---
 import { getPhotoCount } from '@/lib/media-utils'
-import { cn, formatDate } from '@/lib/utils'
+import { cn, formatDate, slugify } from '@/lib/utils'
 import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
 import Link from './Link.astro'
@@ -61,7 +61,7 @@ const photoCount = await getPhotoCount(collection.id)
           <div class="flex flex-wrap gap-1.5">
             {collection.data.tags.slice(0, 2).map((tag: string) => (
               <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-normal transition-colors bg-secondary/30 border-[0.5px] border-border text-muted-foreground/80">
-                {tag}
+                {slugify(tag)}
               </span>
             ))}
           </div>

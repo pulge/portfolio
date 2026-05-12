@@ -11,7 +11,9 @@ interface Props {
 
 const { className, position = 'bottom' } = Astro.props
 
-const socialLinks = SOCIAL_LINKS.filter((l) => l.label !== 'RSS' && l.label !== 'Inbox')
+const socialLinks = SOCIAL_LINKS.filter(
+  (l) => l.label !== 'RSS' && l.label !== 'Inbox',
+)
 
 const positionClasses = {
   bottom: 'inset-x-0 bottom-6 flex justify-center',
@@ -32,27 +34,33 @@ const tooltipClasses = {
 }
 ---
 
-<div class={cn('pointer-events-none fixed z-50 transition-all duration-300', positionClasses[position], className)}>
+<div
+  class={cn(
+    'navbar-container pointer-events-none fixed z-50 transition-all duration-300',
+    positionClasses[position],
+    className,
+  )}
+>
   <nav
     class={cn(
       'pointer-events-auto relative flex items-center justify-center gap-2 rounded-full border bg-background/80 px-2 py-2 shadow-2xl backdrop-blur-xl ring-1 ring-border/50',
-      navClasses[position]
+      navClasses[position],
     )}
   >
     <!-- Main Links -->
     <a
       href="/"
-      class="group relative flex size-10 items-center justify-center rounded-full transition-all hover:bg-muted"
+      class="group hover:bg-muted relative flex size-10 items-center justify-center rounded-full transition-all"
       aria-label="Home"
     >
       <Icon
         name="lucide:home"
-        class="size-5 text-muted-foreground transition-colors group-hover:text-foreground"
+        class="text-muted-foreground group-hover:text-foreground size-5 transition-colors"
       />
       <span
         class={cn(
           'absolute scale-0 rounded bg-foreground px-2 py-1 text-xs text-background transition-all group-hover:scale-100 font-sans whitespace-nowrap',
-          tooltipClasses[position]
+          tooltipClasses[position],
         )}>Home</span
       >
     </a>
@@ -61,17 +69,17 @@ const tooltipClasses = {
       NAV_LINKS.map((link) => (
         <a
           href={link.href}
-          class="group relative flex size-10 items-center justify-center rounded-full transition-all hover:bg-muted"
+          class="group hover:bg-muted relative flex size-10 items-center justify-center rounded-full transition-all"
           aria-label={link.label}
         >
           <Icon
             name={link.icon || 'lucide:link'}
-            class="size-5 text-muted-foreground transition-colors group-hover:text-foreground"
+            class="text-muted-foreground group-hover:text-foreground size-5 transition-colors"
           />
           <span
             class={cn(
-              'absolute scale-0 rounded bg-foreground px-2 py-1 text-xs text-background transition-all group-hover:scale-100 font-sans capitalize whitespace-nowrap',
-              tooltipClasses[position]
+              'bg-foreground text-background absolute scale-0 rounded px-2 py-1 font-sans text-xs whitespace-nowrap capitalize transition-all group-hover:scale-100',
+              tooltipClasses[position],
             )}
           >
             {link.label}
@@ -83,7 +91,7 @@ const tooltipClasses = {
     <div
       class={cn(
         'bg-border/50',
-        position === 'bottom' ? 'mx-1 h-6 w-px' : 'my-1 h-px w-6'
+        position === 'bottom' ? 'mx-1 h-6 w-px' : 'my-1 h-px w-6',
       )}
       role="separator"
     >
@@ -96,7 +104,7 @@ const tooltipClasses = {
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          class="group relative flex size-10 items-center justify-center rounded-full transition-all hover:bg-muted"
+          class="group hover:bg-muted relative flex size-10 items-center justify-center rounded-full transition-all"
           aria-label={link.label}
         >
           <Icon
@@ -107,12 +115,12 @@ const tooltipClasses = {
                   ? 'lucide:linkedin'
                   : 'lucide:external-link'
             }
-            class="size-5 text-muted-foreground transition-colors group-hover:text-foreground"
+            class="text-muted-foreground group-hover:text-foreground size-5 transition-colors"
           />
           <span
             class={cn(
-              'absolute scale-0 rounded bg-foreground px-2 py-1 text-xs text-background transition-all group-hover:scale-100 font-sans whitespace-nowrap',
-              tooltipClasses[position]
+              'bg-foreground text-background absolute scale-0 rounded px-2 py-1 font-sans text-xs whitespace-nowrap transition-all group-hover:scale-100',
+              tooltipClasses[position],
             )}
           >
             {link.label}
@@ -124,15 +132,15 @@ const tooltipClasses = {
     <div
       class={cn(
         'bg-border/50',
-        position === 'bottom' ? 'mx-1 h-6 w-px' : 'my-1 h-px w-6'
+        position === 'bottom' ? 'mx-1 h-6 w-px' : 'my-1 h-px w-6',
       )}
       role="separator"
     >
     </div>
 
     <!-- Theme Toggle -->
-    <div class="flex size-10 items-center justify-center rounded-full">
-      <ThemeToggle />
-    </div>
+    <ThemeToggle
+      class="hover:bg-muted group relative flex size-10 cursor-pointer items-center justify-center rounded-full transition-all"
+    />
   </nav>
 </div>

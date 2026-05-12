@@ -59,26 +59,34 @@ const BLUR_FADE_DELAY = 0.04
   <div class="relative z-10 flex flex-col gap-14 py-12 pb-24 sm:py-24">
     <!-- Hero Section -->
     <Section id="hero" className="mt-[-20px]">
-      <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-8">
-        <div class="flex flex-col gap-3 flex-1 text-center md:text-left">
+      <div
+        class="flex flex-col-reverse items-center justify-between gap-8 md:flex-row"
+      >
+        <div class="flex flex-1 flex-col gap-3 text-center md:text-left">
           <BlurFade delay={BLUR_FADE_DELAY} client:load>
-            <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
+            <h1
+              class="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl"
+            >
               Hi, I'm Mark
             </h1>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 2} client:load>
-            <p class="text-muted-foreground md:text-lg lg:text-xl max-w-[600px] leading-relaxed">
+            <p
+              class="text-muted-foreground max-w-[600px] leading-relaxed md:text-lg lg:text-xl"
+            >
               Frontend-leaning Web Developer.
             </p>
           </BlurFade>
         </div>
         <BlurFade delay={BLUR_FADE_DELAY} client:load>
-          <div class="relative flex shrink-0 overflow-hidden size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
-            <Image 
-              src="/static/silhouette.jpg" 
-              alt="Mark" 
-              width={128} 
-              height={128} 
+          <div
+            class="ring-muted relative flex size-24 shrink-0 overflow-hidden rounded-full border shadow-lg ring-4 md:size-32"
+          >
+            <Image
+              src="/static/silhouette.jpg"
+              alt="Mark"
+              width={128}
+              height={128}
               class="aspect-square h-full w-full object-cover"
             />
           </div>
@@ -89,9 +97,14 @@ const BLUR_FADE_DELAY = 0.04
     <!-- About Section -->
     <Section id="about" title="About">
       <BlurFade delay={BLUR_FADE_DELAY * 3} client:load>
-        <div class="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert space-y-4">
+        <div
+          class="prose text-muted-foreground dark:prose-invert max-w-full space-y-4 font-sans leading-relaxed text-pretty"
+        >
           <p>
-            I specialize in the modern web stack—specifically Next.js, Laravel, and TypeScript—while maintaining production experience in enterprise environments like Salesforce. I focus on building resilient, type-safe tools that solve organizational challenges.
+            I specialize in the modern web stack—specifically Next.js, Laravel,
+            and TypeScript—while maintaining production experience in enterprise
+            environments like Salesforce. I focus on building resilient,
+            type-safe tools that solve organizational challenges.
           </p>
         </div>
       </BlurFade>
@@ -100,96 +113,130 @@ const BLUR_FADE_DELAY = 0.04
     <!-- Education Section -->
     <Section id="education" title="Education">
       <div class="flex flex-col gap-8">
-        {education.map((edu, idx) => (
-          <BlurFade delay={BLUR_FADE_DELAY * (4 + idx)} client:load>
-            <div class="flex items-center gap-x-3 justify-between group">
-              <div class="flex items-center gap-x-3 flex-1 min-w-0">
-                <div class="size-10 flex items-center justify-center border rounded-full shadow ring-2 ring-border bg-white/25 overflow-hidden">
-                  {edu.logo ? (
-                    <Image src={edu.logo} alt={edu.school} width={40} height={40} class="object-cover" />
-                  ) : (
-                    <Icon name="lucide:graduation-cap" class="size-5 text-muted-foreground" />
-                  )}
-                </div>
-                <div class="flex-1 min-w-0 flex flex-col gap-0.5">
-                  <div class="font-semibold leading-none flex items-center gap-2">
-                    {edu.school}
+        {
+          education.map((edu, idx) => (
+            <BlurFade delay={BLUR_FADE_DELAY * (4 + idx)} client:load>
+              <div class="group flex items-center justify-between gap-x-3">
+                <div class="flex min-w-0 flex-1 items-center gap-x-3">
+                  <div class="ring-border flex size-10 items-center justify-center overflow-hidden rounded-full border bg-white/25 shadow ring-2">
+                    {edu.logo ? (
+                      <Image
+                        src={edu.logo}
+                        alt={edu.school}
+                        width={40}
+                        height={40}
+                        class="object-cover"
+                      />
+                    ) : (
+                      <Icon
+                        name="lucide:graduation-cap"
+                        class="text-muted-foreground size-5"
+                      />
+                    )}
                   </div>
-                  <div class="font-sans text-sm text-muted-foreground line-clamp-1">
-                    {edu.degree}
-                  </div>
-                  {edu.description && (
-                    <div class="text-xs text-muted-foreground/80 mt-1 font-sans">
-                      {edu.description}
+                  <div class="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <div class="flex items-center gap-2 leading-none font-semibold">
+                      {edu.school}
                     </div>
-                  )}
+                    <div class="text-muted-foreground line-clamp-1 font-sans text-sm">
+                      {edu.degree}
+                    </div>
+                    {edu.description && (
+                      <div class="text-muted-foreground/80 mt-1 font-sans text-xs">
+                        {edu.description}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div class="text-muted-foreground flex flex-none items-center gap-1 text-right text-xs tabular-nums">
+                  <span>{edu.period}</span>
                 </div>
               </div>
-              <div class="flex items-center gap-1 text-xs tabular-nums text-muted-foreground text-right flex-none">
-                <span>{edu.period}</span>
-              </div>
-            </div>
-          </BlurFade>
-        ))}
+            </BlurFade>
+          ))
+        }
       </div>
     </Section>
 
     <!-- Experience Section -->
     <Section id="experience" title="Experience">
       <div class="flex flex-col gap-8">
-        {workExperience.map((exp, idx) => (
-          <BlurFade delay={BLUR_FADE_DELAY * (5 + idx)} client:load>
-            <div class="flex flex-col gap-2">
-              <div class="flex items-center gap-x-3 justify-between group">
-                <div class="flex items-center gap-x-3 flex-1 min-w-0">
-                  <div class="size-10 flex items-center justify-center border rounded-full shadow ring-2 ring-border bg-white/25 overflow-hidden">
-                    {exp.logo ? (
-                      <Image src={exp.logo} alt={exp.company} width={40} height={40} class="object-cover" />
-                    ) : (
-                      <Icon name="lucide:briefcase" class="size-5 text-muted-foreground" />
-                    )}
+        {
+          workExperience.map((exp, idx) => (
+            <BlurFade delay={BLUR_FADE_DELAY * (5 + idx)} client:load>
+              <div class="flex flex-col gap-2">
+                <div class="group flex items-center justify-between gap-x-3">
+                  <div class="flex min-w-0 flex-1 items-center gap-x-3">
+                    <div class="ring-border flex size-10 items-center justify-center overflow-hidden rounded-full border bg-white/15 shadow ring-2">
+                      {exp.logo ? (
+                        <Image
+                          src={exp.logo}
+                          alt={exp.company}
+                          width={40}
+                          height={40}
+                          class="object-cover"
+                        />
+                      ) : (
+                        <Icon
+                          name="lucide:briefcase"
+                          class="text-muted-foreground size-5"
+                        />
+                      )}
+                    </div>
+                    <div class="flex min-w-0 flex-1 flex-col gap-0.5">
+                      <div class="flex items-center gap-2 leading-none font-semibold">
+                        {exp.role}
+                      </div>
+                      <div class="text-muted-foreground line-clamp-1 font-sans text-sm">
+                        {exp.company}
+                      </div>
+                    </div>
                   </div>
-                  <div class="flex-1 min-w-0 flex flex-col gap-0.5">
-                    <div class="font-semibold leading-none flex items-center gap-2">
-                      {exp.role}
-                    </div>
-                    <div class="font-sans text-sm text-muted-foreground line-clamp-1">
-                      {exp.company}
-                    </div>
+                  <div class="text-muted-foreground flex flex-none items-center gap-1 text-right text-xs tabular-nums">
+                    <span>{exp.period}</span>
                   </div>
                 </div>
-                <div class="flex items-center gap-1 text-xs tabular-nums text-muted-foreground text-right flex-none">
-                  <span>{exp.period}</span>
-                </div>
+                {exp.points.length > 0 && (
+                  <ul class="text-muted-foreground ml-[3.25rem] list-inside list-disc space-y-1 text-sm">
+                    {exp.points.map((point) => (
+                      <li>{point}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
-              {exp.points.length > 0 && (
-                <ul class="text-sm text-muted-foreground list-disc list-inside space-y-1 ml-[3.25rem]">
-                  {exp.points.map(point => (
-                    <li>{point}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </BlurFade>
-        ))}
+            </BlurFade>
+          ))
+        }
       </div>
     </Section>
 
     <!-- Skills Section -->
     <Section id="skills" title="Skills">
       <div class="flex flex-wrap gap-2">
-        {technicalSkills.map((skill, idx) => (
-          <BlurFade delay={BLUR_FADE_DELAY * (7 + idx)} client:load>
-            <div class={cn(badgeVariants({ variant: 'outline' }), "rounded-xl bg-white/25 h-8 px-4 flex items-center gap-2 border-border ring-2 ring-border/5")}>
-              {skill.icon ? (
-                <Icon name={skill.icon} class="size-3.5" />
-              ) : (
-                <Icon name="lucide:cpu" class="size-3.5 text-muted-foreground" />
-              )}
-              <span class="text-foreground text-sm font-medium">{skill.name}</span>
-            </div>
-          </BlurFade>
-        ))}
+        {
+          technicalSkills.map((skill, idx) => (
+            <BlurFade delay={BLUR_FADE_DELAY * (7 + idx)} client:load>
+              <div
+                class={cn(
+                  badgeVariants({ variant: 'outline' }),
+                  'border-border ring-border/5 flex h-8 items-center gap-2 rounded-xl bg-white/15 px-4 ring-2',
+                )}
+              >
+                {skill.icon ? (
+                  <Icon name={skill.icon} class="size-3.5" />
+                ) : (
+                  <Icon
+                    name="lucide:cpu"
+                    class="text-muted-foreground size-3.5"
+                  />
+                )}
+                <span class="text-foreground text-sm font-medium">
+                  {skill.name}
+                </span>
+              </div>
+            </BlurFade>
+          ))
+        }
       </div>
     </Section>
 
@@ -197,30 +244,38 @@ const BLUR_FADE_DELAY = 0.04
     <Section id="projects" title="Projects">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div class="flex flex-col gap-4">
-          {projects.filter((_, idx) => idx % 2 === 0).map((project, idx) => (
-            <BlurFade delay={BLUR_FADE_DELAY * (12 + idx * 2)} client:load>
-              <ProjectCard 
-                title={project.data.title}
-                description={project.data.description}
-                tags={project.data.tags}
-                image={project.data.image}
-                link={project.data.link}
-              />
-            </BlurFade>
-          ))}
+          {
+            projects
+              .filter((_, idx) => idx % 2 === 0)
+              .map((project, idx) => (
+                <BlurFade delay={BLUR_FADE_DELAY * (12 + idx * 2)} client:load>
+                  <ProjectCard
+                    title={project.data.title}
+                    description={project.data.description}
+                    tags={project.data.tags}
+                    image={project.data.image}
+                    link={project.data.link}
+                  />
+                </BlurFade>
+              ))
+          }
         </div>
         <div class="flex flex-col gap-4">
-          {projects.filter((_, idx) => idx % 2 !== 0).map((project, idx) => (
-            <BlurFade delay={BLUR_FADE_DELAY * (13 + idx * 2)} client:load>
-              <ProjectCard 
-                title={project.data.title}
-                description={project.data.description}
-                tags={project.data.tags}
-                image={project.data.image}
-                link={project.data.link}
-              />
-            </BlurFade>
-          ))}
+          {
+            projects
+              .filter((_, idx) => idx % 2 !== 0)
+              .map((project, idx) => (
+                <BlurFade delay={BLUR_FADE_DELAY * (13 + idx * 2)} client:load>
+                  <ProjectCard
+                    title={project.data.title}
+                    description={project.data.description}
+                    tags={project.data.tags}
+                    image={project.data.image}
+                    link={project.data.link}
+                  />
+                </BlurFade>
+              ))
+          }
         </div>
       </div>
     </Section>
@@ -229,15 +284,27 @@ const BLUR_FADE_DELAY = 0.04
     <Section id="contact" title="Get in Touch">
       <BlurFade delay={BLUR_FADE_DELAY * 15} client:load>
         <p class="text-muted-foreground">
-          If you have any message, suggestions, or inquiries, don’t hesitate to drop it in my 
-          <a href={SOCIAL_LINKS.find(l => l.label === 'Inbox')?.href || '#'} class="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground transition-colors">inbox</a>.
+          If you have any message, suggestions, or inquiries, don’t hesitate to
+          drop it in my
+          <a
+            href={SOCIAL_LINKS.find((l) => l.label === 'Inbox')?.href || '#'}
+            class="text-foreground decoration-border hover:decoration-foreground underline underline-offset-4 transition-colors"
+            >inbox</a
+          >.
         </p>
-        <div class="flex gap-4 mt-2">
-          {SOCIAL_LINKS.filter(l => l.label !== 'Inbox').map((link) => (
-            <a href={link.href} target="_blank" rel="noopener noreferrer" class="text-muted-foreground hover:text-foreground transition-colors">
-              <span class="text-sm">{link.label}</span>
-            </a>
-          ))}
+        <div class="mt-2 flex gap-4">
+          {
+            SOCIAL_LINKS.filter((l) => l.label !== 'Inbox').map((link) => (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <span class="text-sm">{link.label}</span>
+              </a>
+            ))
+          }
         </div>
       </BlurFade>
     </Section>

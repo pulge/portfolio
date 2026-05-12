@@ -24,7 +24,7 @@ import {
   isSubpost,
   parseAuthors,
 } from '@/lib/data-utils'
-import { formatDate } from '@/lib/utils'
+import { formatDate, slugify } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
 import { render } from 'astro:content'
@@ -205,11 +205,11 @@ const tocSections = await getTOCSections(currentPostId)
               post.data.tags.length > 0 &&
               post.data.tags.map((tag) => (
                 <a
-                  href={`/tags/${tag}`}
+                  href={`/tags/${slugify(tag)}`}
                   class={badgeVariants({ variant: 'muted' }) + ' lowercase'}
                 >
                   <Icon name="lucide:hash" class="size-3" />
-                  {tag}
+                  {slugify(tag)}
                 </a>
               ))
           }

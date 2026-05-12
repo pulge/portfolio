@@ -1,18 +1,22 @@
 ---
+import BlurFade from '@/components/magicui/BlurFade'
 import type { ImageMetadata } from 'astro'
 import { Icon } from 'astro-icon/components'
-import { getFullSizeImages } from '../lib/media-utils'
 import { Image, getImage } from 'astro:assets'
+import { getFullSizeImages } from '../lib/media-utils'
 
 interface Props {
   name: string
   id: string
   images: ImageMetadata[]
+  delay?: number
 }
 
-const { name, images, id } = Astro.props
+const { name, images, id, delay = 0 } = Astro.props
 
-console.log(`[PhotoGallery] Rendering gallery for ${name} with ${images.length} images`)
+console.log(
+  `[PhotoGallery] Rendering gallery for ${name} with ${images.length} images`,
+)
 
 // Create a map of full-size image URLs and metadata
 const fullSizeImages = await getFullSizeImages(images, id)
@@ -21,10 +25,10 @@ const fullSizeImages = await getFullSizeImages(images, id)
 const optimizedImages = await Promise.all(
   images.map(async (img) => {
     try {
-      const optimized = await getImage({ 
+      const optimized = await getImage({
         src: img, // Pass the entire image object
         format: 'webp',
-        quality: 90
+        quality: 90,
       })
       console.log(`[PhotoGallery] Optimized image -> ${optimized.src}`)
       return optimized.src
@@ -33,66 +37,73 @@ const optimizedImages = await Promise.all(
       // Fallback to the original image object
       return typeof img === 'string' ? img : img.src
     }
-  })
+  }),
 )
 
-console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}`)
+console.log(
+  `[PhotoGallery] Full-size images processed: ${fullSizeImages.length}`,
+)
 ---
 
 <div>
-  <div class="columns-1 gap-5 sm:columns-2 sm:gap-2 md:columns-3">
-    {
-      images.map((image, index) => {
-        const fullImage = fullSizeImages[index]
-        const optimizedSrc = optimizedImages[index]
-        console.log(`[PhotoGallery] Rendering image ${index}`)
-        
-        return (
-          <div class="relative mb-5 break-inside-avoid sm:mb-2">
-            <Image
-              src={image}
-              alt={`Photo ${index + 1} from ${name}`}
-              loading={index < 15 ? 'eager' : 'lazy'}
-              decoding={index < 15 ? 'sync' : 'async'}
-              class="gallery-item gallery-image cursor-pointer transition-opacity hover:opacity-90"
-              draggable={false}
-              data-index={index}
-              data-fullsize={optimizedSrc}
-              data-fullwidth={fullImage.width}
-              data-fullheight={fullImage.height}
-              data-placeholder={fullImage.blurDataUrl}
-              data-hash={fullImage.hash}
-              widths={[360, 720, 1200]}
-              sizes={`(max-width: 360px) 360px, (max-width: 720px) 720px, 1200px`}
-            />
-          </div>
-        )
-      })
-    }
-  </div>
+  <BlurFade delay={delay} client:load>
+    <div class="columns-1 gap-5 sm:columns-2 sm:gap-2 md:columns-3">
+      {
+        images.map((image, index) => {
+          const fullImage = fullSizeImages[index]
+          const optimizedSrc = optimizedImages[index]
+          console.log(`[PhotoGallery] Rendering image ${index}`)
+
+          return (
+            <div class="relative mb-5 break-inside-avoid sm:mb-2">
+              <Image
+                src={image}
+                alt={`Photo ${index + 1} from ${name}`}
+                loading={index < 15 ? 'eager' : 'lazy'}
+                decoding={index < 15 ? 'sync' : 'async'}
+                class="gallery-item gallery-image cursor-pointer transition-opacity hover:opacity-90"
+                draggable={false}
+                data-index={index}
+                data-fullsize={optimizedSrc}
+                data-fullwidth={fullImage.width}
+                data-fullheight={fullImage.height}
+                data-placeholder={fullImage.blurDataUrl}
+                data-hash={fullImage.hash}
+                widths={[360, 720, 1200]}
+                sizes={`(max-width: 360px) 360px, (max-width: 720px) 720px, 1200px`}
+              />
+            </div>
+          )
+        })
+      }
+    </div>
+  </BlurFade>
 
   <!-- Overlay container -->
   <div
     id="gallery-overlay"
-    class="fixed inset-0 z-[9999] hidden bg-background/50 backdrop-blur-lg"
+    class="bg-background/50 fixed inset-0 z-[9999] hidden h-screen w-screen backdrop-blur-lg"
   >
     <div
-      class="relative flex h-full items-center justify-center"
+      class="relative flex h-full w-full items-center justify-center overflow-hidden"
       id="overlay-container"
     >
       <!-- Left navigation arrow -->
       <button
         id="prev-button"
-        class="absolute left-5 hidden p-1.5 text-primary opacity-70 transition-all duration-300 hover:bg-secondary/50 hover:opacity-100 xl:block"
+        class="text-primary hover:bg-secondary/50 absolute left-5 z-50 hidden cursor-pointer p-1.5 opacity-70 transition-all duration-300 hover:opacity-100 xl:block"
         aria-label="Previous image"
       >
         <Icon name="lucide:chevron-left" class="size-7" />
       </button>
 
-      <div id="image-stack" class="relative grid">
+      <div
+        id="image-stack"
+        class="relative grid h-full w-full place-items-center"
+      >
         <div
           id="image-container-placeholder"
-          class="image-container z-[1] col-start-1 row-start-1"
+          class="image-container z-[1] col-start-1 row-start-1 h-full w-full"
         >
           {
             fullSizeImages.map((image, index) => (
@@ -118,7 +129,7 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
 
         <div
           id="image-container"
-          class="image-container z-[2] col-start-1 row-start-1"
+          class="image-container z-[2] col-start-1 row-start-1 h-full w-full"
         >
         </div>
       </div>
@@ -126,7 +137,7 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
       <!-- Right navigation arrow -->
       <button
         id="next-button"
-        class="absolute right-5 hidden p-1.5 text-primary opacity-70 transition-all duration-300 hover:bg-secondary/50 hover:opacity-100 xl:block"
+        class="text-primary hover:bg-secondary/50 absolute right-5 z-50 hidden cursor-pointer p-1.5 opacity-70 transition-all duration-300 hover:opacity-100 xl:block"
         aria-label="Next image"
       >
         <Icon name="lucide:chevron-right" class="size-7" />
@@ -135,7 +146,7 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
       <!-- Close button -->
       <button
         id="close-button"
-        class="absolute right-3 top-3 p-1.5 text-primary opacity-70 transition-all duration-300 hover:bg-secondary/50 hover:opacity-100 sm:right-5 sm:top-5"
+        class="text-primary hover:bg-secondary/50 absolute top-3 right-3 z-50 cursor-pointer p-1.5 opacity-70 transition-all duration-300 hover:opacity-100 sm:top-5 sm:right-5"
         aria-label="Close gallery"
         title="close"
       >
@@ -181,6 +192,22 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  #image-stack {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  :global(body.gallery-open .navbar-container) {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
   }
 </style>
 
@@ -188,14 +215,8 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
   // Setup the gallery functionality
   function setupGallery() {
     console.log('[Gallery Script] Initializing gallery...')
-    
+
     const isMobile = window.innerWidth < 640
-    const galleryImages = document.querySelectorAll(
-      '.gallery-item',
-    ) as NodeListOf<HTMLImageElement>
-    
-    console.log(`[Gallery Script] Found ${galleryImages.length} gallery images`)
-    
     const overlay = document.getElementById('gallery-overlay') as HTMLDivElement
     const prevButton = document.getElementById(
       'prev-button',
@@ -217,14 +238,11 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
       nextButton.style.opacity = '0.7'
       closeButton.style.opacity = '0.7'
 
-      // Reset the timer if it exists
       if (inactivityTimer) {
         clearTimeout(inactivityTimer)
       }
 
-      // Only apply the inactivity timer on non-mobile screens (640px and up)
       if (!isMobile) {
-        // Start a new timer to hide buttons after 2 seconds
         inactivityTimer = window.setTimeout(hideButtons, 2000)
       }
     }
@@ -236,20 +254,29 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
       closeButton.style.opacity = '0'
     }
 
-    function handleImageClick(event: MouseEvent) {
-      const previewImg = event.target as HTMLImageElement
+    function handleImageClick(
+      event: MouseEvent | { target: HTMLImageElement },
+    ) {
+      const target = event.target as Element
+      const previewImg = target.closest('.gallery-item') as HTMLImageElement
+      if (!previewImg) return
 
       console.log('[Gallery Script] Image clicked:', previewImg.dataset.index)
 
-      if (!overlay.classList.contains('hidden')) {
+      if (
+        !overlay.classList.contains('hidden') &&
+        !(
+          'target' in event &&
+          event.target instanceof HTMLImageElement &&
+          event.target.id.startsWith('full-')
+        )
+      ) {
         if (
-          event.target === prevButton ||
-          event.target === nextButton ||
-          (event.target as Element).closest('#prev-button') ||
-          (event.target as Element).closest('#next-button') ||
-          (event.target as Element).closest('#close-button')
+          target.closest('#prev-button') ||
+          target.closest('#next-button') ||
+          target.closest('#close-button')
         ) {
-          event.stopPropagation()
+          if ('stopPropagation' in event) event.stopPropagation()
           return
         }
 
@@ -261,26 +288,8 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
         'image-container',
       ) as HTMLDivElement
 
-      const fullWidth = parseInt(previewImg.dataset.fullwidth || '0', 10)
-      const fullHeight = parseInt(previewImg.dataset.fullheight || '0', 10)
       const fullSizeSrc = previewImg.dataset.fullsize || ''
       const imageHash = previewImg.dataset.hash || ''
-      const placeholderSrc = previewImg.dataset.placeholder || ''
-
-      console.log('[Gallery Script] Opening image:', {
-        fullSizeSrc,
-        dimensions: `${fullWidth}x${fullHeight}`,
-        hash: imageHash,
-        placeholderSrc: placeholderSrc.substring(0, 50) + '...',
-      })
-
-      // Show placeholder immediately
-      const placeholderImg = document.getElementById(imageHash) as HTMLImageElement
-      if (placeholderImg) {
-        console.log('[Gallery Script] Showing placeholder')
-        placeholderImg.classList.remove('hidden')
-        placeholderImg.style.zIndex = '1'
-      }
 
       // Create full-size image
       const fullSizeImg = document.createElement('img')
@@ -302,95 +311,83 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
 
       imageContainer.appendChild(fullSizeImg)
 
-      // Show overlay immediately
+      // Show overlay
       overlay.classList.remove('hidden')
       document.body.style.overflow = 'hidden'
+      document.body.classList.add('gallery-open')
       showButtons()
       overlay.addEventListener('mousemove', showButtons)
 
-      if (fullSizeImg.complete && fullSizeImg.naturalWidth > 0) {
-        console.log('[Gallery Script] Image already loaded, showing immediately')
+      const placeholderImg = document.getElementById(
+        imageHash,
+      ) as HTMLImageElement
+      if (placeholderImg) {
+        placeholderImg.classList.remove('hidden')
+      }
+
+      if (fullSizeImg.complete) {
         fullSizeImg.style.opacity = '1'
         if (placeholderImg) {
-          setTimeout(() => {
-            placeholderImg.classList.add('gallery-placeholder-loaded')
-          }, 100)
+          setTimeout(
+            () => placeholderImg.classList.add('gallery-placeholder-loaded'),
+            100,
+          )
         }
       } else {
         fullSizeImg.onload = () => {
-          console.log('[Gallery Script] Full-size image loaded')
           fullSizeImg.style.opacity = '1'
           if (placeholderImg) {
-            setTimeout(() => {
-              placeholderImg.classList.add('gallery-placeholder-loaded')
-            }, 300)
+            setTimeout(
+              () => placeholderImg.classList.add('gallery-placeholder-loaded'),
+              300,
+            )
           }
-        }
-
-        fullSizeImg.onerror = () => {
-          console.error('[Gallery Script] Error loading image:', fullSizeSrc)
-          fullSizeImg.style.opacity = '1' // Show anyway even if error
         }
       }
     }
 
     function handleCloseZoom() {
-      console.log('[Gallery Script] Closing zoom view')
-      
       if (!activeImage) return
-
-      // Find the current placeholder by hash and hide it
       const currentHash = activeImage.id.replace('full-', '')
       const currentPlaceholder = document.getElementById(currentHash)
       if (currentPlaceholder) {
         currentPlaceholder.classList.remove('gallery-placeholder-loaded')
         currentPlaceholder.classList.add('hidden')
       }
-
-      if (activeImage) {
-        activeImage.remove()
-      }
-
-      // Hide overlay
+      activeImage.remove()
       overlay.classList.add('hidden')
       document.body.style.overflow = ''
-
-      // Clear timer
-      if (inactivityTimer) {
-        clearTimeout(inactivityTimer)
-        inactivityTimer = null
-      }
-
-      // Remove mousemove listener
+      document.body.classList.remove('gallery-open')
+      if (inactivityTimer) clearTimeout(inactivityTimer)
       overlay.removeEventListener('mousemove', showButtons)
-
-      // Reset references
       activeImage = null
       currentIndex = -1
     }
 
     function navigateGallery(direction: number) {
-      console.log('[Gallery Script] Navigating:', direction > 0 ? 'next' : 'previous')
-      
       if (currentIndex === -1) return
 
+      const galleryImages = document.querySelectorAll(
+        '.gallery-item',
+      ) as NodeListOf<HTMLImageElement>
       const imagesArray = Array.from(galleryImages)
       const totalImages = imagesArray.length
+      if (totalImages === 0) return
+
       const newIndex = (currentIndex + direction + totalImages) % totalImages
       const targetImg = imagesArray[newIndex]
 
       handleCloseZoom()
-      targetImg.click()
+      handleImageClick({ target: targetImg })
     }
 
-    // Add click handlers to all gallery images
-    galleryImages.forEach((img, index) => {
-      console.log(`[Gallery Script] Attaching click handler to image ${index}`)
-      img.addEventListener('click', handleImageClick as EventListener)
+    // Use event delegation for gallery images
+    document.addEventListener('click', (e) => {
+      const target = e.target as Element
+      if (target.closest('.gallery-item')) {
+        handleImageClick(e as MouseEvent)
+      }
     })
-
-    // Close zoom when clicking on the overlay
-    overlay.addEventListener('click', handleCloseZoom)
 
     // Navigation event listeners
     prevButton.addEventListener('click', (e) => {
@@ -406,6 +403,16 @@ console.log(`[PhotoGallery] Full-size images processed: ${fullSizeImages.length}
     closeButton.addEventListener('click', (e) => {
       e.stopPropagation()
       handleCloseZoom()
+    })
+
+    overlay.addEventListener('click', (e) => {
+      const target = e.target as Element
+      if (
+        target === overlay ||
+        target === document.getElementById('overlay-container')
+      ) {
+        handleCloseZoom()
+      }
     })
 
     console.log('[Gallery Script] Gallery setup complete')

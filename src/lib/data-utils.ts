@@ -1,5 +1,5 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content'
-import { readingTime, calculateWordCountFromHtml } from '@/lib/utils'
+import { readingTime, calculateWordCountFromHtml, slugify } from '@/lib/utils'
 
 export async function getAllAuthors(): Promise<CollectionEntry<'authors'>[]> {
   return await getCollection('authors')
@@ -108,13 +108,16 @@ export async function getAllCoding(): Promise<CollectionEntry<'coding'>[]> {
   })
 }
 
+
+
 export async function getAllTags(): Promise<Map<string, number>> {
   const posts = await getAllPosts()
   return posts.reduce((acc, post) => {
     // Only blog, coding, and media have tags
     if (post.collection === 'blog' || post.collection === 'coding' || post.collection === 'media') {
       post.data.tags?.forEach((tag) => {
-        acc.set(tag, (acc.get(tag) || 0) + 1)
+        const normalizedTag = slugify(tag)
+        acc.set(normalizedTag, (acc.get(normalizedTag) || 0) + 1)
       })
     }
     return acc
@@ -191,9 +194,9 @@ export async function getPostsByTag(
   tag: string,
 ): Promise<Array<CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'>>> {
   const posts = await getAllPosts()
+  const normalizedSearchTag = slugify(tag)
   return posts.filter((post): post is CollectionEntry<'blog'> | CollectionEntry<'coding'> | CollectionEntry<'media'> => {
-    // Only blog and coding have tags
-      return post.data.tags?.includes(tag) ?? false
+    return post.data.tags?.some(t => slugify(t) === normalizedSearchTag) ?? false
   })
 }
 

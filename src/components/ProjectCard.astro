@@ -1,6 +1,6 @@
 ---
 import { Card } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { cn, slugify } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
 
@@ -66,7 +66,7 @@ const { title, description, tags, image, link, className } = Astro.props
           "hover:bg-secondary/60 hover:text-foreground",
           index === 0 && "border-foreground/20 text-foreground/90 bg-secondary/40"
         )}>
-          {tag}
+          {slugify(tag)}
         </span>
       ))}
     </div>

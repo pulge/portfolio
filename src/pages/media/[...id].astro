@@ -6,7 +6,7 @@ import Section from '@/components/Section.astro'
 import { badgeVariants } from '@/components/ui/badge'
 import Layout from '@/layouts/Layout.astro'
 import { getAlbumImages } from '@/lib/media-utils'
-import { cn } from '@/lib/utils'
+import { cn, slugify } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
 import { type CollectionEntry, getCollection } from 'astro:content'
 
@@ -36,9 +36,9 @@ const BLUR_FADE_DELAY = 0.04
             <span class="text-sm text-muted-foreground tabular-nums">{collection.data.period}</span>
             <div class="flex flex-wrap gap-2">
               {collection.data.tags?.map((tag: string) => (
-                <a href={`/tags/${tag}`} class={cn(badgeVariants({ variant: 'outline' }), "rounded-xl bg-white/25 h-7 px-3 flex items-center gap-1.5 border-border ring-2 ring-border/5 text-xs lowercase")}>
+                <a href={`/tags/${slugify(tag)}`} class={cn(badgeVariants({ variant: 'outline' }), "rounded-xl bg-white/25 h-7 px-3 flex items-center gap-1.5 border-border ring-2 ring-border/5 text-xs lowercase")}>
                   <Icon name="lucide:hash" class="size-3 text-muted-foreground" />
-                  {tag}
+                  {slugify(tag)}
                 </a>
               ))}
             </div>
@@ -56,13 +56,12 @@ const BLUR_FADE_DELAY = 0.04
       </div>
 
       <div class="mt-12">
-        <BlurFade delay={BLUR_FADE_DELAY * 3} client:load>
-          <PhotoGallery
-            name={collection.data.name}
-            images={galleryImages}
-            id={collection.id}
-          />
-        </BlurFade>
+        <PhotoGallery
+          name={collection.data.name}
+          images={galleryImages}
+          id={collection.id}
+          delay={BLUR_FADE_DELAY * 3}
+        />
       </div>
     </Section>
   </div>
