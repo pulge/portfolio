@@ -1,7 +1,7 @@
 ---
 title: "Strengths Writer"
 description: "A specialized writing environment for crafting and refining content with a focus on speed and clarity."
-tags: ["Astro", "React", "Tailwind CSS"]
+tags: ["NextJS", "TypeScript", "Tailwind CSS", "Supabase"]
 image: "../../../public/static/projects/strenghtswriter.png"
 link: "https://strenghtswriter.vercel.app/"
 startDate: "2026-03-15"
