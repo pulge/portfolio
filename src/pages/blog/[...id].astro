@@ -59,7 +59,7 @@ const combinedReadingTime =
 const tocSections = await getTOCSections(currentPostId)
 ---
 
-<Layout>
+<Layout class="max-w-none">
   <PostHead slot="head" post={post} />
   {
     (hasChildPosts || isCurrentSubpost) && (
