@@ -18,12 +18,9 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 
 import tailwindcss from '@tailwindcss/vite'
 
-import cloudflare from "@astrojs/cloudflare";
-
 export default defineConfig({
   site: 'https://pulge.vercel.app',
   srcDir: './src',
-
   integrations: [
     expressiveCode({
       themes: ['github-light', 'github-dark'],
@@ -73,20 +70,16 @@ export default defineConfig({
     sitemap(),
     icon(),
   ],
-
   vite: {
     plugins: [tailwindcss()],
   },
-
   server: {
     port: 1234,
     host: true,
   },
-
   devToolbar: {
     enabled: false,
   },
-
   markdown: {
     syntaxHighlight: false,
     rehypePlugins: [
@@ -111,6 +104,4 @@ export default defineConfig({
     ],
     remarkPlugins: [remarkMath, remarkEmoji],
   },
-
-  adapter: cloudflare()
 })
